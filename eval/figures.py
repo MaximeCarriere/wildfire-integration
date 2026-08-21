@@ -11,11 +11,21 @@ import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-# Validated categorical palette (CVD dEE 9.1 adjacent, normal-vision 22.9).
-C = {"ember": "#2a78d6", "triangulation": "#eb6834",
-     "temporal": "#1baf7a", "m_of_n": "#eda100"}
-INK, INK2, INK3 = "#0b0b0b", "#52514e", "#8a8880"
-SURFACE = "#fcfcfb"
+# Validated categorical palette (CVD dE 9.1 adjacent, normal-vision 22.9).
+# Dark is the same four hues re-stepped for the dark surface -- a selected
+# palette, not an inverted one.
+THEME = {
+    "light": dict(C={"ember": "#2a78d6", "triangulation": "#eb6834",
+                     "temporal": "#1baf7a", "m_of_n": "#eda100"},
+                  INK="#0b0b0b", INK2="#52514e", INK3="#8a8880",
+                  SURFACE="#fcfcfb", GRID="#e6e5e0", SPINE="#d8d7d1",
+                  LEGEDGE="#e0dfd9"),
+    "dark": dict(C={"ember": "#3987e5", "triangulation": "#d95926",
+                    "temporal": "#199e70", "m_of_n": "#c98500"},
+                 INK="#ffffff", INK2="#c3c2b7", INK3="#8f8e85",
+                 SURFACE="#1a1a19", GRID="#2e2e2c", SPINE="#3a3a37",
+                 LEGEDGE="#3a3a37"),
+}
 
 LABEL = {"ember": "ember (spiking)", "triangulation": "cross-bearing triangulation",
          "temporal": "per-camera temporal only", "m_of_n": "M-of-N vote (no location)"}
@@ -25,7 +35,10 @@ def load(path="results/raw/sweep.json"):
     return json.loads((ROOT / path).read_text())
 
 
-def pareto(data, out="results/figures/pareto.png"):
+def pareto(data, out="results/figures/pareto.png", mode="light"):
+    TH = THEME[mode]
+    C, INK, INK2, INK3 = TH["C"], TH["INK"], TH["INK2"], TH["INK3"]
+    SURFACE = TH["SURFACE"]
     rows = data["rows"]
     thetas = sorted({r["theta"] for r in rows})
 
@@ -79,10 +92,10 @@ def pareto(data, out="results/figures/pareto.png"):
                     fontsize=8.5, borderpad=0.7, labelspacing=0.55,
                     handletextpad=0.7)
     leg.get_frame().set_facecolor(SURFACE)
-    leg.get_frame().set_edgecolor("#e0dfd9")
+    leg.get_frame().set_edgecolor(TH["LEGEDGE"])
     leg.get_frame().set_linewidth(0.8)
-    for t in leg.get_texts():
-        t.set_color(INK2)
+    for txt in leg.get_texts():
+        txt.set_color(INK2)
 
     ax.set_xscale("log")
     ax.set_xlabel("false alerts per day  (network of 8 towers, log scale)",
@@ -94,12 +107,12 @@ def pareto(data, out="results/figures/pareto.png"):
     ax.text(0, 1.015, "better is up and to the left  ·  8 scenarios per point, 24 h each",
             transform=ax.transAxes, fontsize=9, color=INK3)
 
-    ax.grid(True, which="major", color="#e6e5e0", lw=0.8, zorder=0)
+    ax.grid(True, which="major", color=TH["GRID"], lw=0.8, zorder=0)
     ax.set_axisbelow(True)
     for s in ("top", "right"):
         ax.spines[s].set_visible(False)
     for s in ("left", "bottom"):
-        ax.spines[s].set_color("#d8d7d1")
+        ax.spines[s].set_color(TH["SPINE"])
     ax.tick_params(colors=INK3, labelsize=9)
 
     fig.tight_layout()
@@ -112,4 +125,5 @@ def pareto(data, out="results/figures/pareto.png"):
 
 if __name__ == "__main__":
     d = load()
-    print("wrote", pareto(d))
+    print("wrote", pareto(d, "results/figures/pareto.png", "light"))
+    print("wrote", pareto(d, "results/figures/pareto-dark.png", "dark"))
