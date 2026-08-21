@@ -43,9 +43,9 @@ individually, yet jointly they are the strongest signal in the network.
 Layer 2 is a leaky integrate-and-fire neuron per geographic cell, with four
 mechanisms that each earn their place:
 
-- **Coincidence gain** — current from N *distinct* cameras is superlinear.
+- **Coincidence gain** — current from N *distinct* sources is superlinear.
   A dust plume in front of one camera cannot be corroborated from another
-  bearing. This kills single-camera false positives.
+  bearing. This kills single-source false positives.
 - **Lateral coupling** (a discrete Laplacian) — absorbs bearing error and lets
   crossing wedges reinforce, without inventing evidence.
 - **Center-surround + divisive gain control** — coincidence gain alone would
@@ -139,6 +139,22 @@ Drone dispatch is legitimate *pre-confirmation* — before any TFR exists or
 aircraft launch. The real operational risk is the handoff: a drone still
 airborne when a fire is confirmed and aircraft arrive becomes an incursion, so
 the broker implements **automatic recall on confirmation or TFR issuance**.
+
+## Not just cameras
+
+The fusion layer never asks what a sensor *is*. Its input is four things —
+**where, what, how sure, and who says so** — so the C API takes a
+`source_id`, not a `camera_id`, and nothing below `pyember/geo.py` knows
+what a camera is. Gas and particulate sensors (which catch the smouldering
+phase before there is a flame), lightning-strike feeds (a *prior* on where to
+expect ignition), satellite hotspots, utility fault sensors and 911 calls all
+inject the same way.
+
+The mechanism gets **stronger** with each modality rather than merely broader.
+Coincidence gain rewards agreement between *independent* sources, and two
+cameras are not fully independent — the same dust plume fools both. A camera,
+a gas sensor and a lightning strike cannot be fooled by the same thing,
+because nothing physically couples their failure modes.
 
 ## Layout
 

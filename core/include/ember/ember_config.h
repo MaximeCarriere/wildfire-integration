@@ -16,10 +16,14 @@
 
 #define EMBER_CELLS (EMBER_GRID_W * EMBER_GRID_H)
 
-/* Distinct-camera coincidence is tracked as a 32-bit mask per cell, so at most
- * 32 cameras can be distinguished *within one cell's field of view*. Networks
- * larger than 32 cameras hash into these slots; collisions merely forgo some
- * coincidence gain, they never manufacture it. */
+/* Distinct-SOURCE coincidence is tracked as a 32-bit mask per cell, so at most
+ * 32 sources can be distinguished *within one cell*. Networks larger than 32
+ * hash into these slots; collisions merely forgo some coincidence gain, they
+ * never manufacture it.
+ *
+ * A source is whatever produced the evidence: a camera today, but nothing in
+ * this layer assumes that. A gas sensor, a lightning strike, a satellite
+ * hotspot or a phone call all inject the same way. */
 #define EMBER_COINCIDENCE_SLOTS 32
 
 #ifndef EMBER_MAX_SPIKES_PER_TICK

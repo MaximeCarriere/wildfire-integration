@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: Apache-2.0
- * ember.h -- two-layer spiking evidence fusion for wildfire camera networks.
+ * ember.h -- two-layer spiking evidence fusion for wildfire sensor networks.
  *
  *   Layer 1 (ember_node)  runs on each camera. Integrates that camera's own
  *                         detections over TIME. Emits a graded 2-bit tier.
@@ -70,7 +70,7 @@ ember_tier ember_node_tick(ember_node *n, const ember_node_params *p);
 typedef struct {
     uint8_t   leak_shift;          /* membrane leak                          */
     uint8_t   lateral_shift;       /* neighbour coupling = 1 >> lateral_shift */
-    ember_q16 gain_lut[EMBER_COINCIDENCE_SLOTS + 1]; /* by distinct-camera count */
+    ember_q16 gain_lut[EMBER_COINCIDENCE_SLOTS + 1]; /* by distinct-SOURCE count  */
     ember_q16 theta_base;
     ember_q16 v_reset;
     ember_q16 v_floor;             /* clamp; inhibition cannot run away       */
@@ -81,7 +81,7 @@ typedef struct {
     uint8_t   refractory_ticks;
     ember_q16 norm_k;              /* divisive gain-control strength          */
     uint8_t   surround_radius;     /* center-surround background radius, cells */
-    uint16_t  coincidence_ticks;   /* rolling window for distinct-camera mask */
+    uint16_t  coincidence_ticks;   /* rolling window for distinct-source mask */
     ember_q16 adapt_margin;        /* safety factor over the rejected response */
     uint8_t   adapt_decay_shift;   /* how fast that bump forgets              */
     uint8_t   nms_radius;          /* focality: suppress non-maxima within this
@@ -96,7 +96,7 @@ typedef struct {
     uint32_t  cell;
     uint16_t  x, y;
     ember_q16 v;               /* membrane potential at firing               */
-    uint32_t  contributors;    /* bitmask of distinct cameras that drove it  */
+    uint32_t  contributors;    /* bitmask of distinct sources that drove it  */
     uint8_t   n_contributors;
     uint32_t  tick;
 } ember_spike;
@@ -106,7 +106,7 @@ typedef struct {
 
     ember_q16 v[EMBER_CELLS];
     ember_q16 inject[EMBER_CELLS];      /* current-tick input, also lateral scratch */
-    uint32_t  contrib_cur[EMBER_CELLS]; /* distinct-camera mask, current window     */
+    uint32_t  contrib_cur[EMBER_CELLS]; /* distinct-source mask, current window     */
     uint32_t  contrib_prev[EMBER_CELLS];/* ...previous window (rolling)             */
     ember_q16 bg[EMBER_CELLS];          /* local surround background (box blur)     */
     ember_q16 resp[EMBER_CELLS];        /* center-surround response, cached per tick */
@@ -129,10 +129,10 @@ typedef struct {
 void ember_grid_defaults(ember_grid_params *p);
 void ember_grid_init(ember_grid *g, const ember_grid_params *p);
 
-/* Inject evidence into one cell. camera_id is hashed into a coincidence slot.
+/* Inject evidence into one cell. source_id is hashed into a coincidence slot.
  * Called once per (event, cell-in-view-wedge) pair by the geometry layer. */
 void ember_grid_inject(ember_grid *g, uint32_t cell,
-                       ember_q16 current, uint16_t camera_id);
+                       ember_q16 current, uint16_t source_id);
 
 /* Advance one tick. Writes up to max_out spikes, returns how many. */
 int  ember_grid_tick(ember_grid *g, ember_spike *out, int max_out);

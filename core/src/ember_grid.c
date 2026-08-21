@@ -6,7 +6,7 @@
  * accumulated evidence means.
  *
  * Per tick, in order:
- *   1. coincidence gain   -- superlinear in DISTINCT contributing cameras
+ *   1. coincidence gain   -- superlinear in DISTINCT contributing sources
  *   2. leak + input       -- V(t+1) = leak(V(t)) + gained input
  *   3. lateral excitation -- absorbs bearing error, yields triangulation
  *   4. divisive normalization -- suppresses diffuse, correlated activation
@@ -44,9 +44,15 @@ void ember_grid_defaults(ember_grid_params *p)
     p->nms_radius        = 4;
     p->confirm_radius    = 5;
 
-    /* Superlinear coincidence gain. Two cameras agreeing from different
-     * bearings is far more than twice the evidence of one camera repeating
-     * itself, because the dominant false-positive modes are single-camera. */
+    /* Superlinear coincidence gain. Two sources agreeing is far more than
+     * twice the evidence of one source repeating itself, because the dominant
+     * false-positive modes are single-source.
+     *
+     * The gain is on firmer ground ACROSS MODALITIES than within one. Two
+     * cameras can both be fooled by the same dust plume -- their errors are
+     * correlated. A camera, a gas sensor and a lightning strike cannot be
+     * fooled by the same thing, because nothing physically couples their
+     * failure modes. */
     p->gain_lut[0] = 0;
     p->gain_lut[1] = EMBER_Q16_ONE;
     p->gain_lut[2] = EMBER_Q16_FROM_RATIO(250, 100);
@@ -66,13 +72,13 @@ void ember_grid_init(ember_grid *g, const ember_grid_params *p)
 }
 
 void ember_grid_inject(ember_grid *g, uint32_t cell,
-                       ember_q16 current, uint16_t camera_id)
+                       ember_q16 current, uint16_t source_id)
 {
     if (cell >= (uint32_t)EMBER_CELLS) return;
     g->inject[cell] = ember_q16_add(g->inject[cell], current);
     /* Hash into a coincidence slot. Collisions forgo gain; they never
      * manufacture it, so a collision is conservative. */
-    g->contrib_cur[cell] |= (uint32_t)1u << (camera_id % EMBER_COINCIDENCE_SLOTS);
+    g->contrib_cur[cell] |= (uint32_t)1u << (source_id % EMBER_COINCIDENCE_SLOTS);
 }
 
 ember_q16 ember_grid_theta(const ember_grid *g, uint32_t cell)

@@ -140,13 +140,13 @@ class Grid:
         lib.ember_grid_init(self._g, self._p)
         self._out = ffi.new("ember_spike[]", self.MAX_SPIKES)
 
-    def inject(self, cell: int, current: float, camera_id: int) -> None:
-        lib.ember_grid_inject(self._g, cell, Q16.of(current), camera_id)
+    def inject(self, cell: int, current: float, source_id: int) -> None:
+        lib.ember_grid_inject(self._g, cell, Q16.of(current), source_id)
 
-    def inject_many(self, cells, weights, camera_id: int, scale: float = 1.0) -> None:
+    def inject_many(self, cells, weights, source_id: int, scale: float = 1.0) -> None:
         """Bulk-inject one event's whole bearing wedge."""
         for c, w in zip(cells, weights):
-            lib.ember_grid_inject(self._g, int(c), Q16.of(float(w) * scale), camera_id)
+            lib.ember_grid_inject(self._g, int(c), Q16.of(float(w) * scale), source_id)
 
     def tick(self) -> list[Spike]:
         n = lib.ember_grid_tick(self._g, self._out, self.MAX_SPIKES)
