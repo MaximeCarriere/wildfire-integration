@@ -8,7 +8,7 @@ import math, pathlib
 from PIL import Image, ImageDraw, ImageFont
 
 OUT = pathlib.Path(__file__).resolve().parent
-SS = 2                      # supersample factor for smooth edges
+SS = 3                      # supersample factor for smooth edges
 W, H = 940, 664
 FRAMES, FPS = 150, 11
 
@@ -372,7 +372,8 @@ def build_palette():
     def blend(base, c, a):
         return tuple(int(round(base[i]*(1-a) + c[i]*a)) for i in range(3))
     fg = [FRONT, SELECT, RED, YEL, (255,255,255), (0,0,0)]
-    alphas = [0.03,0.06,0.10,0.15,0.22,0.30,0.40,0.52,0.65,0.78,0.90,1.0]
+    alphas = [0.025,0.05,0.08,0.11,0.15,0.19,0.24,0.30,0.37,0.45,
+              0.54,0.63,0.72,0.81,0.90,1.0]
     cols, seen = [], set()
     for base in (BG, CARD):
         for c in fg:
@@ -380,7 +381,7 @@ def build_palette():
                 v = blend(base, c, a)
                 if v not in seen:
                     seen.add(v); cols.append(v)
-    for g in range(0, 256, 12):                 # neutral safety ramp
+    for g in range(0, 256, 16):                 # neutral safety ramp
         v = (g, g, g)
         if v not in seen: seen.add(v); cols.append(v)
     cols = cols[:256]
@@ -388,7 +389,7 @@ def build_palette():
     pim = Image.new("P", (1, 1)); pim.putpalette(flat)
     return pim
 
-def render(scale=0.86, nframes=126, fps=10, colors=96):
+def render(scale=1.0, nframes=210, frame_ms=80, dither=False):
     """Render, then squeeze.
 
     A GIF of this is mostly static furniture -- panels, legend, the state
@@ -398,6 +399,11 @@ def render(scale=0.86, nframes=126, fps=10, colors=96):
     unchanged regions, and a modest colour count since the palette is small
     by design.
     """
+    # GIF stores frame delay in HUNDREDTHS of a second, so any duration that
+    # is not a multiple of 10 ms is silently rounded down -- 1000/12 = 83 ms
+    # became 80 ms and the whole loop ran 4% fast. Specify the delay directly
+    # in a legal unit instead of deriving it from a frame rate.
+    assert frame_ms % 10 == 0, "frame_ms must be a multiple of 10"
     ow,oh = int(W*scale), int(H*scale)
     frames=[]
     for k in range(nframes):
@@ -408,13 +414,15 @@ def render(scale=0.86, nframes=126, fps=10, colors=96):
         frames.append(im.resize((ow,oh),Image.LANCZOS))
 
     master=build_palette()
-    pal=[fr.quantize(palette=master,dither=Image.FLOYDSTEINBERG) for fr in frames]
+    dm = Image.FLOYDSTEINBERG if dither else Image.NONE
+    pal=[fr.quantize(palette=master,dither=dm) for fr in frames]
 
     out=OUT/"wildfire-integrator.gif"
     pal[0].save(out,save_all=True,append_images=pal[1:],
-                duration=int(1000/fps),loop=0,optimize=True,disposal=1)
+                duration=frame_ms,loop=0,optimize=True,disposal=1)
     mb=out.stat().st_size/1024/1024
-    print(f"wrote {out.name}  {ow}x{oh}  {len(pal)} frames  {nframes/fps:.1f}s  {mb:.2f} MB")
+    print(f"wrote {out.name}  {ow}x{oh}  {len(pal)} frames  "
+          f"{nframes*frame_ms/1000:.2f}s @ {1000/frame_ms:.1f}fps  {mb:.2f} MB")
 
     for tag,pp in [("a_network",0.22),("b_noise",0.29),("c_reports",0.45),
                    ("d_fires",0.60),("e_drone",0.72),("f_done",0.90)]:
