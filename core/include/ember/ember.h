@@ -74,6 +74,10 @@ typedef struct {
     ember_q16 theta_base;
     ember_q16 v_reset;
     ember_q16 v_floor;             /* clamp; inhibition cannot run away       */
+    ember_q16 v_ceiling;           /* clamp; bounds state so the surround sums
+                                    * provably fit in 32 bits, which keeps the
+                                    * box blur off 64-bit division -- ~8k
+                                    * __aeabi_ldivmod calls per tick otherwise */
     uint8_t   refractory_ticks;
     ember_q16 norm_k;              /* divisive gain-control strength          */
     uint8_t   surround_radius;     /* center-surround background radius, cells */

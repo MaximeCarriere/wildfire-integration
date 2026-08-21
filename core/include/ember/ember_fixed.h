@@ -57,6 +57,22 @@ static inline ember_q16 ember_q16_leak(ember_q16 v, uint8_t shift)
     return v - (v >> shift);
 }
 
+/* Freestanding replacements for the only two libc calls the core needed.
+ * Providing them here means core/ depends on <stdint.h> alone, so it builds
+ * for a bare-metal target with no C library present at all. */
+static inline void ember_memzero(void *dst, uint32_t n)
+{
+    uint8_t *d = (uint8_t *)dst;
+    while (n--) *d++ = 0;
+}
+
+static inline void ember_memcopy(void *dst, const void *src, uint32_t n)
+{
+    uint8_t       *d = (uint8_t *)dst;
+    const uint8_t *s = (const uint8_t *)src;
+    while (n--) *d++ = *s++;
+}
+
 static inline int32_t ember_popcount32(uint32_t x)
 {
     /* Portable; GCC/Clang fold this to a single instruction where available. */

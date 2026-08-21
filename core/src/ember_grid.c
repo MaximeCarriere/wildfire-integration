@@ -21,7 +21,6 @@
  * never converge. Normalizing by total grid activity therefore suppresses the
  * diffuse case while a point source survives.
  */
-#include <string.h>
 #include "ember/ember.h"
 
 #define IDX(x, y) ((uint32_t)((y) * EMBER_GRID_W + (x)))
@@ -35,6 +34,7 @@ void ember_grid_defaults(ember_grid_params *p)
     p->theta_base        = EMBER_Q16_FROM_INT(3);
     p->v_reset           = 0;
     p->v_floor           = -EMBER_Q16_FROM_INT(2);  /* inhibition cannot run away */
+    p->v_ceiling         = EMBER_Q16_FROM_INT(4096); /* see ember.h; bounds surround sums */
     p->refractory_ticks  = 60;
     p->norm_k            = EMBER_Q16_FROM_RATIO(25, 100);
     p->surround_radius   = 10;
@@ -59,7 +59,7 @@ void ember_grid_defaults(ember_grid_params *p)
 
 void ember_grid_init(ember_grid *g, const ember_grid_params *p)
 {
-    memset(g, 0, sizeof(*g));
+    ember_memzero(g, (uint32_t)sizeof(*g));
     g->p             = *p;
     g->preset_scale  = EMBER_PRESET_NORMAL;
     g->weather_scale = EMBER_Q16_ONE;
@@ -144,7 +144,8 @@ int ember_grid_tick(ember_grid *g, ember_spike *out, int max_out)
         ember_q16 gained = ember_q16_mul(g->inject[c], g->p.gain_lut[n]);
 
         g->v[c] = ember_q16_add(ember_q16_leak(g->v[c], g->p.leak_shift), gained);
-        if (g->v[c] < g->p.v_floor) g->v[c] = g->p.v_floor;
+        if (g->v[c] < g->p.v_floor)   g->v[c] = g->p.v_floor;
+        if (g->v[c] > g->p.v_ceiling) g->v[c] = g->p.v_ceiling;
 
         /* Snapshot for lateral pass: reuse inject[], which is now consumed. */
         g->inject[c] = g->v[c];
@@ -193,28 +194,28 @@ int ember_grid_tick(ember_grid *g, ember_spike *out, int max_out)
 
         /* horizontal pass -> inject[] (free again after the lateral pass) */
         for (y = 0; y < EMBER_GRID_H; ++y) {
-            int64_t sum = 0;
+            int32_t sum = 0;
             for (x = 0; x <= r && x < EMBER_GRID_W; ++x) sum += g->v[IDX(x, y)];
             for (x = 0; x < EMBER_GRID_W; ++x) {
                 int32_t lo = x - r, hi = x + r;
                 if (hi >= EMBER_GRID_W) hi = EMBER_GRID_W - 1;
                 if (lo < 0) lo = 0;
                 span = hi - lo + 1;
-                g->inject[IDX(x, y)] = (ember_q16)(sum / span);
+                g->inject[IDX(x, y)] = sum / span;
                 if (x + r + 1 < EMBER_GRID_W) sum += g->v[IDX(x + r + 1, y)];
                 if (x - r >= 0)               sum -= g->v[IDX(x - r, y)];
             }
         }
         /* vertical pass -> bg[] */
         for (x = 0; x < EMBER_GRID_W; ++x) {
-            int64_t sum = 0;
+            int32_t sum = 0;
             for (y = 0; y <= r && y < EMBER_GRID_H; ++y) sum += g->inject[IDX(x, y)];
             for (y = 0; y < EMBER_GRID_H; ++y) {
                 int32_t lo = y - r, hi = y + r;
                 if (hi >= EMBER_GRID_H) hi = EMBER_GRID_H - 1;
                 if (lo < 0) lo = 0;
                 span = hi - lo + 1;
-                g->bg[IDX(x, y)] = (ember_q16)(sum / span);
+                g->bg[IDX(x, y)] = sum / span;
                 if (y + r + 1 < EMBER_GRID_H) sum += g->inject[IDX(x, y + r + 1)];
                 if (y - r >= 0)               sum -= g->inject[IDX(x, y - r)];
             }
@@ -279,13 +280,13 @@ int ember_grid_tick(ember_grid *g, ember_spike *out, int max_out)
         else if (a < 0) g->theta_adapt[c] = a + (((-a) >> g->p.adapt_decay_shift) | 1);
     }
 
-    memset(g->inject, 0, sizeof(g->inject));
+    ember_memzero(g->inject, (uint32_t)sizeof(g->inject));
 
     /* Roll the coincidence window. Two half-windows OR'd together give a
      * sliding window without storing a timestamp per camera per cell. */
     if (++g->window_age >= g->p.coincidence_ticks) {
-        memcpy(g->contrib_prev, g->contrib_cur, sizeof(g->contrib_cur));
-        memset(g->contrib_cur, 0, sizeof(g->contrib_cur));
+        ember_memcopy(g->contrib_prev, g->contrib_cur, (uint32_t)sizeof(g->contrib_cur));
+        ember_memzero(g->contrib_cur, (uint32_t)sizeof(g->contrib_cur));
         g->window_age = 0;
     }
 
