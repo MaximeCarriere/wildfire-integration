@@ -1,0 +1,9 @@
+build/
+*.o
+*.so
+*.dylib
+__pycache__/
+*.pyc
+.venv/
+results/raw/*.json
+!results/raw/.gitkeep
