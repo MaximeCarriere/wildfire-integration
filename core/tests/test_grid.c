@@ -165,6 +165,34 @@ void test_grid(void)
         OK("real ignition 25 cells away still detected at t=%d -- suppression stays local", fire_first);
     }
 
+    SECTION("Layer 2 -- priors (a lightning strike is not a detection)");
+    {
+        ember_q16 before, after;
+        ember_grid_defaults(&P);
+        ember_grid_init(&g, &P);
+        before = ember_grid_theta(&g, 20 * EMBER_GRID_W + 20);
+        /* a strike nearby: expect fire here, do not claim any */
+        ember_grid_prior(&g, (uint32_t)(20 * EMBER_GRID_W + 20), 4,
+                         -EMBER_Q16_FROM_INT(1));
+        after = ember_grid_theta(&g, 20 * EMBER_GRID_W + 20);
+        CHECK(after < before, "prior did not lower the local threshold");
+        OK("a strike lowers theta locally: %.2f -> %.2f", Q(before), Q(after));
+
+        CHECK(ember_grid_theta(&g, 50 * EMBER_GRID_W + 50) == before,
+              "prior leaked outside its radius");
+        OK("the rest of the grid is untouched -- a prior is local, not global");
+
+        /* and it must not, by itself, cause an alert */
+        {
+            ember_spike sp[EMBER_MAX_SPIKES_PER_TICK];
+            int t, fired = 0;
+            for (t = 0; t < 200; ++t)
+                fired += ember_grid_tick(&g, sp, EMBER_MAX_SPIKES_PER_TICK);
+            CHECK(fired == 0, "a prior alone raised %d alerts -- it is not evidence", fired);
+            OK("a prior alone never alerts -- suspicion is not detection");
+        }
+    }
+
     SECTION("Layer 2 -- footprint");
     {
         uint32_t b = ember_grid_state_bytes();

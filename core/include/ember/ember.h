@@ -149,6 +149,19 @@ int  ember_grid_tick(ember_grid *g, ember_spike *out, int max_out);
 void ember_grid_confirm(ember_grid *g, uint32_t cell, int verdict,
                         ember_q16 observed_resp);
 
+/* A PRIOR over a place: "expect fire around here for a while".
+ *
+ * This is a third way into the network, distinct from evidence and from
+ * confirmation. A lightning strike is not a detection -- nothing is burning
+ * yet, and it may not for days -- but it says where to be suspicious. So it
+ * does not inject current; it biases the local threshold. Negative bias makes
+ * the cell easier to trigger, positive harder. Decays like any adaptation.
+ *
+ * Fire weather works the same way globally (ember_grid_set_fire_danger);
+ * this is the local version. */
+void ember_grid_prior(ember_grid *g, uint32_t cell, uint8_t radius,
+                      ember_q16 bias);
+
 void ember_grid_set_sensitivity(ember_grid *g, ember_q16 preset_scale);
 void ember_grid_set_fire_danger(ember_grid *g, ember_q16 weather_scale);
 

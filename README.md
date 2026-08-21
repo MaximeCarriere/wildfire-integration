@@ -140,21 +140,33 @@ aircraft launch. The real operational risk is the handoff: a drone still
 airborne when a fire is confirmed and aircraft arrive becomes an incursion, so
 the broker implements **automatic recall on confirmation or TFR issuance**.
 
-## Not just cameras
+## Not just cameras — but not all the same way
 
-The fusion layer never asks what a sensor *is*. Its input is four things —
-**where, what, how sure, and who says so** — so the C API takes a
-`source_id`, not a `camera_id`, and nothing below `pyember/geo.py` knows
-what a camera is. Gas and particulate sensors (which catch the smouldering
-phase before there is a flame), lightning-strike feeds (a *prior* on where to
-expect ignition), satellite hotspots, utility fault sensors and 911 calls all
-inject the same way.
+The fusion layer never asks what a sensor *is*, so the C API takes a
+`source_id`, not a `camera_id`. But a new sensor answers one of three
+different questions, and each enters by a different door — all three of which
+already exist in the API:
 
-The mechanism gets **stronger** with each modality rather than merely broader.
-Coincidence gain rewards agreement between *independent* sources, and two
-cameras are not fully independent — the same dust plume fools both. A camera,
-a gas sensor and a lightning strike cannot be fooled by the same thing,
-because nothing physically couples their failure modes.
+| door | question | who comes through it |
+|---|---|---|
+| `ember_grid_inject()` | *is something burning there?* | cameras (today), 911 calls, gas sensors |
+| `ember_grid_prior()` | *should I be more suspicious here?* | lightning-strike feeds, fire weather |
+| `ember_grid_confirm()` | *was that one real?* | camera slew, **satellite hotspots**, drone, crew |
+
+Two things worth stating plainly, because both are easy to overclaim:
+
+- **Satellites belong at confirmation, not at the input.** Heat lags smoke and
+  delivery runs 1–3 h, so by the time a hotspot appears the cameras have
+  already alerted. As a *confirmer* they are excellent: free, and physically
+  uncorrelated with a camera.
+- **Gas sensors are asset protection, not coverage.** Detection radius is
+  80–100 m at a recommended 0.7 sensors/hectare in dense WUI — covering the
+  40 × 40 km region we simulate would take ~110,000 of them against 8 cameras.
+  They belong on a town edge or a substation corridor, where they give a very
+  strong vote in a few cells.
+
+A prior alone never raises an alert — suspicion is not detection, and that is
+a test in the suite rather than a good intention.
 
 ## Layout
 

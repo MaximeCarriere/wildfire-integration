@@ -349,6 +349,29 @@ void ember_grid_confirm(ember_grid *g, uint32_t cell, int verdict,
     }
 }
 
+void ember_grid_prior(ember_grid *g, uint32_t cell, uint8_t radius,
+                      ember_q16 bias)
+{
+    int32_t r = (int32_t)radius, cx, cy, dx, dy;
+
+    if (cell >= (uint32_t)EMBER_CELLS) return;
+    cx = (int32_t)(cell % EMBER_GRID_W);
+    cy = (int32_t)(cell / EMBER_GRID_W);
+
+    for (dy = -r; dy <= r; ++dy) {
+        for (dx = -r; dx <= r; ++dx) {
+            int32_t  x = cx + dx, y = cy + dy, d2 = dx * dx + dy * dy;
+            uint32_t i;
+            if (x < 0 || y < 0 || x >= EMBER_GRID_W || y >= EMBER_GRID_H) continue;
+            if (d2 > r * r) continue;
+            i = IDX(x, y);
+            /* falls off with distance from the strike */
+            g->theta_adapt[i] = ember_q16_add(g->theta_adapt[i],
+                ember_q16_div(bias, EMBER_Q16_FROM_INT(1) + (d2 << (EMBER_Q16_SHIFT - 3))));
+        }
+    }
+}
+
 void ember_grid_set_sensitivity(ember_grid *g, ember_q16 preset_scale)
 {
     g->preset_scale = preset_scale;
