@@ -203,8 +203,13 @@ ANIM.lif=function(c){
     var P=PRESET[act], th=P.th, cross=lifCross(th);
     x.clearRect(0,0,W,H);
 
-    var stripH=Math.min(74,H*0.30);
-    var pad={l:52,r:74,t:26,b:stripH+26};
+    /* Anchor the strip to the BOTTOM EDGE and work upward. Measuring forward
+       from a fraction of the height put the second label line 5px past the
+       canvas at every size, so it was always clipped. */
+    var whyY=H-5, nameY=H-16, barBot=H-29;
+    var barH=Math.max(26,Math.min(46,H*0.15));
+    var barTop=barBot-barH;
+    var pad={l:52,r:74,t:26,b:H-barTop+18};
     var gw=W-pad.l-pad.r, gh=H-pad.t-pad.b, gb=pad.t+gh;
     var X=function(t){return pad.l+t*gw;}, Yv=function(v){return gb-Math.min(v,1.15)/1.15*gh;};
 
@@ -282,12 +287,12 @@ ANIM.lif=function(c){
     }
 
     /* ---- every place keeps its own bar ---- */
-    var sy=H-stripH+8, cw=(W-pad.l-14)/CELLS.length;
+    var cw=(W-pad.l-14)/CELLS.length;
     x.fillStyle=D; x.font='8px ui-monospace,monospace'; x.textAlign='left';
-    x.fillText('AND EVERY PLACE KEEPS ITS OWN BAR',pad.l,sy-2);
+    x.fillText('AND EVERY PLACE KEEPS ITS OWN BAR',pad.l,barTop-6);
     var vnow=lifV(u);
     CELLS.forEach(function(cl,i){
-      var bx=pad.l+i*cw+4, bw=cw-12, by=sy+8, bh=stripH-30;
+      var bx=pad.l+i*cw+4, bw=cw-12, by=barTop, bh=barH;
       var lth=Math.max(0.08,Math.min(1.12,th+cl.off));
       var fired=vnow>=lth;
       x.fillStyle=CARD; x.globalAlpha=.85;
@@ -306,9 +311,9 @@ ANIM.lif=function(c){
         x.fillText('FIRES',bx+bw/2,by+11);
       }
       x.fillStyle=fired?F:D; x.font='8px ui-monospace,monospace'; x.textAlign='center';
-      x.fillText(cl.n,bx+bw/2,by+bh+10);
+      x.fillText(cl.n,bx+bw/2,nameY);
       x.fillStyle=D; x.globalAlpha=.7; x.font='7px ui-monospace,monospace';
-      x.fillText(cl.why,bx+bw/2,by+bh+19); x.globalAlpha=1;
+      x.fillText(cl.why,bx+bw/2,whyY); x.globalAlpha=1;
     });
   });
 };
@@ -436,8 +441,8 @@ ANIM.bearing=function(c){
         /* how big the uncertainty actually is, in km */
         var km=Math.max(F.w,F.h)/kmpx;
         x.fillStyle=col; x.font='9px ui-monospace,monospace'; x.textAlign='center';
-        x.fillText(km<3?'one cell':('~'+km.toFixed(0)+' km across'),
-                   F.x, F.y-Math.max(9,F.h/2)-7);
+        var lblY=Math.max(m+10, F.y-Math.max(9,F.h/2)-7);
+        x.fillText(km<3?'one cell':('~'+km.toFixed(0)+' km across'), F.x, lblY);
       }
     }
     /* where the fire actually is -- shown faintly, so the estimate can be seen
@@ -448,9 +453,9 @@ ANIM.bearing=function(c){
 
     /* scale bar */
     x.strokeStyle=D; x.globalAlpha=.5; x.lineWidth=1;
-    x.beginPath(); x.moveTo(m+4,m+h-6); x.lineTo(m+4+RANGE_KM*kmpx,m+h-6); x.stroke();
+    x.beginPath(); x.moveTo(m+4,m+h-26); x.lineTo(m+4+RANGE_KM*kmpx,m+h-26); x.stroke();
     x.fillStyle=D; x.font='9px ui-monospace,monospace'; x.textAlign='left';
-    x.fillText('20 km = every tower reach',m+4,m+h-11); x.globalAlpha=1;
+    x.fillText('20 km = every tower reach',m+4,m+h-31); x.globalAlpha=1;
 
     var msg,col=D;
     if(live===0){ msg='quiet — nothing reported'; }

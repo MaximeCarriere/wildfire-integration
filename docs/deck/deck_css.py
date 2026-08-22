@@ -104,7 +104,7 @@ body{
 h1{font-size:clamp(2rem,1.1rem+3.4vw,3.3rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;font-weight:bold;text-wrap:balance}
 h2{font-size:clamp(1.4rem,1rem+1.5vw,2.05rem);line-height:1.18;letter-spacing:-.015em;margin:0 0 16px;font-weight:bold;text-wrap:balance}
 h3{font-size:1rem;margin:0 0 8px;font-weight:bold}
-p{margin:0 0 12px}
+p{margin:0 0 12px;overflow-wrap:break-word}
 .lead{font-size:clamp(1rem,.9rem+.4vw,1.22rem);line-height:1.5;color:var(--dim);max-width:62ch}
 .tiny{font-size:12px;color:var(--dim);line-height:1.45}
 .dim{color:var(--dim)}
@@ -120,8 +120,12 @@ a{color:var(--select)}
 .cell{
   background:var(--card);border:1px solid var(--cardEdge);border-radius:7px;
   padding:clamp(14px,1.6vw,22px);box-shadow:var(--shadow);
-  display:flex;flex-direction:column;gap:8px;min-width:0;
+  display:flex;flex-direction:column;gap:8px;
+  /* min-width:0 lets a grid child actually shrink; without it long words and
+     wide tables push the cell past its column and collide with the next one */
+  min-width:0;overflow-wrap:break-word;
 }
+.cell > *{min-width:0;max-width:100%}
 .cell.flat{background:none;box-shadow:none;border-color:var(--line)}
 .cell.bare{background:none;box-shadow:none;border:none;padding:0}
 .cell.mark{border-left:3px solid var(--select)}
@@ -194,7 +198,7 @@ tr.hero td{background:color-mix(in srgb,var(--select) 12%,transparent);font-weig
 
 /* lists */
 ul.clean{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-ul.clean li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.45}
+ul.clean li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.45;overflow-wrap:break-word}
 ul.clean li::before{content:"";width:7px;height:7px;background:var(--select);border-radius:2px;margin-top:7px}
 ul.clean li.no::before{background:var(--red)}
 ul.clean li.warnb::before{background:var(--yellow)}
@@ -208,7 +212,7 @@ ul.clean li.warnb::before{background:var(--yellow)}
 .slot .ic{font-size:22px;color:var(--select)}
 
 canvas{display:block;width:100%;height:100%}
-.canvasbox{position:relative;width:100%;min-height:190px;flex:1}
+.canvasbox{position:relative;width:100%;min-height:190px;flex:1;min-width:0;overflow:hidden}
 
 /* cover */
 .cover{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,60px);align-items:center}
