@@ -384,23 +384,67 @@ ANIM.bearing=function(c){
       x.fillText('tower '+(n+1)+'  '+T.d+' km', tx, ty+24);
     });
 
-    /* the fix: a region while the shapes are discs, a point once they narrow */
-    if(live>=2){
-      var spread=(1-ease);
-      var rr=(6+spread*46);
-      x.globalAlpha=.85; x.fillStyle=live>=3?R:Y;
-      if(spread>0.05){
-        x.globalAlpha=.16; x.beginPath(); x.arc(fx,fy,rr,0,7); x.fill(); x.globalAlpha=.9;
+    /* The fix is DERIVED, never drawn at the answer.
+       Marking the true position the moment two towers report would claim a
+       precision the evidence does not contain -- two overlapping discs give a
+       long lens, not a point, and its centre is not where the fire is. So the
+       marker is the centroid of the region consistent with every report so
+       far, and the box is that region's real extent. It starts offset and
+       wide, and tightens onto the truth only as towers are added. */
+    function feasible(){
+      var half=Math.PI*(1-ease)+0.10*ease;
+      var sx=0,sy=0,n=0,x0=1e9,x1=-1e9,y0=1e9,y1=-1e9,step=7;
+      for(var py=m;py<m+h;py+=step){
+        for(var px=m;px<m+w;px+=step){
+          var ok=true;
+          for(var i=0;i<live;i++){
+            var T=towers[i], dx=px-T.x, dy=py-T.y;
+            if(Math.hypot(dx,dy)>Rpx){ ok=false; break; }
+            if(ease>0.02){
+              var aim=Math.atan2(fy-T.y,fx-T.x);
+              var da=Math.abs(((Math.atan2(dy,dx)-aim+Math.PI*3)%(Math.PI*2))-Math.PI);
+              if(da>half){ ok=false; break; }
+            }
+          }
+          if(ok){ sx+=px; sy+=py; n++;
+            if(px<x0)x0=px; if(px>x1)x1=px; if(py<y0)y0=py; if(py>y1)y1=py; }
+        }
       }
-      x.beginPath(); x.arc(fx,fy,live>=3?(5+2*ease):4,0,7); x.fill(); x.globalAlpha=1;
-      x.strokeStyle=live>=3?R:Y; x.lineWidth=1.5;
-      x.strokeRect(fx-rr*0.7,fy-rr*0.7,rr*1.4,rr*1.4);
-      if(ease>0.6){
-        var pl=(now*1.6)%1;
-        x.globalAlpha=(1-pl)*.6; x.beginPath(); x.arc(fx,fy,7+pl*24,0,7); x.stroke();
-        x.globalAlpha=1;
+      return n? {x:sx/n,y:sy/n,w:x1-x0,h:y1-y0,n:n} : null;
+    }
+
+    if(live>=2){
+      var F=feasible();
+      if(F){
+        var tight=(F.w+F.h)/2 < 34;
+        var col=(live>=3 && tight)? R : Y;
+        /* the region still consistent with everything heard so far */
+        x.globalAlpha=.13; x.fillStyle=col;
+        x.beginPath(); x.ellipse(F.x,F.y,Math.max(7,F.w/2),Math.max(7,F.h/2),0,0,6.28);
+        x.fill(); x.globalAlpha=1;
+        x.strokeStyle=col; x.globalAlpha=.55; x.lineWidth=1.2; x.setLineDash([4,4]);
+        x.beginPath(); x.ellipse(F.x,F.y,Math.max(7,F.w/2),Math.max(7,F.h/2),0,0,6.28);
+        x.stroke(); x.setLineDash([]); x.globalAlpha=1;
+        /* best estimate = centroid of that region */
+        x.fillStyle=col; x.beginPath(); x.arc(F.x,F.y,tight?5:3.5,0,7); x.fill();
+        if(tight){
+          var pl=(now*1.6)%1;
+          x.globalAlpha=(1-pl)*.6; x.strokeStyle=col; x.lineWidth=1.6;
+          x.beginPath(); x.arc(F.x,F.y,7+pl*22,0,7); x.stroke(); x.globalAlpha=1;
+          x.strokeStyle=col; x.lineWidth=1.3; x.strokeRect(F.x-11,F.y-11,22,22);
+        }
+        /* how big the uncertainty actually is, in km */
+        var km=Math.max(F.w,F.h)/kmpx;
+        x.fillStyle=col; x.font='9px ui-monospace,monospace'; x.textAlign='center';
+        x.fillText(km<3?'one cell':('~'+km.toFixed(0)+' km across'),
+                   F.x, F.y-Math.max(9,F.h/2)-7);
       }
     }
+    /* where the fire actually is -- shown faintly, so the estimate can be seen
+       arriving at it rather than starting there */
+    x.globalAlpha=.5; x.strokeStyle=D; x.lineWidth=1;
+    x.beginPath(); x.moveTo(fx-5,fy); x.lineTo(fx+5,fy);
+    x.moveTo(fx,fy-5); x.lineTo(fx,fy+5); x.stroke(); x.globalAlpha=1;
 
     /* scale bar */
     x.strokeStyle=D; x.globalAlpha=.5; x.lineWidth=1;
@@ -411,8 +455,8 @@ ANIM.bearing=function(c){
     var msg,col=D;
     if(live===0){ msg='quiet — nothing reported'; }
     else if(live===1){ msg='one tower reports. somewhere within its 20 km. no alert.'; col=Y; }
-    else if(live===2){ msg='a second tower agrees. the discs overlap — but it is still a region.'; col=Y; }
-    else if(ease<0.05){ msg='three towers, GPS only. a fix about a kilometre across. it works.'; col=R; }
+    else if(live===2){ msg='a second tower agrees. the overlap is huge, and off-centre. no alert yet.'; col=Y; }
+    else if(ease<0.05){ msg='a third tower cuts it down — the estimate moves onto the fire.'; col=R; }
     else if(ease<0.95){ msg='now add a rough direction — ten degrees is enough…'; col=R; }
     else { msg='…and the same evidence lands on one cell. ~7× fewer false alarms.'; col=R; }
     x.textAlign='left'; x.font='11px ui-monospace,monospace'; x.fillStyle=col;
