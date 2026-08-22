@@ -13,7 +13,7 @@ SLIDES = r"""
    confidential edge AI, built small and sealed shut &nbsp;&middot;&nbsp;
    <span class="dim">press <kbd>&rarr;</kbd> to advance, <kbd>?</kbd> for keys</span></p>
   </div>
-  <div class="art anim"><div class="canvasbox" style="min-height:min(56vh,380px)"><canvas data-anim="cover"></canvas></div></div>
+  <div class="art anim"><div class="canvasbox" style="min-height:min(56vh,380px)"><canvas data-anim="bearing"></canvas></div></div>
  </div>
 </div></section>
 
@@ -720,6 +720,26 @@ SLIDES = r"""
   supporting a bearing-less source is exactly what lets a gas sensor, a 911 call or a utility fault
   sensor join the same network. They are not a degraded fallback &mdash; they are points with a
   radius, which is the same maths.</p></div>
+
+  <div class="cell c7 pad0"><div class="tw"><table>
+   <thead><tr><th>towers</th><th>seen by &ge;3</th><th>ambiguity area</th><th>as a radius</th></tr></thead>
+   <tbody>
+    <tr><td class="n">4</td><td class="n">37%</td><td class="n">160 km&sup2;</td><td class="n">7,100 m</td></tr>
+    <tr><td class="n">8</td><td class="n">100%</td><td class="n">48 km&sup2;</td><td class="n">3,900 m</td></tr>
+    <tr><td class="n">16</td><td class="n">100%</td><td class="n">11 km&sup2;</td><td class="n">1,870 m</td></tr>
+    <tr><td class="n">32</td><td class="n">100%</td><td class="n">3 km&sup2;</td><td class="n">1,020 m</td></tr>
+   </tbody></table></div>
+   <p class="tiny dim" style="margin:8px 0 0">Two places are indistinguishable if exactly the same
+   cameras can see both. This is the resulting ambiguity, and it shrinks as towers are added
+   &mdash; density beating precision, again.</p></div>
+
+  <div class="cell c5 mark"><h3 class="hl">But the disc is not flat</h3>
+   <p class="tiny" style="margin:0">At 8 towers the table says the fix cannot be tighter than
+   <b>3,900 m</b>. The simulator measures <b class="hl">1,184 m</b> &mdash; three times better.</p>
+   <p class="tiny" style="margin:8px 0 0">Because a report is not a hard-edged circle. Detection
+   confidence falls off with range, so a cell near the camera scores higher than one at the rim.
+   Overlapping discs therefore produce a <b>peak, not a plateau</b> &mdash; and that gradient quietly
+   recovers the range information a set-intersection throws away.</p></div>
  </div>
 </div></section>
 

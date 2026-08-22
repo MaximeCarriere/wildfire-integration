@@ -324,17 +324,26 @@ ANIM.bearing=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),R=tok('--red'),Y=tok('--yellow');
   var t0=performance.now(), DUR=15000;
-  var KM=60;                                   /* the canvas spans ~60 km */
-  var fire={x:0.54,y:0.42};
-  var towers=[{x:0.16,y:0.78},{x:0.86,y:0.70},{x:0.34,y:0.13}];
+  var RANGE_KM=20;
+  /* Towers are placed by REAL distance and bearing from the fire, not by
+     canvas fractions. Hardcoded fractions put two of the three towers 21 and
+     26 km away while drawing them with a 20 km reach -- a picture that
+     contradicted itself, since a tower that cannot see the fire cannot vote
+     on it. Deriving the positions makes that impossible at any canvas size. */
+  var PLACE=[{b:210,d:14},{b:330,d:15},{b:95,d:13}];
 
   loop(function(){
     var p=((performance.now()-t0)%DUR)/DUR, now=performance.now()/1000;
     x.clearRect(0,0,W,H);
     var m=16, w=W-2*m, h=H-2*m;
-    var X=function(u){return m+u*w;}, Yv=function(v){return m+v*h;};
-    var Rpx=(20/KM)*w;                          /* 20 km detection radius */
-    var fx=X(fire.x), fy=Yv(fire.y);
+    /* one scale for both axes, so a circle on screen is a circle on the ground */
+    var kmpx=Math.min(w/58, h/40);
+    var Rpx=RANGE_KM*kmpx;
+    var fx=m+w*0.5, fy=m+h*0.46;
+    var towers=PLACE.map(function(q){
+      var a=q.b*Math.PI/180;
+      return {x:fx+Math.sin(a)*q.d*kmpx, y:fy-Math.cos(a)*q.d*kmpx, d:q.d};
+    });
 
     /* grid */
     x.strokeStyle=D; x.globalAlpha=.12; x.lineWidth=1;
@@ -350,7 +359,7 @@ ANIM.bearing=function(c){
     var ease = narrow*narrow*(3-2*narrow);
 
     towers.forEach(function(T,n){
-      var tx=X(T.x), ty=Yv(T.y);
+      var tx=T.x, ty=T.y;
       if(n<live){
         var ang=Math.atan2(fy-ty,fx-tx);
         var half=Math.PI*(1-ease) + 0.10*ease;   /* pi = whole disc -> 0.1 rad */
@@ -372,7 +381,7 @@ ANIM.bearing=function(c){
       x.strokeStyle=x.fillStyle; x.globalAlpha=.35; x.lineWidth=1.4;
       x.beginPath(); x.arc(tx,ty,9,0,7); x.stroke(); x.globalAlpha=1;
       x.fillStyle=D; x.font='10px ui-monospace,monospace'; x.textAlign='center';
-      x.fillText('tower '+(n+1), tx, ty+24);
+      x.fillText('tower '+(n+1)+'  '+T.d+' km', tx, ty+24);
     });
 
     /* the fix: a region while the shapes are discs, a point once they narrow */
@@ -395,13 +404,13 @@ ANIM.bearing=function(c){
 
     /* scale bar */
     x.strokeStyle=D; x.globalAlpha=.5; x.lineWidth=1;
-    x.beginPath(); x.moveTo(m+4,m+h-6); x.lineTo(m+4+(20/KM)*w,m+h-6); x.stroke();
+    x.beginPath(); x.moveTo(m+4,m+h-6); x.lineTo(m+4+RANGE_KM*kmpx,m+h-6); x.stroke();
     x.fillStyle=D; x.font='9px ui-monospace,monospace'; x.textAlign='left';
-    x.fillText('20 km',m+4,m+h-11); x.globalAlpha=1;
+    x.fillText('20 km = every tower reach',m+4,m+h-11); x.globalAlpha=1;
 
     var msg,col=D;
     if(live===0){ msg='quiet — nothing reported'; }
-    else if(live===1){ msg='one tower reports. somewhere within 20 km of it. no alert.'; col=Y; }
+    else if(live===1){ msg='one tower reports. somewhere within its 20 km. no alert.'; col=Y; }
     else if(live===2){ msg='a second tower agrees. the discs overlap — but it is still a region.'; col=Y; }
     else if(ease<0.05){ msg='three towers, GPS only. a fix about a kilometre across. it works.'; col=R; }
     else if(ease<0.95){ msg='now add a rough direction — ten degrees is enough…'; col=R; }
