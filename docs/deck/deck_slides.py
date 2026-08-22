@@ -142,16 +142,20 @@ SLIDES = r"""
  <p class="eyebrow anim">06 &middot; layer one</p>
  <h2 class="anim">Patience, in one number.</h2>
  <div class="bento anim">
-  <div class="cell c7 pad0" style="padding:14px 6px 6px">
-    <div class="canvasbox" style="min-height:250px"><canvas data-anim="lif"></canvas></div></div>
-  <div class="cell c5"><p>Each camera keeps a single running number: <b>how much evidence
-  have I seen lately?</b></p>
-  <p>Every detection pushes it up. It <b class="hl">leaks away</b> constantly, so old evidence
-  fades on its own.</p>
-  <p>A flicker &mdash; a bird, a glint, one bad frame &mdash; never builds. A real plume keeps
-  pushing, and the number climbs until it crosses a line.</p>
-  <p class="tiny" style="margin-top:auto"><b>Why it matters:</b> this alone is the step that
-  published work credits with cutting false alarms from 52% to 4%. It costs 8 bytes of memory.</p></div>
+  <div class="cell c8 pad0" style="padding:14px 6px 6px">
+    <div class="canvasbox" style="min-height:min(52vh,360px)"><canvas data-anim="lif"></canvas></div></div>
+  <div class="cell c4"><p>The integrator keeps a single running number: <b>how much evidence
+  have I seen here lately?</b></p>
+  <p>Every report pushes it up. It <b class="hl">leaks away</b> constantly, so old evidence
+  fades on its own. A flicker never builds. A real plume keeps pushing, and the number climbs
+  until it crosses the bar &mdash; and <b>crossing the bar is what sends the drone</b>.</p>
+  <p><b class="hl">The bar moves.</b> An operator can raise it, or fire weather lowers it, and
+  the same evidence then alerts sooner or later.</p>
+  <p><b class="hl">And every place keeps its own.</b> A steam vent that has been investigated
+  three times sits behind a higher bar; a cell where lightning struck two days ago sits behind
+  a lower one. Same network, same evidence, different answer per place.</p>
+  <p class="tiny" style="margin-top:auto"><b>Cost:</b> one 32-bit number per place. That is the
+  whole reason this fits on a microcontroller.</p></div>
  </div>
 </div></section>
 

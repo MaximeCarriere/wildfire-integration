@@ -87,76 +87,160 @@ function loop(fn){
 
 var ANIM={};
 
-/* ===== 1. Layer 1 -- one camera integrating over time ===== */
+/* ===== 1. evidence -> threshold -> fire -> drone =====
+   Three things at once, because they are the same idea:
+     - evidence ACCUMULATES and leaks; crossing the bar dispatches a drone
+     - the bar MOVES: operators raise it or fire weather lowers it
+     - every place keeps its OWN bar, learned from what happened there
+   The loop replays identical evidence against three settings, so the only
+   thing that changes between acts is the height of the line. */
+var LIF_EV=[0.10,0.17,0.23,0.30,0.35,0.41,0.46,0.52,0.57,0.63,0.69,0.75,0.82,0.89];
+var LIF_W =[0.10,0.10,0.09,0.20,0.10,0.20,0.10,0.22,0.10,0.22,0.11,0.24,0.12,0.24];
+var LIF_TAU=0.30;
+
+function lifV(t){
+  var v=0,last=LIF_EV[0]-0.001;
+  for(var i=0;i<LIF_EV.length;i++){
+    if(LIF_EV[i]>t) break;
+    v*=Math.exp(-(LIF_EV[i]-last)/LIF_TAU); last=LIF_EV[i]; v+=LIF_W[i];
+  }
+  if(t>last) v*=Math.exp(-(t-last)/LIF_TAU);
+  return v;
+}
+function lifCross(th){
+  for(var t=0;t<1;t+=0.002) if(lifV(t)>=th) return t;
+  return -1;
+}
+
 ANIM.lif=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),R=tok('--red'),Y=tok('--yellow');
-  var pad={l:44,r:14,t:16,b:34};
-  var t0=performance.now();
-  /* two episodes: a flicker that decays, then a persisting plume that fires */
-  var EV=[]; for(var k=0;k<2;k++) EV.push({t:0.06+k*0.03});
-  for(var k2=0;k2<16;k2++) EV.push({t:0.42+k2*0.032});
-  var TH=0.72, DUR=9000;
+  var CARD=tok('--card'),EDGE=tok('--cardEdge');
+  var t0=performance.now(), DUR=16500;
+
+  var PRESET=[{n:'NORMAL',th:0.78,c:D},{n:'ELEVATED',th:0.60,c:Y},{n:'RED FLAG',th:0.44,c:R}];
+  /* every cell keeps its own bar, and remembers why */
+  var CELLS=[
+    {n:'ridge 41',      off: 0.00, why:'default'},
+    {n:'steam vent',    off: 0.30, why:'learned: 3 false alarms'},
+    {n:'burn scar',     off: 0.14, why:'learned: 1 false alarm'},
+    {n:'strike 2d ago', off:-0.24, why:'lightning prior'},
+    {n:'town edge',     off:-0.12, why:'operator: protect'}
+  ];
 
   loop(function(){
-    var el=(performance.now()-t0)%DUR, p=el/DUR;
+    var p=((performance.now()-t0)%DUR)/DUR;
+    var act=Math.floor(p*3)%3, u=(p*3)%1;
+    var P=PRESET[act], th=P.th, cross=lifCross(th);
     x.clearRect(0,0,W,H);
-    var pw=W-pad.l-pad.r, ph=H-pad.t-pad.b;
-    var yb=pad.t+ph, xr=function(u){return pad.l+u*pw;}, yr=function(v){return yb-v*ph;};
 
-    /* axes */
-    x.strokeStyle=D; x.globalAlpha=.35; x.lineWidth=1;
-    x.beginPath(); x.moveTo(pad.l,pad.t); x.lineTo(pad.l,yb); x.lineTo(pad.l+pw,yb); x.stroke();
+    var stripH=Math.min(74,H*0.30);
+    var pad={l:52,r:74,t:26,b:stripH+26};
+    var gw=W-pad.l-pad.r, gh=H-pad.t-pad.b, gb=pad.t+gh;
+    var X=function(t){return pad.l+t*gw;}, Yv=function(v){return gb-Math.min(v,1.15)/1.15*gh;};
+
+    /* frame */
+    x.strokeStyle=D; x.globalAlpha=.3; x.lineWidth=1;
+    x.beginPath(); x.moveTo(pad.l,pad.t-4); x.lineTo(pad.l,gb); x.lineTo(pad.l+gw,gb); x.stroke();
     x.globalAlpha=1;
-    /* threshold */
-    x.strokeStyle=R; x.setLineDash([4,4]); x.lineWidth=1.5;
-    x.beginPath(); x.moveTo(pad.l,yr(TH)); x.lineTo(pad.l+pw,yr(TH)); x.stroke(); x.setLineDash([]);
-    x.fillStyle=R; x.font='10px ui-monospace,monospace'; x.fillText('threshold',pad.l+4,yr(TH)-5);
-    x.fillStyle=D; x.save(); x.translate(12,yb-ph/2); x.rotate(-Math.PI/2);
-    x.textAlign='center'; x.fillText('evidence',0,0); x.restore();
+    x.save(); x.translate(13,pad.t+gh/2); x.rotate(-Math.PI/2);
+    x.fillStyle=D; x.font='9px ui-monospace,monospace'; x.textAlign='center';
+    x.fillText('evidence',0,0); x.restore();
 
-    /* integrate */
-    var N=260, v=0, fired=-1, pts=[];
-    for(var s=0;s<=N;s++){
-      var u=s/N; if(u>p) break;
-      v*= (1-1/26);
-      for(var e=0;e<EV.length;e++){ var d=Math.abs(EV[e].t-u); if(d<0.5/N) v+=0.14; }
-      if(v>=TH && fired<0){ fired=u; }
-      pts.push([u,Math.min(v,1)]);
-      if(fired>=0 && u>fired+0.012){ v=0; fired=-2; }
-    }
-    /* trace */
-    x.strokeStyle=A; x.lineWidth=2; x.lineJoin='round'; x.beginPath();
-    pts.forEach(function(q,n){ n?x.lineTo(xr(q[0]),yr(q[1])):x.moveTo(xr(q[0]),yr(q[1])); });
-    x.stroke();
-    /* fill under */
-    if(pts.length>1){
-      x.globalAlpha=.13; x.fillStyle=A; x.beginPath(); x.moveTo(xr(pts[0][0]),yb);
-      pts.forEach(function(q){x.lineTo(xr(q[0]),yr(q[1]));});
-      x.lineTo(xr(pts[pts.length-1][0]),yb); x.closePath(); x.fill(); x.globalAlpha=1;
-    }
-    /* input spikes */
-    EV.forEach(function(e){
-      if(e.t>p) return;
-      x.strokeStyle=Y; x.lineWidth=2; x.beginPath();
-      x.moveTo(xr(e.t),yb+3); x.lineTo(xr(e.t),yb+11); x.stroke();
+    /* the movable bar: ghosts of the other two settings, so it is visibly a DIAL */
+    PRESET.forEach(function(q,i){
+      if(i===act) return;
+      x.strokeStyle=q.c; x.globalAlpha=.20; x.lineWidth=1; x.setLineDash([2,5]);
+      x.beginPath(); x.moveTo(pad.l,Yv(q.th)); x.lineTo(pad.l+gw,Yv(q.th)); x.stroke();
+      x.setLineDash([]); x.globalAlpha=1;
+      x.fillStyle=q.c; x.globalAlpha=.45; x.font='8px ui-monospace,monospace'; x.textAlign='left';
+      x.fillText(q.n,pad.l+gw+6,Yv(q.th)+3); x.globalAlpha=1;
     });
-    x.fillStyle=D; x.font='10px ui-monospace,monospace'; x.textAlign='left';
-    x.fillText('detections from ONE camera',pad.l,yb+26);
+    x.strokeStyle=P.c; x.lineWidth=1.6; x.setLineDash([5,4]);
+    x.beginPath(); x.moveTo(pad.l,Yv(th)); x.lineTo(pad.l+gw,Yv(th)); x.stroke(); x.setLineDash([]);
+    x.fillStyle=P.c; x.font='bold 9px ui-monospace,monospace'; x.textAlign='left';
+    x.fillText(P.n,pad.l+gw+6,Yv(th)+3);
 
-    /* episode captions */
-    x.font='11px ui-monospace,monospace';
-    if(p>0.08){ x.fillStyle=D; x.textAlign='center';
-      x.fillText('a flicker — decays away', xr(0.17), pad.t+16); }
-    if(p>0.55){ x.fillStyle=A; x.textAlign='center';
-      x.fillText('a plume that persists', xr(0.63), pad.t+16); }
-    /* fire marker */
-    var hit=pts.filter(function(q){return q[1]>=TH;})[0];
-    if(hit){
-      x.fillStyle=R; x.beginPath(); x.arc(xr(hit[0]),yr(TH),5,0,7); x.fill();
-      x.font='bold 11px ui-monospace,monospace'; x.textAlign='left';
-      x.fillText('reports',xr(hit[0])+9,yr(TH)-8);
+    /* the trace */
+    var started=false;
+    x.strokeStyle=A; x.lineWidth=2; x.beginPath();
+    for(var s=0;s<=u;s+=1/260){
+      var gx=X(s),gy=Yv(lifV(s));
+      started?x.lineTo(gx,gy):(x.moveTo(gx,gy),started=true);
     }
+    if(started){
+      x.stroke();
+      x.globalAlpha=.13; x.fillStyle=A; x.beginPath(); x.moveTo(X(0),gb);
+      for(var s2=0;s2<=u;s2+=1/260) x.lineTo(X(s2),Yv(lifV(s2)));
+      x.lineTo(X(u),gb); x.closePath(); x.fill(); x.globalAlpha=1;
+    }
+    /* arriving reports */
+    for(var i2=0;i2<LIF_EV.length;i2++){
+      if(LIF_EV[i2]>u) break;
+      var big=LIF_W[i2]>0.15;
+      x.strokeStyle=big?R:Y; x.lineWidth=big?2:1.4;
+      x.beginPath(); x.moveTo(X(LIF_EV[i2]),gb+2); x.lineTo(X(LIF_EV[i2]),gb+(big?9:6)); x.stroke();
+    }
+    x.fillStyle=D; x.font='8px ui-monospace,monospace'; x.textAlign='left';
+    x.fillText('reports arriving  ( tall = fire, short = smoke )',pad.l,gb+20);
+
+    /* crossing -> fire -> drone */
+    if(cross>=0 && u>=cross){
+      var age=u-cross;
+      x.fillStyle=P.c; x.beginPath(); x.arc(X(cross),Yv(th),4.5,0,7); x.fill();
+      var pl=Math.min(1,age/0.10);
+      x.globalAlpha=(1-pl)*.8; x.strokeStyle=P.c; x.lineWidth=2;
+      x.beginPath(); x.arc(X(cross),Yv(th),5+pl*22,0,7); x.stroke(); x.globalAlpha=1;
+      /* the drone leaves */
+      var fly=Math.min(1,Math.max(0,(age-0.04)/0.34));
+      if(fly>0){
+        var dx=X(cross)+fly*(pad.l+gw+50-X(cross)), dy=Yv(th)-18-Math.sin(fly*3.14)*14;
+        x.save(); x.translate(dx,dy); x.strokeStyle=A; x.lineWidth=1.5;
+        x.beginPath(); x.moveTo(-5,-3.2); x.lineTo(5,3.2);
+        x.moveTo(5,-3.2); x.lineTo(-5,3.2); x.stroke();
+        var sp=(performance.now()/1000*22)%6.28;
+        [[-5,-3.2],[5,3.2],[5,-3.2],[-5,3.2]].forEach(function(r){
+          x.globalAlpha=.7; x.beginPath();
+          x.ellipse(r[0],r[1],3.3,1.2,sp,0,6.28); x.stroke(); x.globalAlpha=1;});
+        x.restore();
+        if(fly>0.25){
+          x.fillStyle=A; x.font='bold 9px ui-monospace,monospace'; x.textAlign='right';
+          x.fillText('drone sent',X(cross)-8,Yv(th)-20);
+        }
+      }
+      x.fillStyle=P.c; x.font='9px ui-monospace,monospace'; x.textAlign='center';
+      x.fillText('alert at '+Math.round(cross*100)+'% of the evidence',X(cross),pad.t-10);
+    }
+
+    /* ---- every place keeps its own bar ---- */
+    var sy=H-stripH+8, cw=(W-pad.l-14)/CELLS.length;
+    x.fillStyle=D; x.font='8px ui-monospace,monospace'; x.textAlign='left';
+    x.fillText('AND EVERY PLACE KEEPS ITS OWN BAR',pad.l,sy-2);
+    var vnow=lifV(u);
+    CELLS.forEach(function(cl,i){
+      var bx=pad.l+i*cw+4, bw=cw-12, by=sy+8, bh=stripH-30;
+      var lth=Math.max(0.08,Math.min(1.12,th+cl.off));
+      var fired=vnow>=lth;
+      x.fillStyle=CARD; x.globalAlpha=.85;
+      x.beginPath(); if(x.roundRect)x.roundRect(bx,by,bw,bh,3); else x.rect(bx,by,bw,bh);
+      x.fill(); x.globalAlpha=1; x.strokeStyle=EDGE; x.lineWidth=1; x.stroke();
+      /* fill level = current evidence */
+      var fh=Math.min(1,vnow/1.15)*(bh-6);
+      x.fillStyle=fired?P.c:A; x.globalAlpha=fired?.30:.18;
+      x.fillRect(bx+3,by+bh-3-fh,bw-6,fh); x.globalAlpha=1;
+      /* this cell's own bar */
+      var ly=by+bh-3-Math.min(1,lth/1.15)*(bh-6);
+      x.strokeStyle=fired?P.c:D; x.lineWidth=fired?2:1.2;
+      x.beginPath(); x.moveTo(bx+2,ly); x.lineTo(bx+bw-2,ly); x.stroke();
+      if(fired){
+        x.fillStyle=P.c; x.font='bold 8px ui-monospace,monospace'; x.textAlign='center';
+        x.fillText('FIRES',bx+bw/2,by+11);
+      }
+      x.fillStyle=fired?F:D; x.font='8px ui-monospace,monospace'; x.textAlign='center';
+      x.fillText(cl.n,bx+bw/2,by+bh+10);
+      x.fillStyle=D; x.globalAlpha=.7; x.font='7px ui-monospace,monospace';
+      x.fillText(cl.why,bx+bw/2,by+bh+19); x.globalAlpha=1;
+    });
   });
 };
 
