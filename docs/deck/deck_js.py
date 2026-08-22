@@ -441,7 +441,24 @@ ANIM.bearing=function(c){
         /* how big the uncertainty actually is, in km */
         var km=Math.max(F.w,F.h)/kmpx;
         x.fillStyle=col; x.font='9px ui-monospace,monospace'; x.textAlign='center';
-        var lblY=Math.max(m+10, F.y-Math.max(9,F.h/2)-7);
+        /* Place this label away from the tower captions rather than always
+           above the ellipse. Tower 2 sits at 330 deg -- almost directly over
+           the two-disc centroid -- so "above" put the two captions 6px apart.
+           Try below, then above, and take the first that clears. */
+        var halfH=Math.max(9,F.h/2);
+        var lblY=F.y+halfH+20;
+        var cand=[F.y+halfH+20, F.y-halfH-9];
+        for(var ci=0;ci<cand.length;ci++){
+          var yTry=cand[ci];
+          if(yTry<m+13 || yTry>m+h-44) continue;
+          var clash=false;
+          for(var ti=0;ti<live;ti++){
+            if(Math.abs(yTry-(towers[ti].y+24))<15 &&
+               Math.abs(F.x-towers[ti].x)<100){ clash=true; break; }
+          }
+          if(!clash){ lblY=yTry; break; }
+        }
+        lblY=Math.min(Math.max(lblY,m+13),m+h-44);
         x.fillText(km<3?'one cell':('~'+km.toFixed(0)+' km across'), F.x, lblY);
       }
     }
