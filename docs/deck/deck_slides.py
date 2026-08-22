@@ -323,47 +323,41 @@ SLIDES = r"""
   which is exactly the window in which a fire is still cheap to stop.</p></div>
 
   <div class="cell c12 pad0"><div class="tw"><table class="mx">
-   <colgroup><col style="width:9rem"><col><col><col><col class="us"></colgroup>
+   <colgroup><col style="width:10rem"><col><col><col class="us"></colgroup>
    <thead><tr>
      <th>&nbsp;</th><th>Human lookout</th><th>Satellite</th>
-     <th>Cameras alone</th><th>Cameras + us</th></tr></thead>
+     <th>Cameras + integrator</th></tr></thead>
    <tbody>
     <tr><th class="rh">time to alert</th>
-      <td><i class="k mid"></i>5&ndash;15 min, if facing it</td>
-      <td><i class="k no"></i>minutes to hours</td>
-      <td><i class="k ok"></i>5&ndash;10 min</td>
-      <td><i class="k ok"></i>5&ndash;10 min, corroborated</td></tr>
+      <td><i class="k mid"></i>5&ndash;15 min, if they happen to be facing it</td>
+      <td><i class="k no"></i>minutes to hours &mdash; the fire must first grow hot</td>
+      <td><i class="k ok"></i>5&ndash;10 min, corroborated by two towers</td></tr>
     <tr><th class="rh">gap between looks</th>
       <td><i class="k mid"></i>none, while awake</td>
-      <td><i class="k no"></i>2&times;/day &rarr; 20 min at best</td>
-      <td><i class="k ok"></i>none &mdash; it watches</td>
-      <td><i class="k ok"></i>none &mdash; it watches</td></tr>
+      <td><i class="k no"></i>twice a day today; 20 min at best, later this decade</td>
+      <td><i class="k ok"></i>none &mdash; it watches, it does not sample</td></tr>
     <tr><th class="rh">sees under cloud</th>
-      <td><i class="k mid"></i>below the deck only</td>
-      <td><i class="k no"></i>no &mdash; masked out</td>
-      <td><i class="k ok"></i>yes &mdash; looks sideways</td>
-      <td><i class="k ok"></i>yes</td></tr>
+      <td><i class="k mid"></i>only below the deck</td>
+      <td><i class="k no"></i>no &mdash; thick cloud is masked out entirely</td>
+      <td><i class="k ok"></i>yes &mdash; it looks sideways, beneath it</td></tr>
     <tr><th class="rh">reaches a crew</th>
       <td><i class="k ok"></i>a radio call</td>
-      <td><i class="k no"></i>1&ndash;3 h, via an agency</td>
-      <td><i class="k mid"></i>a control room</td>
-      <td><i class="k ok"></i>decided at the tower</td></tr>
+      <td><i class="k no"></i>1&ndash;3 h through an agency; under a minute only near four antennas</td>
+      <td><i class="k ok"></i>decided at the tower, in microseconds</td></tr>
     <tr><th class="rh">where it works</th>
-      <td><i class="k no"></i>one horizon</td>
-      <td><i class="k ok"></i>everywhere &mdash; eventually</td>
-      <td><i class="k mid"></i>20 km, line of sight</td>
-      <td><i class="k mid"></i>20 km, line of sight</td></tr>
+      <td><i class="k no"></i>one horizon per tower</td>
+      <td><i class="k ok"></i>everywhere on Earth &mdash; eventually, not at once</td>
+      <td><i class="k mid"></i>line of sight, about 20 km</td></tr>
     <tr><th class="rh">blind spot</th>
-      <td><i class="k no"></i>fatigue, night, few left</td>
-      <td><i class="k no"></i>the revisit gap</td>
-      <td><i class="k no"></i>1,000 false alarms a day</td>
-      <td><i class="k mid"></i>the cameras' coverage gaps</td></tr>
+      <td><i class="k no"></i>fatigue, darkness, and almost none remain</td>
+      <td><i class="k no"></i>the gap between passes, and heat arrives after smoke</td>
+      <td><i class="k mid"></i>cannot see past a ridgeline</td></tr>
    </tbody></table></div>
    <div class="mxkey">
      <span><i class="k ok"></i>strength</span>
      <span><i class="k mid"></i>partial</span>
      <span><i class="k no"></i>weakness</span>
-     <span class="dim">&mdash; every column has all three. Detail in appendix A6.</span>
+     <span class="dim">&mdash; every column carries all three. Detail in appendix A6.</span>
    </div></div>
 
   <div class="cell c4 mark"><h3 class="hl">What only we do</h3>
@@ -639,11 +633,10 @@ SLIDES = r"""
     <tr><td>FireSat (Earth Fire Alliance)</td><td class="n">5 m</td>
         <td class="n">2&times;/day today</td><td>heat, multispectral IR</td>
         <td>first three operational satellites launched 7 July 2026; hourly revisit targeted for 2029, 20 min at the full 50-satellite constellation</td></tr>
-    <tr><td>Ground camera network</td><td class="n">&mdash;</td><td class="n">continuous</td><td>smoke</td>
-        <td>line of sight only; ~1 false positive per camera per day</td></tr>
-    <tr class="hero"><td>&hellip;with this integrator</td><td class="n">500 m cell</td>
-        <td class="n">continuous</td><td>agreement between cameras</td>
-        <td>adds no sensing range; removes ~4&times; the false alarms at equal detection</td></tr>
+    <tr class="hero"><td>Ground cameras + integrator</td><td class="n">500 m cell</td>
+        <td class="n">continuous</td><td>smoke, and agreement between cameras</td>
+        <td>line of sight only. Raw cameras give ~1 false positive per camera per day; the integrator
+        removes ~4&times; of them at equal detection</td></tr>
    </tbody></table></div></div>
   <div class="cell c12 flat"><h3>Two limits that are easy to miss</h3>
    <p class="tiny" style="margin:0 0 6px"><b>Delivery.</b> NASA FIRMS near-real-time products arrive
