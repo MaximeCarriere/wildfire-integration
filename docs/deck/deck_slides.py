@@ -93,11 +93,30 @@ SLIDES = r"""
   <div class="cell c7 mark"><span class="label">so each camera sends</span>
    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
      <span class="stat hl">16 bytes</span>
-     <span class="tiny" style="max-width:28ch">not a video stream. A twitch: <em>&ldquo;something,
-     this direction, this confident.&rdquo;</em></span>
+     <span class="tiny" style="max-width:30ch">not a video stream. A twitch:
+     <em>&ldquo;something, this confident.&rdquo;</em></span>
    </div>
    <p class="tiny" style="margin:8px 0 0">Small enough to cross LoRa, satellite, or a dying
    cellular link. Video cannot. When the network fails, the thinking carries on locally.</p></div>
+
+  <div class="cell c12 hot"><h3 class="bad">It never sends a picture. That is the point.</h3>
+   <div class="bento" style="gap:12px">
+    <div class="cell c7 bare" style="gap:8px">
+     <p style="margin:0">Here is the <em>entire</em> transmission, byte for byte:</p>
+     <p class="mono" style="margin:0;font-size:12px;letter-spacing:.04em;color:var(--dim)">
+      94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
+     <p style="margin:0">Which decodes to: <b>camera 41, at 09:12, says <span class="hl">2</span>,
+     four fifths sure.</b> <b class="hl">1 means plume. 2 means fire.</b> That is the whole vocabulary.</p>
+    </div>
+    <div class="cell c5 bare"><span class="label">image data transmitted</span>
+     <span class="stat hl">0 bytes</span>
+     <p class="tiny" style="margin:4px 0 0">Not to a server. Not to us. Not to anyone.
+     The picture is looked at on the pole and discarded there.</p></div>
+    <div class="cell c12 bare"><p style="margin:0">So there is <b>nothing to intercept, nothing to
+    breach, nothing to subpoena</b>, and no surveillance capability for anyone to misuse later.
+    A town can accept a camera watching its ridge without accepting a camera watching itself.
+    <b class="hl">This is not a nice side effect &mdash; it is what makes the thing deployable at all.</b></p></div>
+   </div></div>
   <div class="cell c6 flat"><h3><span class="hl">Layer 1</span> &mdash; at the camera</h3>
    <p class="tiny" style="margin:0">Integrates over <b>time</b>. &ldquo;Is this plume still there,
    or did it flicker once?&rdquo;</p></div>
@@ -165,13 +184,15 @@ SLIDES = r"""
  <h2 class="anim">One tower gives you a direction.<br>Two give you a <span class="hl">place</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is &mdash; distance is
-  genuinely ambiguous in a single image. But it knows the <b>direction</b> well.</p>
-  <p>So the board spreads each report along that direction, as a wedge of possibility.
-  Where wedges from different towers <b class="hl">overlap</b>, evidence piles up.</p>
-  <p>A dust plume in front of one camera cannot be confirmed from a different angle.
-  A real fire can.</p>
+  genuinely ambiguous in a single image. What it has is a <b>rough direction</b>.</p>
+  <p>So the board spreads each report out as a <b>wedge of possibility</b> &mdash; and if the
+  direction is unknown, simply as a <b class="hl">20 km disc</b> around the camera. Where the
+  shapes from different towers <b class="hl">overlap</b>, evidence piles up.</p>
+  <p>A dust plume in front of one camera cannot be corroborated from somewhere else. A real
+  fire can.</p>
   <p class="tiny" style="margin-top:auto">Nothing here calculates an intersection. The overlaps
-  simply add up, and the strongest point wins.</p></div>
+  simply add up, and the strongest point wins &mdash; which is why the same code works whether
+  the shape is a hairline or a circle.</p></div>
   <div class="cell c7 pad0" style="padding:10px">
     <div class="canvasbox" style="min-height:290px"><canvas data-anim="bearing"></canvas></div></div>
  </div>
@@ -665,7 +686,45 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A7 &middot; references</p>
+ <p class="eyebrow anim">A7 &middot; does it need a direction?</p>
+ <h2 class="anim">No. It just costs you.</h2>
+ <div class="bento anim">
+  <div class="cell c12 flat"><p style="margin:0">A PTZ tower knows its pan angle, and the plume's
+  position inside the frame refines it further &mdash; so a bearing is usually available. But it is
+  not guaranteed, and several sensors we want to add have <b>no direction at all</b>: a gas sensor,
+  a 911 call, a utility fault. So we measured the whole range. Each geometry is tuned to its
+  <em>own</em> best threshold &mdash; comparing them at one threshold merely reports which geometry
+  that threshold was chosen for.</p></div>
+  <div class="cell c12 pad0"><div class="tw"><table>
+   <thead><tr><th>what the sensor reports</th><th>shape on the map</th><th>false alerts/day</th>
+   <th>detected</th><th>location error</th></tr></thead>
+   <tbody>
+    <tr class="hero"><td>bearing to &plusmn;2&deg;</td><td>a hairline wedge</td><td class="n">98</td>
+      <td class="n">100%</td><td class="n">647 m</td></tr>
+    <tr><td>bearing to &plusmn;10&deg; <span class="dim">(a camera's field of view)</span></td>
+      <td>a fat wedge</td><td class="n">155</td><td class="n">100%</td><td class="n">1,115 m</td></tr>
+    <tr><td>bearing to &plusmn;30&deg;</td><td>a quadrant</td><td class="n">794</td>
+      <td class="n">100%</td><td class="n">1,308 m</td></tr>
+    <tr><td><b>nothing but its GPS position</b></td><td><b>a 20 km disc</b></td>
+      <td class="n">738</td><td class="n">89%</td><td class="n">1,184 m</td></tr>
+   </tbody></table></div></div>
+  <div class="cell c6 mark"><h3 class="hl">It works without a direction</h3>
+   <p class="tiny" style="margin:0">89% of fires still found, still placed to about a kilometre.
+   Overlapping discs concentrate evidence the same way overlapping wedges do &mdash; the code does
+   not change, only the shape injected into it.</p></div>
+  <div class="cell c6 warmb"><h3 class="warn">But direction is worth about 7&times;</h3>
+   <p class="tiny" style="margin:0">98 false alerts a day against ~740. The cliff sits between
+   &plusmn;10&deg; and &plusmn;30&deg;, so the useful target is <b>ten degrees, not two</b> &mdash; which
+   is what a pan encoder gives you for free. Chasing better than that buys little.</p></div>
+  <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>Why this matters beyond cameras:</b>
+  supporting a bearing-less source is exactly what lets a gas sensor, a 911 call or a utility fault
+  sensor join the same network. They are not a degraded fallback &mdash; they are points with a
+  radius, which is the same maths.</p></div>
+ </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">A8 &middot; references</p>
  <h2 class="anim">Sources, code, licence.</h2>
  <div class="bento anim">
   <div class="cell c6"><h3>Code</h3>

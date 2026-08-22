@@ -109,7 +109,7 @@ def run_all(scen: Scenario, total_ticks: int, sensitivity: str = "normal",
             m_of_n: tuple[int, int] = (2, 30), adaptive: bool = True,
             confirm_accuracy: float = 0.95, weak_period: int = 12,
             weak_scale: float = 0.35, grid_kw: dict | None = None,
-            rng=None) -> dict[str, Result]:
+            proj_sigma: float | None = None, rng=None) -> dict[str, Result]:
     """Score all four methods on one scenario.
 
     adaptive=True gives EVERY method a like-for-like feedback channel, because
@@ -243,7 +243,11 @@ def run_all(scen: Scenario, total_ticks: int, sensitivity: str = "normal",
         # ---- ember: geometry + spatial integration --------------------------
         for cid, bearing, tier in strong_now:
             scale = 1.0 if tier == TIER_STRONG else weak_scale   # graded uplink
-            cells, w = cams[cid].project(bearing)
+            # proj_sigma is what the INTEGRATOR assumes about the report's
+            # angular precision, independent of the detector's real error.
+            # A very large value degenerates the wedge into a disc -- i.e. a
+            # camera that reports only "something, somewhere within range".
+            cells, w = cams[cid].project(bearing, sigma_deg=proj_sigma)
             if len(cells):
                 grid.inject_many(cells, w, cid, scale=scale)
 

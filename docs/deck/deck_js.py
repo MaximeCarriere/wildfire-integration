@@ -244,79 +244,100 @@ ANIM.lif=function(c){
   });
 };
 
-/* ===== 2. Layer 2 -- bearings crossing on the map ===== */
+/* ===== 2. Layer 2 -- overlapping shapes on the map =====
+   A report is not a line. If the camera knows roughly where it is pointed the
+   shape is a wedge; if it knows nothing but its own GPS position the shape is
+   simply a 20 km disc. The integrator does not care which -- it adds up
+   whatever overlaps. The loop shows both, so the cost of losing the direction
+   is visible rather than asserted: the disc fix is a region, the wedge fix is
+   a point. Measured, that difference is about 7x in false alarms. */
 ANIM.bearing=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),R=tok('--red'),Y=tok('--yellow');
-  var t0=performance.now(), DUR=11000;
-  var fire={x:0.56,y:0.40};
-  var towers=[{x:0.10,y:0.80},{x:0.90,y:0.74},{x:0.30,y:0.14}];
+  var t0=performance.now(), DUR=15000;
+  var KM=60;                                   /* the canvas spans ~60 km */
+  var fire={x:0.54,y:0.42};
+  var towers=[{x:0.16,y:0.78},{x:0.86,y:0.70},{x:0.34,y:0.13}];
 
   loop(function(){
-    var p=((performance.now()-t0)%DUR)/DUR;
+    var p=((performance.now()-t0)%DUR)/DUR, now=performance.now()/1000;
     x.clearRect(0,0,W,H);
-    var m=14, w=W-2*m, h=H-2*m;
+    var m=16, w=W-2*m, h=H-2*m;
     var X=function(u){return m+u*w;}, Yv=function(v){return m+v*h;};
+    var Rpx=(20/KM)*w;                          /* 20 km detection radius */
+    var fx=X(fire.x), fy=Yv(fire.y);
 
-    /* faint grid = the cell tessellation */
-    x.strokeStyle=D; x.globalAlpha=.13; x.lineWidth=1;
+    /* grid */
+    x.strokeStyle=D; x.globalAlpha=.12; x.lineWidth=1;
     for(var k=0;k<=12;k++){
       x.beginPath(); x.moveTo(m+k*w/12,m); x.lineTo(m+k*w/12,m+h); x.stroke();
       x.beginPath(); x.moveTo(m,m+k*h/12); x.lineTo(m+w,m+k*h/12); x.stroke();
     }
     x.globalAlpha=1;
 
-    /* how many towers have reported yet */
-    var live = p<0.22?0 : p<0.44?1 : p<0.66?2 : 3;
-    var fx=X(fire.x), fy=Yv(fire.y);
+    var live = p<0.14?0 : p<0.26?1 : p<0.38?2 : 3;
+    /* narrow: 0 = full disc (no direction), 1 = tight wedge (bearing known) */
+    var narrow = p<0.56?0 : Math.min(1,(p-0.56)/0.16);
+    var ease = narrow*narrow*(3-2*narrow);
 
     towers.forEach(function(T,n){
       var tx=X(T.x), ty=Yv(T.y);
       if(n<live){
         var ang=Math.atan2(fy-ty,fx-tx);
-        var spread=0.085;
-        var reach=Math.hypot(w,h)*1.1;
-        /* wedge */
-        var grd=x.createRadialGradient(tx,ty,0,tx,ty,reach);
-        grd.addColorStop(0,'transparent');
-        grd.addColorStop(.12,A); grd.addColorStop(1,'transparent');
-        x.globalAlpha=.16; x.fillStyle=grd;
+        var half=Math.PI*(1-ease) + 0.10*ease;   /* pi = whole disc -> 0.1 rad */
+        var grd=x.createRadialGradient(tx,ty,0,tx,ty,Rpx);
+        grd.addColorStop(0,'transparent'); grd.addColorStop(.35,A);
+        grd.addColorStop(1,'transparent');
+        x.globalAlpha=.14+.06*ease; x.fillStyle=grd;
         x.beginPath(); x.moveTo(tx,ty);
-        x.arc(tx,ty,reach,ang-spread,ang+spread); x.closePath(); x.fill();
+        x.arc(tx,ty,Rpx,ang-half,ang+half); x.closePath(); x.fill();
         x.globalAlpha=1;
-        /* centre line */
-        x.strokeStyle=A; x.globalAlpha=.55; x.lineWidth=1.5; x.setLineDash([5,5]);
-        x.beginPath(); x.moveTo(tx,ty);
-        x.lineTo(tx+Math.cos(ang)*reach, ty+Math.sin(ang)*reach); x.stroke();
-        x.setLineDash([]); x.globalAlpha=1;
+        /* boundary */
+        x.strokeStyle=A; x.globalAlpha=.35; x.lineWidth=1; x.setLineDash([4,4]);
+        x.beginPath(); x.arc(tx,ty,Rpx,ang-half,ang+half);
+        if(ease>0.05){ x.lineTo(tx,ty); x.closePath(); }
+        x.stroke(); x.setLineDash([]); x.globalAlpha=1;
       }
-      /* tower */
       x.fillStyle= n<live? A : D;
       x.beginPath(); x.arc(tx,ty,5,0,7); x.fill();
-      x.strokeStyle=x.fillStyle; x.lineWidth=1.5; x.globalAlpha=.4;
+      x.strokeStyle=x.fillStyle; x.globalAlpha=.35; x.lineWidth=1.4;
       x.beginPath(); x.arc(tx,ty,9,0,7); x.stroke(); x.globalAlpha=1;
       x.fillStyle=D; x.font='10px ui-monospace,monospace'; x.textAlign='center';
       x.fillText('tower '+(n+1), tx, ty+24);
     });
 
-    /* the crossing */
+    /* the fix: a region while the shapes are discs, a point once they narrow */
     if(live>=2){
-      var k2=Math.min(1,(p-0.44)/0.08);
-      x.globalAlpha=.9;
-      x.fillStyle=live>=3?R:Y;
-      x.beginPath(); x.arc(fx,fy,(live>=3?9:6)*(0.6+0.4*Math.sin(p*40)),0,7); x.fill();
-      x.globalAlpha=1;
+      var spread=(1-ease);
+      var rr=(6+spread*46);
+      x.globalAlpha=.85; x.fillStyle=live>=3?R:Y;
+      if(spread>0.05){
+        x.globalAlpha=.16; x.beginPath(); x.arc(fx,fy,rr,0,7); x.fill(); x.globalAlpha=.9;
+      }
+      x.beginPath(); x.arc(fx,fy,live>=3?(5+2*ease):4,0,7); x.fill(); x.globalAlpha=1;
       x.strokeStyle=live>=3?R:Y; x.lineWidth=1.5;
-      x.strokeRect(fx-w/24, fy-h/24, w/12, h/12);
+      x.strokeRect(fx-rr*0.7,fy-rr*0.7,rr*1.4,rr*1.4);
+      if(ease>0.6){
+        var pl=(now*1.6)%1;
+        x.globalAlpha=(1-pl)*.6; x.beginPath(); x.arc(fx,fy,7+pl*24,0,7); x.stroke();
+        x.globalAlpha=1;
+      }
     }
 
-    /* narration */
-    x.textAlign='left'; x.font='11px ui-monospace,monospace';
-    var msg = live===0? 'quiet — nothing reported'
-            : live===1? 'one tower reports. a bearing, not a place. no alert.'
-            : live===2? 'a second tower agrees. the bearings cross.'
-            : 'three towers. evidence concentrates — alert, with coordinates.';
-    x.fillStyle = live>=2? (live>=3?R:Y) : D;
+    /* scale bar */
+    x.strokeStyle=D; x.globalAlpha=.5; x.lineWidth=1;
+    x.beginPath(); x.moveTo(m+4,m+h-6); x.lineTo(m+4+(20/KM)*w,m+h-6); x.stroke();
+    x.fillStyle=D; x.font='9px ui-monospace,monospace'; x.textAlign='left';
+    x.fillText('20 km',m+4,m+h-11); x.globalAlpha=1;
+
+    var msg,col=D;
+    if(live===0){ msg='quiet — nothing reported'; }
+    else if(live===1){ msg='one tower reports. somewhere within 20 km of it. no alert.'; col=Y; }
+    else if(live===2){ msg='a second tower agrees. the discs overlap — but it is still a region.'; col=Y; }
+    else if(ease<0.05){ msg='three towers, GPS only. a fix about a kilometre across. it works.'; col=R; }
+    else if(ease<0.95){ msg='now add a rough direction — ten degrees is enough…'; col=R; }
+    else { msg='…and the same evidence lands on one cell. ~7× fewer false alarms.'; col=R; }
+    x.textAlign='left'; x.font='11px ui-monospace,monospace'; x.fillStyle=col;
     x.fillText(msg, m+2, m+h+2);
   });
 };

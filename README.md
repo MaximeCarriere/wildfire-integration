@@ -60,6 +60,15 @@ mechanisms that each earn their place:
 Sensitivity is set by operator preset (Normal / Elevated / Red Flag) and scales
 automatically with the local fire-danger index.
 
+### The camera never sends a picture
+
+The entire transmission is 16 bytes: node id, time, a class and a confidence.
+**1 means plume, 2 means fire.** That is the whole vocabulary. No image leaves
+the tower — not to a server, not to anyone — so there is nothing to intercept,
+nothing to breach, nothing to subpoena, and no surveillance capability to
+misuse. A town can accept a camera watching its ridge without accepting a
+camera watching itself.
+
 ### Localisation is bearing-only, on purpose
 
 Monocular range-to-smoke is poor and PTZ cameras slew continuously, so a
@@ -139,6 +148,25 @@ Drone dispatch is legitimate *pre-confirmation* — before any TFR exists or
 aircraft launch. The real operational risk is the handoff: a drone still
 airborne when a fire is confirmed and aircraft arrive becomes an incursion, so
 the broker implements **automatic recall on confirmation or TFR issuance**.
+
+### Does it need to know which way the camera points?
+
+No — it costs you. `eval/bearing_study.py` measures the whole range, each
+geometry tuned to its *own* best threshold:
+
+| what the sensor reports | shape | false alerts/day | detected | loc error |
+|---|---|---:|---:|---:|
+| bearing ±2° | hairline wedge | 98 | 100% | 647 m |
+| bearing ±10° (a camera's FOV) | fat wedge | 155 | 100% | 1,115 m |
+| bearing ±30° | quadrant | 794 | 100% | 1,308 m |
+| **nothing but its GPS position** | **20 km disc** | 738 | 89% | 1,184 m |
+
+It works on GPS alone. Direction is worth about **7× in false alarms**, and the
+cliff sits between ±10° and ±30° — so the useful target is *ten degrees, not
+two*, which a pan encoder gives for free.
+
+This matters beyond cameras: supporting a bearing-less source is exactly what
+lets a gas sensor, a 911 call or a utility fault sensor join the same network.
 
 ## Not just cameras — but not all the same way
 
