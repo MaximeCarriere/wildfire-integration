@@ -112,7 +112,11 @@ SLIDES = r"""
      <span class="stat hl">0 bytes</span>
      <p class="tiny" style="margin:4px 0 0">Not to a server. Not to us. Not to anyone.
      The picture is looked at on the pole and discarded there.</p></div>
-    <div class="cell c12 bare"><p style="margin:0">So there is <b>nothing to intercept, nothing to
+    <div class="cell c12 bare"><p style="margin:0 0 8px"><b class="hl">The camera decides
+    <em>whether</em>. The board decides <em>where</em>.</b> The picture is looked at on the pole by the
+    camera's own detector and discarded there; what crosses the air is a verdict, not an image. The
+    board holds no pixels at all &mdash; only a map of the ground, one number per 500 m square.</p>
+    <p style="margin:0">So there is <b>nothing to intercept, nothing to
     breach, nothing to subpoena</b>, and no surveillance capability for anyone to misuse later.
     A town can accept a camera watching its ridge without accepting a camera watching itself.
     <b class="hl">This is not a nice side effect &mdash; it is what makes the thing deployable at all.</b></p></div>
@@ -492,7 +496,7 @@ SLIDES = r"""
  <h2 class="anim">The core is built, measured, and already runs on the chip.</h2>
  <div class="bento anim">
   <div class="cell c3 mark"><span class="stat sm hl">44</span><span class="label">tests passing</span></div>
-  <div class="cell c3 mark"><span class="stat sm hl">116 KB</span><span class="label">memory, fixed</span></div>
+  <div class="cell c3 mark"><span class="stat sm hl">116 KB</span><span class="label">map memory, fixed</span></div>
   <div class="cell c3 mark"><span class="stat sm hl">56 &micro;s</span><span class="label">per update</span></div>
   <div class="cell c3 mark"><span class="stat sm hl">0</span><span class="label">floating point ops</span></div>
   <div class="cell c7"><h3>Why we are not waiting for the board</h3>
@@ -611,9 +615,10 @@ SLIDES = r"""
    refactors unchanged &mdash; removing the C library and moving the surround maths to 32-bit
    &mdash; which is exactly the property doing its job.</p></div>
   <div class="cell c4 flat"><span class="label">state</span><span class="stat sm">116 KB</span>
-   <p class="tiny">for a 64&times;64 grid, inside the STM32U585's 786&nbsp;KB, statically sized</p></div>
+   <p class="tiny">a 64&times;64 <b>map</b> of 500 m ground cells &mdash; 4,096 of them, 29 bytes each.
+   No pixels: there is no image buffer on the board at all.</p></div>
   <div class="cell c4 flat"><span class="label">update</span><span class="stat sm">56 &micro;s</span>
-   <p class="tiny">per tick on the development host, 4,096 cells</p></div>
+   <p class="tiny">per tick on the development host, across all 4,096 ground cells</p></div>
   <div class="cell c4 flat"><span class="label">wire record</span><span class="stat sm">16 B</span>
    <p class="tiny">CRC-16 protected; a corrupt event is dropped, never guessed</p></div>
  </div>
@@ -658,7 +663,7 @@ SLIDES = r"""
     <tr><td>FireSat (Earth Fire Alliance)</td><td class="n">5 m</td>
         <td class="n">2&times;/day today</td><td>heat, multispectral IR</td>
         <td>first three operational satellites launched 7 July 2026; hourly revisit targeted for 2029, 20 min at the full 50-satellite constellation</td></tr>
-    <tr class="hero"><td>Ground cameras + integrator</td><td class="n">500 m cell</td>
+    <tr class="hero"><td>Ground cameras + integrator</td><td class="n">500 m ground cell</td>
         <td class="n">continuous</td><td>smoke, and agreement between cameras</td>
         <td>line of sight only. Raw cameras give ~1 false positive per camera per day; the integrator
         removes ~4&times; of them at equal detection</td></tr>

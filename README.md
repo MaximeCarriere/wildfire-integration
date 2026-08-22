@@ -62,6 +62,9 @@ automatically with the local fire-danger index.
 
 ### The camera never sends a picture
 
+*(The grid below is a map of the ground, not an image. The board holds no
+pixels — only one number per 500 m square of terrain.)*
+
 The entire transmission is 16 bytes: node id, time, a class and a confidence.
 **1 means plume, 2 means fire.** That is the whole vocabulary. No image leaves
 the tower — not to a server, not to anyone — so there is nothing to intercept,
