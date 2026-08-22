@@ -87,6 +87,75 @@ function loop(fn){
 
 var ANIM={};
 
+/* ===== 0. the cover =====
+   Not a diagram -- the thesis, ambient. A field of sensors twitching at
+   nothing, most of the time. Now and then a few near each other agree, and
+   exactly one alert rises out of the noise. That is the whole argument, and
+   it needs no caption.
+   The cover deliberately does NOT reuse a later slide's diagram: showing the
+   geometry here would spend the explanation before the problem is stated. */
+ANIM.cover=function(c){
+  var g=fit(c),W=g.w,H=g.h,x=g.x;
+  var A=tok('--select'),D=tok('--dim'),R=tok('--red'),Y=tok('--yellow');
+  var t0=performance.now();
+
+  if(!c._field || c._fw!==W){
+    var rnd=mulberry(80231), pts=[], cols=Math.max(9,Math.round(W/34));
+    var rows=Math.max(6,Math.round(H/34));
+    for(var j=0;j<rows;j++)for(var i=0;i<cols;i++){
+      pts.push({x:(i+0.5+(rnd()-0.5)*0.72)/cols,
+                y:(j+0.5+(rnd()-0.5)*0.72)/rows,
+                ph:rnd()*6.28, r:rnd()});
+    }
+    var ev=[];
+    for(var k=0;k<5;k++){
+      var seed=pts[Math.floor(rnd()*pts.length)];
+      var near=pts.map(function(q,idx){return {idx:idx,
+          d:Math.hypot((q.x-seed.x)*W,(q.y-seed.y)*H)};})
+        .sort(function(a2,b2){return a2.d-b2.d;}).slice(0,3);
+      ev.push({at:0.12+k*0.19, who:near.map(function(o){return o.idx;}),
+               x:seed.x, y:seed.y});
+    }
+    c._field=pts; c._ev=ev; c._fw=W;
+  }
+  var pts=c._field, EV=c._ev, DUR=26000;
+
+  loop(function(){
+    var p=((performance.now()-t0)%DUR)/DUR, now=performance.now()/1000;
+    x.clearRect(0,0,W,H);
+    var cur=null, age=0;
+    for(var e=0;e<EV.length;e++){
+      var a2=p-EV[e].at;
+      if(a2>=0 && a2<0.115){ cur=EV[e]; age=a2/0.115; }
+    }
+    pts.forEach(function(q,idx){
+      var px=q.x*W, py=q.y*H, col=D, rad=1.6, al=.30;
+      var fl=(now*0.55+q.ph)%6.28;
+      if(fl<0.5 && q.r>0.55){ col=Y; rad=2.4; al=.22+.42*(1-fl/0.5); }
+      if(cur && cur.who.indexOf(idx)>=0){
+        var on=Math.min(1,age/0.22);
+        col=age<0.45?Y:R; rad=2.4+on*1.8; al=.4+.6*on;
+        if(age>0.2){
+          x.strokeStyle=col; x.globalAlpha=.28*(1-Math.min(1,(age-0.2)/0.5));
+          x.lineWidth=1; x.beginPath();
+          x.moveTo(px,py); x.lineTo(cur.x*W,cur.y*H); x.stroke(); x.globalAlpha=1;
+        }
+      }
+      x.globalAlpha=al; x.fillStyle=col;
+      x.beginPath(); x.arc(px,py,rad,0,7); x.fill(); x.globalAlpha=1;
+    });
+    if(cur && age>0.42){
+      var k2=(age-0.42)/0.58, ax=cur.x*W, ay=cur.y*H, pl=(now*1.5)%1;
+      x.globalAlpha=(1-pl)*.55*(1-k2*0.6); x.strokeStyle=R; x.lineWidth=1.6;
+      x.beginPath(); x.arc(ax,ay,6+pl*30,0,7); x.stroke();
+      x.globalAlpha=.85*(1-k2*0.5); x.fillStyle=R;
+      x.beginPath(); x.arc(ax,ay,4,0,7); x.fill();
+      x.globalAlpha=.7*(1-k2*0.5); x.strokeStyle=R; x.lineWidth=1.2;
+      x.strokeRect(ax-11,ay-11,22,22); x.globalAlpha=1;
+    }
+  });
+};
+
 /* ===== 1. evidence -> threshold -> fire -> drone =====
    Three things at once, because they are the same idea:
      - evidence ACCUMULATES and leaks; crossing the bar dispatches a drone

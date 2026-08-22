@@ -13,7 +13,7 @@ SLIDES = r"""
    confidential edge AI, built small and sealed shut &nbsp;&middot;&nbsp;
    <span class="dim">press <kbd>&rarr;</kbd> to advance, <kbd>?</kbd> for keys</span></p>
   </div>
-  <div class="art anim"><div class="canvasbox" style="min-height:300px"><canvas data-anim="bearing"></canvas></div></div>
+  <div class="art anim"><div class="canvasbox" style="min-height:min(56vh,380px)"><canvas data-anim="cover"></canvas></div></div>
  </div>
 </div></section>
 
