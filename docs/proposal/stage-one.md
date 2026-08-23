@@ -10,8 +10,8 @@ Pillars addressed: *anticipate and mitigate risk* · *enable real-time response*
 
 ## 1. Problem statement
 
-America's wildfire camera networks do not have a detection problem. They have a
-**false-alarm problem**, and it is the thing that caps how far they can scale.
+America's wildfire camera networks do not have a detection problem. They have an
+**attention problem**, and it is the thing that caps how far they can scale.
 
 ALERTCalifornia operates more than 1,000 AI-equipped cameras at a published rate
 of "less than one false positive per day per camera." Across the network that is

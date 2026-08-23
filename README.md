@@ -10,8 +10,10 @@ Built for the [Resilient America Preparedness Challenge](https://deveco.io/conte
 
 ## The problem
 
-Wildfire camera networks do not have a detection problem. They have a
-**false-alarm problem**.
+Wildfire camera networks do not have a detection problem. They have an
+**attention problem** — roughly 1,000 false alarms a day across California,
+each resolved by a person looking. At two minutes a check that is 33 hours of
+human attention every day, more than four full shifts, spent on cloud and dust.
 
 ALERTCalifornia runs 1,000+ AI cameras at "less than one false positive per day
 per camera" — roughly **1,000 false alarms a day network-wide**, every one of

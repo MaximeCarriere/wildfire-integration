@@ -20,7 +20,7 @@ SLIDES = r"""
 <!-- 2 PROBLEM -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">Wildfire cameras don't have a detection problem.<br>They have an <span class="bad">interruption</span> problem.</h2>
+ <h2 class="anim">Wildfire cameras don't have a detection problem.<br>They have an <span class="bad">attention</span> problem.</h2>
  <div class="bento anim" style="margin-top:8px">
   <div class="cell c4 mark"><span class="label">deployed today</span>
    <span class="stat">1,000+</span><p class="tiny">AI cameras watching California alone.
@@ -28,12 +28,13 @@ SLIDES = r"""
   <div class="cell c4 hot"><span class="label">and therefore</span>
    <span class="stat bad">~1,000</span><p class="tiny">false alarms every day, network-wide.
    Cloud. Fog. Dust. Steam off a geothermal plant.</p></div>
-  <div class="cell c4 warmb"><span class="label">resolved by</span>
-   <span class="stat warn">a person</span><p class="tiny">looking at each one. The same way it
-   was done in 1935, just with more screens.</p></div>
-  <div class="cell c12 flat"><p style="margin:0">Operators had to teach the software, by hand, to
-  ignore the steam from the Geysers field. <b>The confirmation step is a human being</b> &mdash;
-  and that human is the part of the system you cannot buy more of.</p></div>
+  <div class="cell c4 warmb"><span class="label">costing, every day</span>
+   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention &mdash;
+   <b>more than four full shifts</b> &mdash; spent looking at cloud and dust. At two minutes a check.</p></div>
+  <div class="cell c12 flat"><p style="margin:0">Every one of those is resolved the same way it was in
+  1935: <b>a person looks.</b> Operators even had to teach the software, by hand, to ignore the steam
+  off the Geysers field. <b class="hl">The confirmation step is a human being</b> &mdash; and that
+  human is the one part of the system you cannot buy more of.</p></div>
  </div>
 </div></section>
 
