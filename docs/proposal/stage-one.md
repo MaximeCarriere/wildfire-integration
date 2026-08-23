@@ -165,7 +165,7 @@ Three reasons, none of them decorative:
 
 - The integrator is implemented in portable C99 — no floating point, no `libm`,
   no allocator, and no C library at all. It **cross-compiles clean for Cortex-M33
-  (thumbv8m.main, freestanding, `-Werror`)** and passes 44 tests plus a pinned
+  (thumbv8m.main, freestanding, `-Werror`)** and passes 53 tests plus a pinned
   golden-vector hash.
 - Because it is fixed-point, host and target output are **bit-identical**. A
   golden-vector hash proves the MCU port is correct *before the dev kit ships* —

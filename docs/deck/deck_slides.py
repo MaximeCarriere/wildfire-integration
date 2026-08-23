@@ -87,47 +87,27 @@ SLIDES = r"""
  <p class="eyebrow anim">04 &middot; the idea</p>
  <h2 class="anim">Stop treating cameras as alarms.<br>Treat them as <span class="hl">nerve endings</span>.</h2>
  <div class="bento anim">
-  <div class="cell c5"><span class="label">a single nerve ending</span>
-   <p style="margin:6px 0 0">is not trusted on its own. It is <b>weak, noisy, and constantly
-   wrong</b>. Your brain does not act on one. It waits for the signal to persist, and for
-   other nerves to agree.</p></div>
+  <div class="cell c5"><p style="margin:0">A single nerve ending is <b>weak, noisy and often wrong</b>.
+  Your brain never acts on one. It waits to see whether the signal persists, and whether other nerves
+  agree.</p></div>
   <div class="cell c7 mark"><span class="label">so each camera sends</span>
    <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
      <span class="stat hl">16 bytes</span>
-     <span class="tiny" style="max-width:30ch">not a video stream. A twitch:
-     <em>&ldquo;something, this confident.&rdquo;</em></span>
-   </div>
-   <p class="tiny" style="margin:8px 0 0">Small enough to cross LoRa, satellite, or a dying
-   cellular link. Video cannot. When the network fails, the thinking carries on locally.</p></div>
+     <span class="tiny" style="max-width:30ch">a twitch, not a video stream. Small enough for LoRa,
+     satellite, or a dying cellular link.</span></div></div>
 
-  <div class="cell c12 hot"><h3 class="bad">It never sends a picture. That is the point.</h3>
-   <div class="bento" style="gap:12px">
-    <div class="cell c7 bare" style="gap:8px">
-     <p style="margin:0">Here is the <em>entire</em> transmission, byte for byte:</p>
-     <p class="mono" style="margin:0;font-size:12px;letter-spacing:.04em;color:var(--dim)">
-      94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
-     <p style="margin:0">Which decodes to: <b>camera 41, at 09:12, says <span class="hl">2</span>,
-     four fifths sure.</b> <b class="hl">1 means plume. 2 means fire.</b> That is the whole vocabulary.</p>
-    </div>
-    <div class="cell c5 bare"><span class="label">image data transmitted</span>
-     <span class="stat hl">0 bytes</span>
-     <p class="tiny" style="margin:4px 0 0">Not to a server. Not to us. Not to anyone.
-     The picture is looked at on the pole and discarded there.</p></div>
-    <div class="cell c12 bare"><p style="margin:0 0 8px"><b class="hl">The camera decides
-    <em>whether</em>. The board decides <em>where</em>.</b> The picture is looked at on the pole by the
-    camera's own detector and discarded there; what crosses the air is a verdict, not an image. The
-    board holds no pixels at all &mdash; only a map of the ground, one number per 500 m square.</p>
-    <p style="margin:0">So there is <b>nothing to intercept, nothing to
-    breach, nothing to subpoena</b>, and no surveillance capability for anyone to misuse later.
-    A town can accept a camera watching its ridge without accepting a camera watching itself.
-    <b class="hl">This is not a nice side effect &mdash; it is what makes the thing deployable at all.</b></p></div>
-   </div></div>
+  <div class="cell c12 hot"><h3 class="bad">It never sends a picture</h3>
+   <p class="mono" style="margin:0 0 8px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
+    94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
+   <p style="margin:0"><b>Camera 41, at 09:12, says <span class="hl">2</span>, four fifths sure.</b>
+   1 means plume, 2 means fire &mdash; the whole vocabulary. <b class="hl">The camera decides <em>whether</em>;
+   the board decides <em>where</em>.</b> Zero bytes of image leave the pole, so there is nothing to
+   intercept, breach or subpoena, and no surveillance capability to misuse.</p></div>
+
   <div class="cell c6 flat"><h3><span class="hl">Layer 1</span> &mdash; at the camera</h3>
-   <p class="tiny" style="margin:0">Integrates over <b>time</b>. &ldquo;Is this plume still there,
-   or did it flicker once?&rdquo;</p></div>
+   <p class="tiny" style="margin:0">Integrates over <b>time</b>. &ldquo;Is this plume still there?&rdquo;</p></div>
   <div class="cell c6 flat"><h3><span class="hl">Layer 2</span> &mdash; on the board</h3>
-   <p class="tiny" style="margin:0">Integrates over <b>space</b>. &ldquo;Do towers looking from
-   different angles agree on a place?&rdquo;</p></div>
+   <p class="tiny" style="margin:0">Integrates over <b>space</b>. &ldquo;Do towers at different angles agree?&rdquo;</p></div>
  </div>
 </div></section>
 
@@ -251,28 +231,28 @@ SLIDES = r"""
 
 <!-- 10 CONFIRMATION -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">10 &middot; after the alert</p>
+ <p class="eyebrow anim">09 &middot; after the alert</p>
  <h2 class="anim">The alert isn't the end. It's a question.</h2>
  <div class="bento anim">
-  <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is
-  worth spending to check. <b class="hl">Cheap look first, expensive look only if needed.</b></p></div>
+  <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is worth
+  spending to check. <b class="hl">Cheap look first; expensive look only if needed.</b></p></div>
+
   <div class="cell c4 mark"><span class="label">tier 1 &middot; seconds</span><h3>Point a camera at it</h3>
-   <p class="tiny">The towers already pan and zoom. Slew the nearest one to the bearing, zoom in,
-   run the detector on the close-up. Free, instant, legal, uses hardware already bolted to the pole.</p></div>
+   <p class="tiny" style="margin:0">The towers already pan and zoom. Slew the nearest, zoom, re-run the
+   detector on the close-up. Free, instant, uses hardware already on the pole.</p></div>
   <div class="cell c4 warmb"><span class="label">tier 2 &middot; ~20 minutes</span><h3>Send a drone</h3>
-   <p class="tiny">Only when the camera cannot settle it &mdash; a ridge in the way, out of range,
-   darkness. Dispatched automatically, before any fire is confirmed and before aircraft fly.</p></div>
+   <p class="tiny" style="margin:0">Only when the camera cannot settle it &mdash; a ridge in the way,
+   out of range, darkness.</p></div>
   <div class="cell c4 hot"><span class="label">tier 3</span><h3>Send people</h3>
-   <p class="tiny">Once something is confirmed. By this point a human is being handed a location
-   and a photograph, not a shrug.</p></div>
+   <p class="tiny" style="margin:0">Once confirmed. By now a human is handed a location and a
+   photograph, not a shrug.</p></div>
+
   <div class="cell c7"><h3>And it remembers the answer</h3>
-   <p class="tiny" style="margin:0">Whatever comes back is fed into the grid. &ldquo;Nothing there&rdquo;
-   raises the bar <em>at that spot</em> above whatever just triggered it &mdash; so a steam vent goes
-   quiet, while the hillside next to it stays as sensitive as ever.</p></div>
+   <p class="tiny" style="margin:0">&ldquo;Nothing there&rdquo; raises the bar <em>at that spot</em> above
+   whatever just triggered it. A steam vent goes quiet; the hillside beside it stays as sensitive as ever.</p></div>
   <div class="cell c5 flat"><h3 class="warn">The detail that matters</h3>
-   <p class="tiny" style="margin:0">Drones near confirmed fires <b>ground firefighting aircraft</b>.
-   So ours is recalled automatically the moment a fire is confirmed or a flight restriction is
-   issued. It checks, then gets out of the way.</p></div>
+   <p class="tiny" style="margin:0">Drones near confirmed fires <b>ground firefighting aircraft</b>. Ours is
+   recalled automatically the moment a fire is confirmed or a flight restriction issued.</p></div>
  </div>
 </div></section>
 
@@ -345,12 +325,10 @@ SLIDES = r"""
  <p class="eyebrow anim">14 &middot; where we fit</p>
  <h2 class="anim">Satellites own <span class="hl">everywhere</span>.<br>We own the <span class="hl">first ten minutes</span>.</h2>
  <div class="bento anim">
-  <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at once.
-  A geostationary satellite stares continuously but at 2 km pixels, and cannot see a fire until it is
-  already burning hard. A polar orbiter sees small fires beautifully &mdash; twice a day, as it passes.
-  <b>Continuous-and-coarse, or fine-and-occasional: you cannot currently buy both.</b>
-  <b class="hl">Ground cameras are the earliest practical signal in the first minutes after ignition</b>,
-  which is exactly the window in which a fire is still cheap to stop.</p></div>
+  <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at
+  once. <b>Continuous-and-coarse, or fine-and-occasional &mdash; you cannot currently buy both.</b>
+  <b class="hl">Ground cameras are the earliest practical signal in the first minutes after
+  ignition</b>, which is exactly when a fire is still cheap to stop.</p></div>
 
   <div class="cell c12 pad0"><div class="tw"><table class="mx">
    <colgroup><col style="width:10rem"><col><col><col class="us"></colgroup>
@@ -390,80 +368,65 @@ SLIDES = r"""
      <span class="dim">&mdash; every column carries all three. Detail in appendix A6.</span>
    </div></div>
 
-  <div class="cell c4 mark"><h3 class="hl">What only we do</h3>
-   <p class="tiny" style="margin:0">Turn a layer that is <em>too noisy to staff</em> into one a dispatcher can
-   act on &mdash; <b>4.4&times; fewer false alarms at the same detection rate</b>, with a location attached.</p></div>
-  <div class="cell c4 flat"><h3>What only satellites do</h3>
-   <p class="tiny" style="margin:0">Find the fire nobody has a camera pointed at, and map a perimeter once it
-   is burning. <b>We cannot see past a ridgeline. They can.</b> Our failure modes are different from theirs,
-   which is the whole reason to run both.</p></div>
-  <div class="cell c4 flat"><h3>What only people do</h3>
-   <p class="tiny" style="margin:0">Decide. We do not remove the watchstander &mdash; their attention is the
-   scarcest thing in the system, and we stop spending it on cloud and dust.</p></div>
+  <div class="cell c4 mark"><h3 class="hl">Only we</h3>
+   <p class="tiny" style="margin:0">Turn a layer <em>too noisy to staff</em> into one a dispatcher can act
+   on: <b>4.4&times; fewer false alarms at the same detection rate</b>, with a location attached.</p></div>
+  <div class="cell c4 flat"><h3>Only satellites</h3>
+   <p class="tiny" style="margin:0">Find the fire nobody has a camera pointed at, and map a perimeter once
+   it burns. <b>We cannot see past a ridgeline. They can.</b></p></div>
+  <div class="cell c4 flat"><h3>Only people</h3>
+   <p class="tiny" style="margin:0">Decide. We do not remove the watchstander &mdash; we stop spending them
+   on cloud and dust.</p></div>
  </div>
 </div></section>
 
 <!-- 15 MANY SENSORS -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">15 &middot; what comes next</p>
- <h2 class="anim">Cameras are the first sensor.<br>But they don't all join the <span class="hl">same way</span>.</h2>
+ <h2 class="anim">Cameras are the first sensor.<br>They don't all join the <span class="hl">same way</span>.</h2>
  <div class="bento anim">
-  <div class="cell c12 mark"><p style="margin:0;font-size:1.03rem">A new sensor answers one of three
-  different questions, and each enters the network by a different door.
-  <b class="hl">All three doors already exist in the code</b> &mdash; they are the three calls the integrator
-  exposes. Adding a modality is a projection function, not a redesign.</p></div>
+  <div class="cell c12 mark"><p style="margin:0">A new sensor answers one of three questions, and each
+  enters by a different door. <b class="hl">All three already exist in the code</b> &mdash; adding a
+  modality is a projection function, not a redesign.</p></div>
 
-  <div class="cell c4 mark"><span class="label">door 1 &middot; ember_grid_inject()</span>
+  <div class="cell c4 mark"><span class="label">door 1 &middot; inject()</span>
    <h3>&ldquo;Is something burning there?&rdquo;</h3>
-   <p class="tiny" style="margin:0"><b>Evidence.</b> Votes into the membrane. Needs a location or a bearing,
-   a class and a confidence.</p>
-   <ul class="clean" style="margin-top:8px">
-    <li><b>Cameras</b> &mdash; today. The plume at 5&ndash;10 min, from 20 km.</li>
-    <li><b>People / 911</b> &mdash; a report is a sensor reading with a location on it. The oldest one, still
-    among the best.</li>
-    <li class="warnb"><b>Gas &amp; particle sensors</b> &mdash; read the small print, right.</li>
+   <ul class="clean" style="margin-top:6px">
+    <li><b>Cameras</b> &mdash; today</li>
+    <li><b>911 calls</b> &mdash; a report is a reading with a location on it</li>
+    <li class="warnb"><b>Gas sensors</b> &mdash; see below</li>
    </ul></div>
 
-  <div class="cell c4 flat"><span class="label">door 2 &middot; ember_grid_prior()</span>
-   <h3>&ldquo;Should I be more suspicious here?&rdquo;</h3>
-   <p class="tiny" style="margin:0"><b>A prior.</b> Not evidence &mdash; nothing is burning yet. It lowers the
-   threshold in one place for a while.</p>
-   <ul class="clean" style="margin-top:8px">
-    <li><b>Lightning strike feeds</b> &mdash; NLDN geolocates strikes by radio timing from the ground,
-    GOES-GLM optically from orbit. A <em>subscription</em>, not hardware you deploy. A strike can smoulder for
-    days before it shows. 44% of western fires, <b>71% of the area burned</b>.</li>
-    <li><b>Fire weather &amp; fuel moisture</b> &mdash; already built. The global version of the same idea.</li>
+  <div class="cell c4 flat"><span class="label">door 2 &middot; prior()</span>
+   <h3>&ldquo;Be more suspicious here&rdquo;</h3>
+   <ul class="clean" style="margin-top:6px">
+    <li><b>Lightning feeds</b> &mdash; a subscription, not hardware. 44% of western fires,
+    <b>71% of the area burned</b></li>
+    <li><b>Fire weather</b> &mdash; already built</li>
    </ul>
-   <p class="tiny hl" style="margin:8px 0 0"><b>A prior alone never raises an alert.</b> Suspicion is not
-   detection &mdash; and that is a test in the suite, not a good intention.</p></div>
+   <p class="tiny hl" style="margin:8px 0 0"><b>A prior alone never alerts.</b> Suspicion is not
+   detection &mdash; and that is a test, not an intention.</p></div>
 
-  <div class="cell c4 flat"><span class="label">door 3 &middot; ember_grid_confirm()</span>
+  <div class="cell c4 flat"><span class="label">door 3 &middot; confirm()</span>
    <h3>&ldquo;Was that one real?&rdquo;</h3>
-   <p class="tiny" style="margin:0"><b>Confirmation.</b> Arrives after the alert and teaches the grid.</p>
-   <ul class="clean" style="margin-top:8px">
-    <li><b>Camera slew + zoom</b> &mdash; today. Seconds, free.</li>
-    <li><b>Satellite hotspots</b> &mdash; <b class="hl">this is where they belong</b>, not at the input. Heat
-    lags smoke and delivery runs 1&ndash;3 h, so by the time a hotspot appears the cameras have long since
-    alerted. But as a confirmer it is <em>free</em> &mdash; no asset to dispatch &mdash; and physically
-    uncorrelated with a camera. Cheapest tier in the broker: check it before spending a drone.</li>
-    <li><b>Drone, then crew</b> &mdash; minutes, then people.</li>
+   <ul class="clean" style="margin-top:6px">
+    <li><b>Camera slew</b> &mdash; today. Seconds, free</li>
+    <li><b>Satellites</b> &mdash; <b class="hl">here, not at the input</b>. Heat lags smoke, so a
+    hotspot arrives long after the cameras. But it is free and uncorrelated: check it before
+    spending a drone</li>
+    <li><b>Drone, then crew</b></li>
    </ul></div>
 
-  <div class="cell c7 warmb"><h3 class="warn">The small print on gas sensors</h3>
-   <p class="tiny" style="margin:0">They detect a smouldering fire <em>before there is a flame</em> &mdash;
-   genuinely earlier than anything optical. But the detection radius is <b>80&ndash;100 m</b>, and the
-   recommended density is <b>0.7 sensors per hectare</b> in dense wildland-urban interface. Covering the
-   40&nbsp;&times;&nbsp;40 km region we simulate would need roughly <b>110,000 of them, against 8 cameras.</b>
-   So they are not a coverage layer and we will not pretend otherwise &mdash; they are <b>asset
-   protection</b>: the edge of a town, a substation corridor, a campground. Tiny footprint, very high
-   confidence, and a strong vote in the few cells they can see.</p></div>
-
-  <div class="cell c5 hot"><h3 class="bad">Why any of this helps</h3>
-   <p class="tiny" style="margin:0">Coincidence gain rewards agreement between <b>independent</b> sources
-   &mdash; and two cameras are not fully independent, since the same dust plume fools both.
-   <b class="hl">A camera, a gas sensor and a lightning-primed cell cannot be fooled by the same thing.</b>
-   Nothing physically couples their failure modes. Each modality added makes every existing alert harder
-   to fake.</p></div>
+  <div class="cell c6 warmb"><h3 class="warn">Gas sensors: read the small print</h3>
+   <p class="tiny" style="margin:0">They catch a fire <em>before there is a flame</em> &mdash; but the
+   radius is <b>80&ndash;100 m</b> at <b>0.7 per hectare</b>. Covering our region would take
+   <b>110,000 of them against 8 cameras</b>. Not a coverage layer, and we will not pretend otherwise:
+   they are <b>asset protection</b> for a town edge or a substation.</p></div>
+  <div class="cell c6 hot"><h3 class="bad">Why it makes the network stronger</h3>
+   <p class="tiny" style="margin:0">Coincidence gain rewards agreement between <b>independent</b>
+   sources &mdash; and two cameras are not independent, since the same dust plume fools both.
+   <b class="hl">A camera, a gas sensor and a lightning-primed cell cannot be.</b> Each modality added
+   makes every existing alert harder to fake.</p></div>
  </div>
 </div></section>
 
@@ -496,7 +459,7 @@ SLIDES = r"""
  <p class="eyebrow anim">17 &middot; where this goes</p>
  <h2 class="anim">The core is built, measured, and already runs on the chip.</h2>
  <div class="bento anim">
-  <div class="cell c3 mark"><span class="stat sm hl">44</span><span class="label">tests passing</span></div>
+  <div class="cell c3 mark"><span class="stat sm hl">53</span><span class="label">tests passing</span></div>
   <div class="cell c3 mark"><span class="stat sm hl">116 KB</span><span class="label">map memory, fixed</span></div>
   <div class="cell c3 mark"><span class="stat sm hl">56 &micro;s</span><span class="label">per update</span></div>
   <div class="cell c3 mark"><span class="stat sm hl">0</span><span class="label">floating point ops</span></div>
@@ -695,33 +658,32 @@ SLIDES = r"""
  <p class="eyebrow anim">A7 &middot; does it need a direction?</p>
  <h2 class="anim">No. It just costs you.</h2>
  <div class="bento anim">
-  <div class="cell c12 flat"><p style="margin:0">A PTZ tower knows its pan angle, and the plume's
-  position inside the frame refines it further &mdash; so a bearing is usually available. But it is
-  not guaranteed, and several sensors we want to add have <b>no direction at all</b>: a gas sensor,
-  a 911 call, a utility fault. So we measured the whole range. Each geometry is tuned to its
-  <em>own</em> best threshold &mdash; comparing them at one threshold merely reports which geometry
-  that threshold was chosen for.</p></div>
+  <div class="cell c12 flat"><p style="margin:0">A PTZ tower knows its pan angle, so a bearing is usually
+  available &mdash; but not always, and a gas sensor, a 911 call or a utility fault have
+  <b>no direction at all</b>. Each geometry below is tuned to its <em>own</em> best threshold: comparing
+  them at one threshold only reports which geometry that threshold was chosen for. Eight scenarios each,
+  the same as the headline table.</p></div>
   <div class="cell c12 pad0"><div class="tw"><table>
    <thead><tr><th>what the sensor reports</th><th>shape on the map</th><th>false alerts/day</th>
    <th>detected</th><th>location error</th></tr></thead>
    <tbody>
-    <tr class="hero"><td>bearing to &plusmn;2&deg;</td><td>a hairline wedge</td><td class="n">98</td>
-      <td class="n">100%</td><td class="n">647 m</td></tr>
+    <tr class="hero"><td>bearing to &plusmn;2&deg;</td><td>a hairline wedge</td><td class="n">113</td>
+      <td class="n">100%</td><td class="n">674 m</td></tr>
     <tr><td>bearing to &plusmn;10&deg; <span class="dim">(a camera's field of view)</span></td>
-      <td>a fat wedge</td><td class="n">155</td><td class="n">100%</td><td class="n">1,115 m</td></tr>
-    <tr><td>bearing to &plusmn;30&deg;</td><td>a quadrant</td><td class="n">794</td>
-      <td class="n">100%</td><td class="n">1,308 m</td></tr>
+      <td>a fat wedge</td><td class="n">201</td><td class="n">88%</td><td class="n">1,121 m</td></tr>
+    <tr><td>bearing to &plusmn;30&deg;</td><td>a quadrant</td><td class="n">756</td>
+      <td class="n">88%</td><td class="n">1,292 m</td></tr>
     <tr><td><b>nothing but its GPS position</b></td><td><b>a 20 km disc</b></td>
-      <td class="n">738</td><td class="n">89%</td><td class="n">1,184 m</td></tr>
+      <td class="n">724</td><td class="n">83%</td><td class="n">1,279 m</td></tr>
    </tbody></table></div></div>
   <div class="cell c6 mark"><h3 class="hl">It works without a direction</h3>
-   <p class="tiny" style="margin:0">89% of fires still found, still placed to about a kilometre.
+   <p class="tiny" style="margin:0">83% of fires still found, still placed to about a kilometre.
    Overlapping discs concentrate evidence the same way overlapping wedges do &mdash; the code does
    not change, only the shape injected into it.</p></div>
-  <div class="cell c6 warmb"><h3 class="warn">But direction is worth about 7&times;</h3>
-   <p class="tiny" style="margin:0">98 false alerts a day against ~740. The cliff sits between
-   &plusmn;10&deg; and &plusmn;30&deg;, so the useful target is <b>ten degrees, not two</b> &mdash; which
-   is what a pan encoder gives you for free. Chasing better than that buys little.</p></div>
+  <div class="cell c6 warmb"><h3 class="warn">But direction is worth about 6&times;</h3>
+   <p class="tiny" style="margin:0">113 false alerts a day against ~720, and 100% detection against 83%.
+   The cliff sits between &plusmn;10&deg; and &plusmn;30&deg;, so the target is <b>ten degrees, not
+   two</b> &mdash; which a pan encoder gives for free.</p></div>
   <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>Why this matters beyond cameras:</b>
   supporting a bearing-less source is exactly what lets a gas sensor, a 911 call or a utility fault
   sensor join the same network. They are not a degraded fallback &mdash; they are points with a

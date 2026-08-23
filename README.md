@@ -226,7 +226,7 @@ day — the rate ALERTCalifornia publishes.
 ## Build and run
 
 ```bash
-make -C core test                 # 44 checks + golden vector
+make -C core test                 # 53 checks + golden vector
 make -C core lint                 # -Wall -Wextra -Wpedantic -Wconversion -Werror
 python3 bindings/python/build_ember.py
 python3 -m eval.sweep --seeds 8   # -> results/raw/sweep.json
