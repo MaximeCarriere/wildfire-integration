@@ -197,6 +197,24 @@ typedef struct {
 /* Explicit little-endian pack/unpack -- never memcpy the struct, so the
  * format is identical across compilers, alignment rules and architectures. */
 void ember_event_pack(const ember_event *e, uint8_t buf[EMBER_EVENT_WIRE_BYTES]);
+
+/* A shorter profile, for the longest-range radio setting.
+ *
+ * LoRaWAN US915 at DR0 (SF10) -- the slowest, furthest-reaching data rate --
+ * caps the application payload at ELEVEN bytes. The 16-byte record above
+ * misses that by five, so on the one setting where range matters most it
+ * cannot be sent at all.
+ *
+ * This drops the 4-byte node timestamp (the gateway stamps arrival itself,
+ * and the integrator only needs ordering, which the sequence byte gives) and
+ * bit-packs the rest. Confidence keeps 6 bits -- 64 levels, far finer than
+ * any detector's calibration. Nine bytes, inside DR0 with room to spare. */
+#define EMBER_EVENT_COMPACT_BYTES 9
+
+void ember_event_pack_compact(const ember_event *e,
+                              uint8_t buf[EMBER_EVENT_COMPACT_BYTES]);
+int  ember_event_unpack_compact(ember_event *e,
+                                const uint8_t buf[EMBER_EVENT_COMPACT_BYTES]);
 int  ember_event_unpack(ember_event *e, const uint8_t buf[EMBER_EVENT_WIRE_BYTES]);
 uint16_t ember_crc16(const uint8_t *data, uint32_t len);
 

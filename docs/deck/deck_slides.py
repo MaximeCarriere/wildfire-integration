@@ -749,7 +749,69 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A8 &middot; references</p>
+ <p class="eyebrow anim">A8 &middot; the radio, honestly</p>
+ <h2 class="anim">The least-validated part of this design.</h2>
+ <div class="bento anim">
+  <div class="cell c12 warmb"><h3 class="warn">Where &ldquo;32 km&rdquo; came from: nowhere physical</h3>
+   <p class="tiny" style="margin:0">A 64&times;64 map was chosen because a power of two suits the
+   microcontroller, and 500 m cells because that was the localisation target. <b>32 km simply fell out
+   of 64 &times; 500 m.</b> Cameras were then placed on a ring inside it with 20 km reach, which
+   conveniently covers it. Nothing was derived from the radio, and it should not be quoted as though it
+   were a deployment spec.</p></div>
+
+  <div class="cell c6 pad0"><div class="tw"><table>
+   <thead><tr><th>siting</th><th>radio horizon</th></tr></thead>
+   <tbody>
+    <tr><td>two 10 m masts, flat ground</td><td class="n">22.6 km</td></tr>
+    <tr><td>two 30 m masts</td><td class="n">39.1 km</td></tr>
+    <tr><td>30 m mast &rarr; 150 m ridge</td><td class="n">63.3 km</td></tr>
+    <tr class="hero"><td>two mountaintop sites</td><td class="n">101 km</td></tr>
+   </tbody></table></div>
+   <p class="tiny dim" style="margin:8px 0 0">d &asymp; 3.57 &times; (&radic;h&#8321; + &radic;h&#8322;) km.
+   Our worst link &mdash; corner to centre of the region &mdash; is 22.6 km.</p></div>
+
+  <div class="cell c6 pad0"><div class="tw"><table>
+   <thead><tr><th>distance</th><th>path loss</th><th>margin</th></tr></thead>
+   <tbody>
+    <tr><td class="n">10 km</td><td class="n">111.7 dB</td><td class="n">50 dB</td></tr>
+    <tr class="hero"><td class="n">22.6 km</td><td class="n">118.8 dB</td><td class="n">43 dB</td></tr>
+    <tr><td class="n">45 km</td><td class="n">124.7 dB</td><td class="n">37 dB</td></tr>
+   </tbody></table></div>
+   <p class="tiny dim" style="margin:8px 0 0">LoRa 915 MHz SF10: +20 dBm, 5 dBi each end,
+   &minus;132 dBm sensitivity &rarr; 162 dB budget. <b>The binding constraint is line of sight, not
+   power</b> &mdash; which is why siting on ridges matters more than any antenna.</p></div>
+
+  <div class="cell c12 mark"><h3 class="hl">And most cameras are not on LoRa at all</h3>
+   <div class="bento" style="gap:12px">
+    <div class="cell c6 bare"><span class="label">case A &middot; existing networks</span>
+     <p class="tiny" style="margin:0">ALERTCalifornia and its peers already run microwave, fibre or
+     cellular backhaul to mountaintop sites <b>because they stream video</b>. Sixteen bytes is nothing on
+     such a link. <b class="hl">Here the bandwidth argument is worth zero</b> &mdash; the value is the
+     fusion, the privacy of not shipping frames, and continuing to decide when the backhaul drops.</p></div>
+    <div class="cell c6 bare"><span class="label">case B &middot; new or remote sites</span>
+     <p class="tiny" style="margin:0">Where there is no backhaul, a video camera is simply not an option.
+     <b class="hl">This is where 9 bytes earns its keep</b> &mdash; it puts a sensor on a ridge that could
+     never have supported a stream, over LoRa, LTE-M, NB-IoT or satellite IoT.</p></div>
+   </div>
+   <p class="tiny" style="margin:10px 0 0"><b>Note on the board:</b> the UNO Q has Wi-Fi 5 and Bluetooth
+   5.1 &mdash; <b>no LoRa and no cellular</b>. Any wide-area link is an add-on radio, and that is a real
+   line on the bill of materials.</p></div>
+
+  <div class="cell c7 hot"><h3 class="bad">The five bytes that mattered</h3>
+   <p class="tiny" style="margin:0">LoRaWAN US915 at <b>DR0</b> &mdash; the slowest, longest-reaching
+   setting &mdash; caps the payload at <b>11 bytes</b>. Our 16-byte record missed it by five, so on the
+   one setting where range matters most it could not be sent at all. Dropping the node timestamp (the
+   gateway stamps arrival) and bit-packing the rest gives a <b class="hl">9-byte profile</b> that fits,
+   with confidence quantised to 64 levels and the CRC intact. Implemented and tested.</p></div>
+  <div class="cell c5 flat"><h3>What is still unproven</h3>
+   <p class="tiny" style="margin:0">We have measured the fusion behaviour hard and taken the radio on
+   faith. What is solid: the payload is small enough that <em>any</em> LPWAN carries it. What is not: a
+   link budget for real terrain between real tower sites. That needs profiles, not arithmetic.</p></div>
+ </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">A9 &middot; references</p>
  <h2 class="anim">Sources, code, licence.</h2>
  <div class="bento anim">
   <div class="cell c6"><h3>Code</h3>

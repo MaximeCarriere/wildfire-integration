@@ -70,3 +70,56 @@ int ember_event_unpack(ember_event *e, const uint8_t buf[EMBER_EVENT_WIRE_BYTES]
     if (e->cls > EMBER_CLASS_FIRE)   return -1;
     return 0;
 }
+
+
+/* ------------------------------------------------ compact (DR0) profile */
+
+void ember_event_pack_compact(const ember_event *e,
+                              uint8_t buf[EMBER_EVENT_COMPACT_BYTES])
+{
+    uint8_t  conf6 = (uint8_t)(e->conf >> 2);          /* 8 bits -> 6 */
+    uint8_t  sig4  = (e->bearing_sigma > 15) ? 15 : e->bearing_sigma;
+    uint16_t crc;
+
+    buf[0] = (uint8_t)(e->node_id & 0xFF);
+    buf[1] = (uint8_t)((e->node_id >> 8) & 0xFF);
+    /* bearing 12 bits (0..3599) + sigma 4 bits */
+    buf[2] = (uint8_t)(e->bearing_ddeg & 0xFF);
+    buf[3] = (uint8_t)(((e->bearing_ddeg >> 8) & 0x0F) | (uint8_t)(sig4 << 4));
+    /* class 2 bits, tier 2 bits, confidence 6 bits */
+    buf[4] = (uint8_t)((e->cls & 0x03) | ((e->tier & 0x03) << 2)
+                       | (uint8_t)((conf6 & 0x0F) << 4));
+    buf[5] = (uint8_t)((conf6 >> 4) & 0x03);
+    buf[6] = (uint8_t)(e->seq & 0xFF);                 /* rolling, 8 bits */
+
+    crc    = ember_crc16(buf, 7);
+    buf[7] = (uint8_t)(crc & 0xFF);
+    buf[8] = (uint8_t)((crc >> 8) & 0xFF);
+}
+
+int ember_event_unpack_compact(ember_event *e,
+                               const uint8_t buf[EMBER_EVENT_COMPACT_BYTES])
+{
+    uint16_t crc_calc = ember_crc16(buf, 7);
+    uint16_t crc_wire = (uint16_t)(buf[7] | ((uint16_t)buf[8] << 8));
+    uint8_t  conf6;
+
+    if (crc_calc != crc_wire) return -1;
+
+    e->node_id       = (uint16_t)(buf[0] | ((uint16_t)buf[1] << 8));
+    e->bearing_ddeg  = (uint16_t)(buf[2] | ((uint16_t)(buf[3] & 0x0F) << 8));
+    e->bearing_sigma = (uint8_t)((buf[3] >> 4) & 0x0F);
+    e->cls           = (uint8_t)(buf[4] & 0x03);
+    e->tier          = (uint8_t)((buf[4] >> 2) & 0x03);
+    conf6            = (uint8_t)(((buf[4] >> 4) & 0x0F) | ((buf[5] & 0x03) << 4));
+    e->conf          = (uint8_t)(conf6 << 2);
+    e->seq           = buf[6];
+    e->crc           = crc_wire;
+    /* no timestamp on this profile -- the receiver stamps arrival */
+    e->t_decisec     = 0;
+
+    if (e->bearing_ddeg >= 3600) return -1;
+    if (e->tier > EMBER_TIER_STRONG) return -1;
+    if (e->cls > EMBER_CLASS_FIRE)   return -1;
+    return 0;
+}
