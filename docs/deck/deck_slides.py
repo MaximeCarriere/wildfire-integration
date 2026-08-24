@@ -31,8 +31,8 @@ SLIDES = r"""
    <span class="label">how much burns</span>
    <div class="plot">
     <div class="bars">
-     <div class="bar"><span class="fill ghost" style="height:50%"></span></div>
-     <div class="bar"><span class="fill" style="height:100%"></span></div>
+     <div class="pbar"><span class="pfill ghost" style="height:50%"></span></div>
+     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
     </div>
     <div class="blabels"><span>without warming</span><span>observed</span></div>
     <div class="pnote"><b class="hl">2&times;</b> the western-US forest area burned, 1984&ndash;2015</div>
@@ -46,9 +46,9 @@ SLIDES = r"""
    <span class="label">what it costs</span>
    <div class="plot">
     <div class="bars">
-     <div class="bar"><span class="fill ghost" style="height:41%"></span></div>
-     <div class="bar"><span class="fill" style="height:72%"></span></div>
-     <div class="bar"><span class="fill soft" style="height:100%"></span></div>
+     <div class="pbar"><span class="pfill ghost" style="height:41%"></span></div>
+     <div class="pbar"><span class="pfill" style="height:72%"></span></div>
+     <div class="pbar"><span class="pfill soft" style="height:100%"></span></div>
     </div>
     <div class="blabels"><span>1990s</span><span>today</span><span>2050</span></div>
     <div class="pnote">federal suppression: <b class="hl">$2.9 bn</b> a year, <b>+42% by 2050</b></div>

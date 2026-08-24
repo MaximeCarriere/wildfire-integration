@@ -155,15 +155,15 @@ a{color:var(--select)}
 /* inline bar plots -- one hue, light to dark, no status colours */
 .plot{display:flex;flex-direction:column;gap:6px;margin:2px 0 4px}
 .bars{display:flex;align-items:flex-end;gap:10px;height:clamp(54px,7vh,84px)}
-/* the bar is its own box with a definite height, so the fill's percentage has
-   something to resolve against. Labels sit in a SEPARATE row: as flex siblings
-   of the fill they competed for the same height and squashed the bars. */
-.bars .bar{flex:1;height:100%;display:flex;align-items:flex-end;min-width:0}
-.bars .fill{width:100%;background:var(--select);border-radius:3px 3px 0 0;display:block}
-/* opacity rather than color-mix -- one less feature to depend on for something
-   that must simply be visible */
-.bars .fill.soft{opacity:.55}
-.bars .fill.ghost{background:var(--front);opacity:.20}
+/* NOTE the class names. These were .bar / .fill and collided with the chrome's
+   .bar -- the fixed top and bottom navigation bars. The plot rule set flex and
+   height but not POSITION, so position:fixed;left:0;right:0;z-index:40 leaked
+   in and every plot bar became a full-viewport block painted over the deck.
+   Prefixed names make that collision impossible. */
+.bars .pbar{flex:1;height:100%;display:flex;align-items:flex-end;min-width:0}
+.bars .pfill{width:100%;background:var(--select);border-radius:3px 3px 0 0;display:block}
+.bars .pfill.soft{opacity:.55}
+.bars .pfill.ghost{background:var(--front);opacity:.20}
 .blabels{display:flex;gap:10px}
 .blabels span{flex:1;min-width:0;text-align:center;font-size:0.6rem;line-height:1.2;color:var(--dim)}
 .pnote{font-size:0.72rem;line-height:1.35;color:var(--dim)}
