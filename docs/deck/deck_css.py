@@ -224,6 +224,9 @@ ul.clean li.warnb::before{background:var(--yellow)}
 
 canvas{display:block;width:100%;height:100%}
 .canvasbox{position:relative;width:100%;min-height:190px;flex:1;min-width:0;overflow:hidden}
+.canvasbox.fireplate{border-radius:9px;overflow:hidden;box-shadow:var(--shadow)}
+.cover ul.clean li{font-size:0.95rem;line-height:1.5}
+.cover ul.clean li::before{margin-top:9px}
 
 /* cover */
 .cover{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,60px);align-items:center}

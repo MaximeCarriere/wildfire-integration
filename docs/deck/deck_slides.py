@@ -5,16 +5,18 @@ SLIDES = r"""
   <div>
    <p class="eyebrow anim">Resilient America Preparedness Challenge &middot; Track A</p>
    <h1 class="anim">Early wildfire detection,<br>and the integrator that<br>makes it <span class="hl">usable</span>.</h1>
-   <p class="lead anim">America has built a nervous system for wildfire and forgotten to build the
-   brain. A thousand cameras already watch the ridgelines; nobody can afford to read what they
-   report. We built the layer that turns them into one trustworthy, located alert &mdash; small
-   enough to run on a $50 board, at the tower, with the network down.</p>
+   <ul class="clean anim" style="margin:0 0 4px;gap:11px">
+    <li>America has built a nervous system for wildfire and forgotten to build the brain.</li>
+    <li>A thousand cameras already watch the ridgelines. Nobody can afford to read what they report.</li>
+    <li>We built the layer that turns them into one trustworthy, located alert.</li>
+    <li>Small enough to run on a $50 board, at the tower, with the network down.</li>
+   </ul>
    <div class="rule anim"></div>
    <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&mdash;&nbsp;
    confidential edge AI, built small and sealed shut &nbsp;&middot;&nbsp;
    <span class="dim">press <kbd>&rarr;</kbd> to advance, <kbd>?</kbd> for keys</span></p>
   </div>
-  <div class="art anim"><div class="canvasbox" style="min-height:min(56vh,380px)"><canvas data-anim="bearing"></canvas></div></div>
+  <div class="art anim"><div class="canvasbox fireplate" style="min-height:min(62vh,460px)"><canvas data-anim="fire"></canvas></div></div>
  </div>
 </div></section>
 

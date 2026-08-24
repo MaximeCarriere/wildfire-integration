@@ -156,6 +156,84 @@ ANIM.cover=function(c){
   });
 };
 
+/* ===== 0. the cover: fire, as additive Gaussian splats =====
+   Each ember is a radial-gradient sprite drawn with 'lighter' compositing, so
+   overlapping particles SUM into a hot core the way emission actually does --
+   the reason splat rendering looks volumetric rather than pasted on.
+
+   Three things separate this from bokeh, all learned by rendering it and
+   looking: the splats must be MANY and SMALL (a few large ones read as party
+   lights), stretched VERTICALLY (fire licks are tall, not round), and spawned
+   below the frame so the base has no hard edge. Sprites are pre-rendered once;
+   building a gradient per particle per frame is what stalls this effect. */
+function makeSprite(rgb){
+  var c=document.createElement('canvas'); c.width=c.height=48;
+  var g=c.getContext('2d');
+  var grd=g.createRadialGradient(24,24,0,24,24,24);
+  grd.addColorStop(0.00,'rgba('+rgb+',1)');
+  grd.addColorStop(0.30,'rgba('+rgb+',0.48)');
+  grd.addColorStop(0.62,'rgba('+rgb+',0.14)');
+  grd.addColorStop(1.00,'rgba('+rgb+',0)');
+  g.fillStyle=grd; g.fillRect(0,0,48,48);
+  return c;
+}
+var SPR=null;
+ANIM.fire=function(c){
+  var g=fit(c),W=g.w,H=g.h,x=g.x;
+  if(!SPR) SPR={hot:makeSprite('255,248,225'), mid:makeSprite('255,146,36'),
+                low:makeSprite('196,40,16'),  smoke:makeSprite('92,88,84')};
+  var rnd=mulberry(4711), P=[];
+  var N=Math.round(Math.max(260,Math.min(620,W*H/380)));
+  function spawn(p,init){
+    p.x=W*(0.06+rnd()*0.88);                    /* a fire FRONT, not a point */
+    p.y=init? H*rnd() : H*(1.02+rnd()*0.08);    /* enter from below the frame */
+    p.vx=(rnd()-0.5)*0.30;
+    p.vy=-(H/210)*(0.7+rnd()*1.3);              /* scaled to cross the frame */
+    p.life=0; p.max=120+rnd()*110;
+    p.sz=(0.030+rnd()*0.075)*Math.min(W,H);
+    p.wob=rnd()*6.28; p.wsp=0.03+rnd()*0.06;
+  }
+  for(var i=0;i<N;i++){ var q={}; spawn(q,true); P.push(q); }
+
+  loop(function(){
+    x.globalCompositeOperation='source-over';
+    var bg=x.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#090c0e'); bg.addColorStop(0.6,'#160e0b'); bg.addColorStop(1,'#2e1207');
+    x.fillStyle=bg; x.fillRect(0,0,W,H);
+
+    x.globalCompositeOperation='lighter';
+    for(var i=0;i<P.length;i++){
+      var p=P[i];
+      p.life++;
+      if(p.life>p.max || p.y < -p.sz*3){ spawn(p,false); continue; }
+      var t=p.life/p.max;
+      p.wob+=p.wsp;
+      p.x+=p.vx+Math.sin(p.wob)*0.45;
+      p.y+=p.vy*(1-t*0.25);
+      p.vy*=0.998;
+      var spr,a;
+      if(t<0.14){ spr=SPR.hot; a=(t/0.14)*0.95; }
+      else if(t<0.40){ spr=SPR.mid; a=0.95-(t-0.14)/0.26*0.15; }
+      else if(t<0.72){ spr=SPR.low; a=0.80*(1-(t-0.40)/0.32*0.55); }
+      else { spr=SPR.smoke; a=0.20*(1-(t-0.72)/0.28); }
+      if(a<=0) continue;
+      var w=p.sz*(0.8+t*1.1), h=w*(1.7+t*1.1);   /* stretched vertically */
+      x.globalAlpha=a;
+      x.drawImage(spr,p.x-w/2,p.y-h/2,w,h);
+    }
+    x.globalAlpha=1;
+
+    var fl=x.createRadialGradient(W*0.5,H*1.05,0,W*0.5,H*1.05,W*0.62);
+    fl.addColorStop(0,'rgba(255,120,34,0.55)'); fl.addColorStop(1,'rgba(255,80,18,0)');
+    x.fillStyle=fl; x.fillRect(0,H*0.5,W,H*0.5);
+
+    x.globalCompositeOperation='source-over';
+    var vg=x.createRadialGradient(W*0.5,H*0.62,Math.min(W,H)*0.2,W*0.5,H*0.5,Math.max(W,H)*0.75);
+    vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.5)');
+    x.fillStyle=vg; x.fillRect(0,0,W,H);
+  });
+};
+
 /* ===== 1. evidence -> threshold -> fire -> drone =====
    Three things at once, because they are the same idea:
      - evidence ACCUMULATES and leaks; crossing the bar dispatches a drone
