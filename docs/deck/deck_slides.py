@@ -17,6 +17,35 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- INDEX -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">what a proposal must answer</p>
+ <h2 class="anim">Six questions. Here is where each is answered.</h2>
+ <div class="bento anim">
+  <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
+   <p class="tiny" style="margin:0">A thousand cameras that work, and one bottleneck that does not
+   scale. <span class="dim">&rarr; 01&ndash;03</span></p></div>
+  <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
+   <p class="tiny" style="margin:0">Dispatchers first, then everyone downstream of a faster first
+   response. <span class="dim">&rarr; 04</span></p></div>
+  <div class="cell c6 flat"><span class="label">3 &middot; technical approach, hardware, edge AI</span>
+   <p class="tiny" style="margin:0">A two-layer spiking network on the Arduino UNO Q, fed by a
+   detector that never leaves the pole. <span class="dim">&rarr; 05&ndash;11, 14</span></p></div>
+  <div class="cell c6 flat"><span class="label">4 &middot; why it must be the edge, not the cloud</span>
+   <p class="tiny" style="margin:0">Three reasons, only one of which is bandwidth.
+   <span class="dim">&rarr; 15</span></p></div>
+  <div class="cell c6 flat"><span class="label">5 &middot; building in the open</span>
+   <p class="tiny" style="margin:0">Already public, already reproducible, mistakes included.
+   <span class="dim">&rarr; 18</span></p></div>
+  <div class="cell c6 warmb"><span class="label">6 &middot; an honest read on feasibility</span>
+   <p class="tiny" style="margin:0">What is built and measured, and what could still sink it.
+   <span class="dim">&rarr; 12, 13, 17, 19</span></p></div>
+  <div class="cell c12"><p style="margin:0"><b>No code is required at this stage.</b> We wrote it
+  anyway &mdash; not as the deliverable, but because it is the only way to answer question six with
+  numbers instead of intentions.</p></div>
+ </div>
+</div></section>
+
 <!-- 2 PROBLEM -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
@@ -82,9 +111,35 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- WHO BENEFITS -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">04 &middot; who benefits</p>
+ <h2 class="anim">The first beneficiary is the person<br>we stop <span class="hl">interrupting</span>.</h2>
+ <div class="bento anim">
+  <div class="cell c6 mark"><h3 class="hl">Dispatchers and watchstanders</h3>
+   <p class="tiny" style="margin:0">They absorb the false-alarm load today. Their attention is the
+   scarcest resource in the system, and it runs out exactly when it is needed most &mdash; on a
+   red-flag day, when alarm volume peaks.</p></div>
+  <div class="cell c6"><h3>Wildland-urban-interface communities</h3>
+   <p class="tiny" style="margin:0">California, Oregon, Nevada, Colorado. The minutes between ignition
+   and first response decide whether an incident stays a spot fire. Every false alarm cleared faster
+   is attention available for the real one.</p></div>
+  <div class="cell c6"><h3>Volunteer and small municipal departments</h3>
+   <p class="tiny" style="margin:0">They cannot staff a 24-hour camera watch, so they are excluded from
+   the benefit of networks their counties already pay for. A filtered, located alert is one they can
+   actually act on.</p></div>
+  <div class="cell c6"><h3>Tribal and remote land managers</h3>
+   <p class="tiny" style="margin:0">Operating where backhaul is intermittent or absent. A system that
+   needs the cloud to think stops thinking exactly when it is needed.</p></div>
+  <div class="cell c12 flat"><p style="margin:0">And nobody is displaced. <b class="hl">We do not remove
+  the watchstander</b> &mdash; we stop spending them on cloud and dust so they are still sharp for the
+  alert that matters.</p></div>
+ </div>
+</div></section>
+
 <!-- 5 THE IDEA -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">04 &middot; the idea</p>
+ <p class="eyebrow anim">05 &middot; the idea</p>
  <h2 class="anim">Stop treating cameras as alarms.<br>Treat them as <span class="hl">nerve endings</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p style="margin:0">A single nerve ending is <b>weak, noisy and often wrong</b>.
@@ -113,7 +168,7 @@ SLIDES = r"""
 
 <!-- 6 STATEWIDE END TO END -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">05 &middot; end to end</p>
+ <p class="eyebrow anim">06 &middot; end to end</p>
  <h2 class="anim">One fire, from first wisp to a drone overhead.</h2>
  <div class="bento anim" style="flex:1;align-content:stretch">
   <div class="cell c8 pad0" style="padding:8px">
@@ -143,7 +198,7 @@ SLIDES = r"""
 
 <!-- 6 LAYER 1 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">06 &middot; layer one</p>
+ <p class="eyebrow anim">07 &middot; layer one</p>
  <h2 class="anim">Patience, in one number.</h2>
  <div class="bento anim">
   <div class="cell c8 pad0" style="padding:14px 6px 6px">
@@ -165,7 +220,7 @@ SLIDES = r"""
 
 <!-- 7 LAYER 2 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">07 &middot; layer two</p>
+ <p class="eyebrow anim">08 &middot; layer two</p>
  <h2 class="anim">One tower gives you a direction.<br>Two give you a <span class="hl">place</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is &mdash; distance is
@@ -185,7 +240,7 @@ SLIDES = r"""
 
 <!-- 8 OSBORNE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">08 &middot; precedent</p>
+ <p class="eyebrow anim">09 &middot; precedent</p>
  <h2 class="anim">This is a 1911 idea, done in silicon.</h2>
  <div class="bento anim">
   <div class="cell c7"><p style="font-size:1.06rem">For most of the last century, fires were found
@@ -209,7 +264,7 @@ SLIDES = r"""
 
 <!-- 9 HAZE / SURROUND -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">09 &middot; the hard case</p>
+ <p class="eyebrow anim">10 &middot; the hard case</p>
  <h2 class="anim">Agreement alone would make things <span class="bad">worse</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>Here is the trap. If you simply reward agreement, then a marine layer
@@ -231,7 +286,7 @@ SLIDES = r"""
 
 <!-- 10 CONFIRMATION -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">09 &middot; after the alert</p>
+ <p class="eyebrow anim">11 &middot; after the alert</p>
  <h2 class="anim">The alert isn't the end. It's a question.</h2>
  <div class="bento anim">
   <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is worth
@@ -258,7 +313,7 @@ SLIDES = r"""
 
 <!-- 11 RESULTS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">11 &middot; does it work</p>
+ <p class="eyebrow anim">12 &middot; does it work</p>
  <h2 class="anim">Eight simulated days. Same cameras, same evidence, four ways of reading it.</h2>
  <div class="bento anim">
   <div class="cell c7 pad0" style="padding:12px">
@@ -277,7 +332,7 @@ SLIDES = r"""
 
 <!-- 12 STEAM VENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">12 &middot; the nuisance test</p>
+ <p class="eyebrow anim">13 &middot; the nuisance test</p>
  <h2 class="anim">A steam vent that two towers can see, running for six hours.</h2>
  <div class="bento anim">
   <div class="cell c3 hot"><span class="label">raw detections</span><span class="stat bad">2,700</span>
@@ -297,7 +352,7 @@ SLIDES = r"""
 
 <!-- 13 HARDWARE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">13 &middot; the hardware</p>
+ <p class="eyebrow anim">14 &middot; the hardware</p>
  <h2 class="anim">Two brains, and we use both for what they're for.</h2>
  <div class="bento anim">
   <div class="cell c5 pad0" id="unoq-slot">
@@ -320,9 +375,36 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- WHY EDGE -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">15 &middot; why the edge, not the cloud</p>
+ <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
+ <div class="bento anim">
+  <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
+   <h3>Fire destroys comms</h3>
+   <p class="tiny" style="margin:0">When the uplink fails, an edge integrator keeps reasoning on
+   whatever still arrives. A cloud service simply stops &mdash; and it stops during the event it
+   exists for. <b class="hl">The decision is made at the tower, in microseconds.</b></p></div>
+  <div class="cell c4 flat"><span class="label">2 &middot; privacy</span>
+   <h3>Nothing to leak</h3>
+   <p class="tiny" style="margin:0">The detector runs on the pole and the image dies there. A cloud
+   design would have to ship frames, creating a surveillance capability, a breach surface and a
+   subpoena target where none need exist.</p></div>
+  <div class="cell c4 flat"><span class="label">3 &middot; reach</span>
+   <h3>Where there is no link</h3>
+   <p class="tiny" style="margin:0">Nine bytes crosses LoRa or satellite IoT. Video cannot. This puts a
+   sensor on a ridge that could never have supported a stream &mdash; which is most of the country
+   that burns.</p></div>
+  <div class="cell c12 hot"><p style="margin:0"><b>And a reason we will not claim.</b> It is not about
+  latency. The cloud round-trip is milliseconds; a fire develops over minutes.
+  <b class="hl">Anyone arguing edge-for-latency here is arguing badly</b> &mdash; the honest case is
+  that the link is unreliable, the imagery is sensitive, and half the ground has no link at all.</p></div>
+ </div>
+</div></section>
+
 <!-- 14 NOT A REPLACEMENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">14 &middot; where we fit</p>
+ <p class="eyebrow anim">16 &middot; where we fit</p>
  <h2 class="anim">Satellites own <span class="hl">everywhere</span>.<br>We own the <span class="hl">first ten minutes</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at
@@ -380,59 +462,9 @@ SLIDES = r"""
  </div>
 </div></section>
 
-<!-- 15 MANY SENSORS -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">15 &middot; what comes next</p>
- <h2 class="anim">Cameras are the first sensor.<br>They don't all join the <span class="hl">same way</span>.</h2>
- <div class="bento anim">
-  <div class="cell c12 mark"><p style="margin:0">A new sensor answers one of three questions, and each
-  enters by a different door. <b class="hl">All three already exist in the code</b> &mdash; adding a
-  modality is a projection function, not a redesign.</p></div>
-
-  <div class="cell c4 mark"><span class="label">door 1 &middot; inject()</span>
-   <h3>&ldquo;Is something burning there?&rdquo;</h3>
-   <ul class="clean" style="margin-top:6px">
-    <li><b>Cameras</b> &mdash; today</li>
-    <li><b>911 calls</b> &mdash; a report is a reading with a location on it</li>
-    <li class="warnb"><b>Gas sensors</b> &mdash; see below</li>
-   </ul></div>
-
-  <div class="cell c4 flat"><span class="label">door 2 &middot; prior()</span>
-   <h3>&ldquo;Be more suspicious here&rdquo;</h3>
-   <ul class="clean" style="margin-top:6px">
-    <li><b>Lightning feeds</b> &mdash; a subscription, not hardware. 44% of western fires,
-    <b>71% of the area burned</b></li>
-    <li><b>Fire weather</b> &mdash; already built</li>
-   </ul>
-   <p class="tiny hl" style="margin:8px 0 0"><b>A prior alone never alerts.</b> Suspicion is not
-   detection &mdash; and that is a test, not an intention.</p></div>
-
-  <div class="cell c4 flat"><span class="label">door 3 &middot; confirm()</span>
-   <h3>&ldquo;Was that one real?&rdquo;</h3>
-   <ul class="clean" style="margin-top:6px">
-    <li><b>Camera slew</b> &mdash; today. Seconds, free</li>
-    <li><b>Satellites</b> &mdash; <b class="hl">here, not at the input</b>. Heat lags smoke, so a
-    hotspot arrives long after the cameras. But it is free and uncorrelated: check it before
-    spending a drone</li>
-    <li><b>Drone, then crew</b></li>
-   </ul></div>
-
-  <div class="cell c6 warmb"><h3 class="warn">Gas sensors: read the small print</h3>
-   <p class="tiny" style="margin:0">They catch a fire <em>before there is a flame</em> &mdash; but the
-   radius is <b>80&ndash;100 m</b> at <b>0.7 per hectare</b>. Covering our region would take
-   <b>110,000 of them against 8 cameras</b>. Not a coverage layer, and we will not pretend otherwise:
-   they are <b>asset protection</b> for a town edge or a substation.</p></div>
-  <div class="cell c6 hot"><h3 class="bad">Why it makes the network stronger</h3>
-   <p class="tiny" style="margin:0">Coincidence gain rewards agreement between <b>independent</b>
-   sources &mdash; and two cameras are not independent, since the same dust plume fools both.
-   <b class="hl">A camera, a gas sensor and a lightning-primed cell cannot be.</b> Each modality added
-   makes every existing alert harder to fake.</p></div>
- </div>
-</div></section>
-
 <!-- 14 HONEST -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">16 &middot; what we don't claim</p>
+ <p class="eyebrow anim">17 &middot; what we don't claim</p>
  <h2 class="anim">Three things we could have hidden.</h2>
  <div class="bento anim">
   <div class="cell c4 warmb"><h3>A simpler method logs fewer alarms</h3>
@@ -454,9 +486,42 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- BUILDING IN THE OPEN -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">18 &middot; building in the open</p>
+ <h2 class="anim">We are not promising to.<br>We already <span class="hl">are</span>.</h2>
+ <div class="bento anim">
+  <div class="cell c6 mark"><h3 class="hl">Already public</h3>
+   <ul class="clean" style="margin-top:6px">
+    <li>Apache-2.0 from the first commit &mdash; deliberately permissive, and kept separate from the
+    AGPL detector by a process boundary</li>
+    <li>The simulator is public too, <b>so anyone can attack our numbers with our own tools</b></li>
+    <li>Every figure regenerates with one command</li>
+   </ul></div>
+  <div class="cell c6 hot"><h3 class="bad">Including the mistakes</h3>
+   <p class="tiny" style="margin:0 0 6px">An appendix of this deck is titled <em>&ldquo;four things the
+   measurements forced us to fix&rdquo;</em>. It documents a normalisation scheme that masked real fires,
+   an adaptation rule that did nothing, and a rate-coding bug of our own making.</p>
+   <p class="tiny" style="margin:0"><b class="hl">Negative results get published at the same volume as
+   positive ones.</b> A build log that only contains successes is marketing.</p></div>
+  <div class="cell c12 flat"><h3>Through Stage Two</h3>
+   <div class="bento" style="gap:10px">
+    <div class="cell c4 bare"><span class="label">build notes</span>
+     <p class="tiny" style="margin:0">At each milestone: what was tried, what the measurement said,
+     what changed as a result.</p></div>
+    <div class="cell c4 bare"><span class="label">hardware files</span>
+     <p class="tiny" style="margin:0">Wiring, radio choice and node build published alongside the
+     firmware, so the prototype is reproducible and not just watchable.</p></div>
+    <div class="cell c4 bare"><span class="label">adaptation guidance</span>
+     <p class="tiny" style="margin:0">A written account of how to retarget it &mdash; the thresholds
+     are deployment-specific, and saying so is more useful than shipping ours.</p></div>
+   </div></div>
+ </div>
+</div></section>
+
 <!-- 15 CLOSE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">17 &middot; where this goes</p>
+ <p class="eyebrow anim">19 &middot; where this goes</p>
  <h2 class="anim">The core is built, measured, and already runs on the chip.</h2>
  <div class="bento anim">
   <div class="cell c3 mark"><span class="stat sm hl">53</span><span class="label">tests passing</span></div>
@@ -770,6 +835,55 @@ SLIDES = r"""
    <p class="tiny" style="margin:0">We have measured the fusion behaviour hard and taken the radio on
    faith. What is solid: the payload is small enough that <em>any</em> LPWAN carries it. What is not: a
    link budget for real terrain between real tower sites. That needs profiles, not arithmetic.</p></div>
+ </div>
+</div></section>
+
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">15 &middot; what comes next</p>
+ <h2 class="anim">Cameras are the first sensor.<br>They don't all join the <span class="hl">same way</span>.</h2>
+ <div class="bento anim">
+  <div class="cell c12 mark"><p style="margin:0">A new sensor answers one of three questions, and each
+  enters by a different door. <b class="hl">All three already exist in the code</b> &mdash; adding a
+  modality is a projection function, not a redesign.</p></div>
+
+  <div class="cell c4 mark"><span class="label">door 1 &middot; inject()</span>
+   <h3>&ldquo;Is something burning there?&rdquo;</h3>
+   <ul class="clean" style="margin-top:6px">
+    <li><b>Cameras</b> &mdash; today</li>
+    <li><b>911 calls</b> &mdash; a report is a reading with a location on it</li>
+    <li class="warnb"><b>Gas sensors</b> &mdash; see below</li>
+   </ul></div>
+
+  <div class="cell c4 flat"><span class="label">door 2 &middot; prior()</span>
+   <h3>&ldquo;Be more suspicious here&rdquo;</h3>
+   <ul class="clean" style="margin-top:6px">
+    <li><b>Lightning feeds</b> &mdash; a subscription, not hardware. 44% of western fires,
+    <b>71% of the area burned</b></li>
+    <li><b>Fire weather</b> &mdash; already built</li>
+   </ul>
+   <p class="tiny hl" style="margin:8px 0 0"><b>A prior alone never alerts.</b> Suspicion is not
+   detection &mdash; and that is a test, not an intention.</p></div>
+
+  <div class="cell c4 flat"><span class="label">door 3 &middot; confirm()</span>
+   <h3>&ldquo;Was that one real?&rdquo;</h3>
+   <ul class="clean" style="margin-top:6px">
+    <li><b>Camera slew</b> &mdash; today. Seconds, free</li>
+    <li><b>Satellites</b> &mdash; <b class="hl">here, not at the input</b>. Heat lags smoke, so a
+    hotspot arrives long after the cameras. But it is free and uncorrelated: check it before
+    spending a drone</li>
+    <li><b>Drone, then crew</b></li>
+   </ul></div>
+
+  <div class="cell c6 warmb"><h3 class="warn">Gas sensors: read the small print</h3>
+   <p class="tiny" style="margin:0">They catch a fire <em>before there is a flame</em> &mdash; but the
+   radius is <b>80&ndash;100 m</b> at <b>0.7 per hectare</b>. Covering our region would take
+   <b>110,000 of them against 8 cameras</b>. Not a coverage layer, and we will not pretend otherwise:
+   they are <b>asset protection</b> for a town edge or a substation.</p></div>
+  <div class="cell c6 hot"><h3 class="bad">Why it makes the network stronger</h3>
+   <p class="tiny" style="margin:0">Coincidence gain rewards agreement between <b>independent</b>
+   sources &mdash; and two cameras are not independent, since the same dust plume fools both.
+   <b class="hl">A camera, a gas sensor and a lightning-primed cell cannot be.</b> Each modality added
+   makes every existing alert harder to fake.</p></div>
  </div>
 </div></section>
 

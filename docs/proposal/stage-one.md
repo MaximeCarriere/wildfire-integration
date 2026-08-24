@@ -226,7 +226,30 @@ slew-to-confirm closing the loop with the detection model on the Dragonwing
 side. The ingest layer is already designed for that topology, so Stage Two is
 assembly and validation rather than rework.
 
-## 6. Team and licensing
+## 6. Building in the open
+
+We are not promising to; we already are.
+
+- **Apache-2.0 from the first commit**, deliberately permissive, and kept
+  separate from the AGPL detector by a process boundary rather than a
+  licence argument.
+- **The simulator is public too**, so anyone can attack our numbers using our
+  own tools rather than taking them on trust. Every figure in this proposal
+  regenerates with a single command.
+- **Negative results are published at the same volume as positive ones.** An
+  appendix of our deck is titled *"four things the measurements forced us to
+  fix"* — a normalisation scheme that masked real fires, an adaptation rule
+  that did nothing, a rate-coding bug of our own making. A build log that
+  contains only successes is marketing.
+
+Through Stage Two: build notes at each milestone recording what was tried,
+what the measurement said and what changed as a result; hardware files
+(wiring, radio choice, node build) published alongside the firmware so the
+prototype is reproducible rather than merely watchable; and written guidance
+on retargeting it, since the thresholds are deployment-specific and saying so
+is more useful than shipping ours.
+
+## 7. Team and licensing
 
 Building on a prior measured study of wildfire detection on edge hardware
 (D-Fire, TensorRT, Jetson Orin Nano), which supplies both the detector model and

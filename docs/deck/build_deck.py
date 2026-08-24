@@ -25,7 +25,7 @@ slides = (SLIDES
   .replace("__IMG_PARETO__",   b64(REPO/"results/figures/pareto.png", "image/png"))
   .replace("__IMG_PARETO_N__", b64(REPO/"results/figures/pareto-dark.png", "image/png")))
 
-MAIN = 18
+MAIN = 21
 
 HTML = """<title>Nobody Is Watching the Thousandth Camera</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
