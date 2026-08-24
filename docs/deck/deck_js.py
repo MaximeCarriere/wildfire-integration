@@ -156,59 +156,57 @@ ANIM.cover=function(c){
   });
 };
 
-/* ===== 0. the cover: fire, as additive Gaussian splats =====
-   Each ember is a radial-gradient sprite drawn with 'lighter' compositing, so
-   overlapping particles SUM into a hot core the way emission actually does --
-   the reason splat rendering looks volumetric rather than pasted on.
+/* ===== 0. the cover: a plume, in the Kernwerk palette =====
+   Gaussian splats rising as a fire does, but rendered in the site's own
+   colours -- teal on slate -- rather than photographic flame. Yellow, orange
+   and red are not part of this identity; the red in the token set is a STATUS
+   colour, and in this deck it already means "fire reported" and "threshold
+   crossed", so it stays reserved.
 
-   Three things separate this from bokeh, all learned by rendering it and
-   looking: the splats must be MANY and SMALL (a few large ones read as party
-   lights), stretched VERTICALLY (fire licks are tall, not round), and spawned
-   below the frame so the base has no hard edge. Sprites are pre-rendered once;
-   building a gradient per particle per frame is what stalls this effect. */
+   Compositing has to change with the theme. Additive blending only works on a
+   dark ground: over the light background every splat sums straight to white
+   and the plume disappears. So dark uses 'lighter' for a real glow, and light
+   paints normally at lower alpha for a soft tint. */
 function makeSprite(rgb){
   var c=document.createElement('canvas'); c.width=c.height=48;
   var g=c.getContext('2d');
   var grd=g.createRadialGradient(24,24,0,24,24,24);
   grd.addColorStop(0.00,'rgba('+rgb+',1)');
-  grd.addColorStop(0.30,'rgba('+rgb+',0.48)');
-  grd.addColorStop(0.62,'rgba('+rgb+',0.14)');
+  grd.addColorStop(0.32,'rgba('+rgb+',0.42)');
+  grd.addColorStop(0.66,'rgba('+rgb+',0.11)');
   grd.addColorStop(1.00,'rgba('+rgb+',0)');
   g.fillStyle=grd; g.fillRect(0,0,48,48);
   return c;
 }
-var SPR=null;
+var SPR=null, SPR_MODE=null;
 ANIM.fire=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
-  /* Kernwerk palette only. Photographic fire colours were off-brand, and the
-     DA's red (#ee5253) is a light UI red -- added over the slate ground it
-     turns pink. Red is also SEMANTIC in this deck (fire reported, threshold
-     crossed), so spending it on decoration would weaken it. The flame is the
-     brand yellow; the teal appears as sparse signal-embers. */
-  if(!SPR) SPR={flame:makeSprite('255,168,1'), spark:makeSprite('0,184,148')};
+  var night = curTheme()==='night';
+  if(!SPR || SPR_MODE!==night){
+    SPR={ body:makeSprite('0,184,148'),                     /* --select */
+          core:makeSprite(night?'236,240,241':'52,73,94') }; /* --front  */
+    SPR_MODE=night;
+  }
+  var GAIN = night ? 1.0 : 0.52;
   var rnd=mulberry(4711), P=[];
-  var N=Math.round(Math.max(260,Math.min(620,W*H/380)));
+  var N=Math.round(Math.max(220,Math.min(470,W*H/500)));
   function spawn(p,init){
-    p.x=W*(0.06+rnd()*0.88);                    /* a fire FRONT, not a point */
-    p.y=init? H*rnd() : H*(1.02+rnd()*0.08);    /* enter from below the frame */
+    p.x=W*(0.06+rnd()*0.88);
+    p.y=init? H*rnd() : H*(1.02+rnd()*0.08);
     p.vx=(rnd()-0.5)*0.30;
-    p.vy=-(H/210)*(0.7+rnd()*1.3);              /* scaled to cross the frame */
+    p.vy=-(H/210)*(0.7+rnd()*1.3);
     p.life=0; p.max=120+rnd()*110;
     p.sz=(0.030+rnd()*0.075)*Math.min(W,H);
     p.wob=rnd()*6.28; p.wsp=0.03+rnd()*0.06;
-    p.spark = rnd()<0.07;
-    if(p.spark){ p.sz*=0.40; p.vy*=1.4; p.max*=1.35; }
+    p.hot=rnd()<0.10;
   }
   for(var i=0;i<N;i++){ var q={}; spawn(q,true); P.push(q); }
 
   loop(function(){
-    /* Clear to TRANSPARENT and paint only the embers. Painting a dark plate
-       here and fading the whole canvas produced a grey smudge over a light
-       page -- the plate, not the fire, was what showed through. On a
-       transparent ground the embers land as a warm wash in either theme. */
     x.globalCompositeOperation='source-over';
     x.clearRect(0,0,W,H);
-    x.globalCompositeOperation='lighter';
+    x.globalCompositeOperation = night ? 'lighter' : 'source-over';
+
     for(var i=0;i<P.length;i++){
       var p=P[i];
       p.life++;
@@ -219,24 +217,24 @@ ANIM.fire=function(c){
       p.y+=p.vy*(1-t*0.25);
       p.vy*=0.998;
       var spr,a;
-      if(p.spark){ spr=SPR.spark; a=0.80*Math.pow(1-t,1.2); }
+      if(p.hot && t<0.26){ spr=SPR.core; a=0.26*(1-t/0.26); }
       else{
-        spr=SPR.flame;
-        a = (t<0.13) ? (t/0.13)*0.95
-                     : 0.95*(1-Math.pow((t-0.13)/0.87,1.35));
+        spr=SPR.body;
+        a = (t<0.13) ? (t/0.13)*0.58 : 0.58*(1-Math.pow((t-0.13)/0.87,1.30));
       }
+      a*=GAIN;
       if(a<=0) continue;
-      var w=p.sz*(0.8+t*1.15), h=w*(1.7+t*1.2);  /* stretched vertically */
+      var w=p.sz*(0.8+t*1.15), h=w*(1.7+t*1.2);
       x.globalAlpha=a;
       x.drawImage(spr,p.x-w/2,p.y-h/2,w,h);
     }
     x.globalAlpha=1;
 
-    /* additive floor glow only -- no black vignette, which would darken the
-       page background rather than the fire */
-    var fl=x.createRadialGradient(W*0.5,H*1.05,0,W*0.5,H*1.05,W*0.62);
-    fl.addColorStop(0,'rgba(255,168,1,0.34)'); fl.addColorStop(1,'rgba(255,168,1,0)');
-    x.fillStyle=fl; x.fillRect(0,H*0.5,W,H*0.5);
+    if(night){                                   /* a faint teal floor glow */
+      var fl=x.createRadialGradient(W*0.5,H*1.05,0,W*0.5,H*1.05,W*0.62);
+      fl.addColorStop(0,'rgba(0,184,148,0.22)'); fl.addColorStop(1,'rgba(0,184,148,0)');
+      x.fillStyle=fl; x.fillRect(0,H*0.5,W,H*0.5);
+    }
     x.globalCompositeOperation='source-over';
   });
 };

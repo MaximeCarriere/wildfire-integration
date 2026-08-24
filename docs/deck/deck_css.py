@@ -231,7 +231,7 @@ canvas{display:block;width:100%;height:100%}
    copy on solid ground. The scrim is built from --bg, so it works in either
    theme without the fire needing to know which one is active. */
 .slide.hero{padding:0}
-.bgfire{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.60}
+.bgfire{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.85}
 /* Embers read brighter against a dark ground, so night can carry more of them.
    Declared in BOTH dark scopes: the media query covers the OS setting, the
    data-theme scope covers the toggle. */
