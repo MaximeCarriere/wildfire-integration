@@ -6,12 +6,12 @@ SLIDES = r"""
  <div class="inner">
   <div class="herocopy">
    <p class="eyebrow anim">Resilient America Preparedness Challenge &middot; Track A</p>
-   <h1 class="anim">Early wildfire detection:<br>the <span class="hl">integrator layer</span>.</h1>
+   <h1 class="anim">Early wildfire detection:<br>the <span class="hl">integrator layer</span></h1>
    <ul class="clean anim" style="margin:0 0 6px;gap:11px">
     <li>America has built a nervous system for wildfire and forgotten to build the brain.</li>
     <li>A thousand cameras already watch the ridgelines. Nobody can afford to read what they report.</li>
     <li>We built the layer that turns them into one trustworthy, located alert.</li>
-    <li>Small enough to run on a $50 board, at the tower, with the network down.</li>
+    <li>Small enough to run on an <b>Arduino UNO Q</b>, at the tower, with the network down.</li>
    </ul>
    <div class="rule anim"></div>
    <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&mdash;&nbsp;

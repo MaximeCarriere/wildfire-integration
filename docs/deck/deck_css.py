@@ -239,26 +239,37 @@ canvas{display:block;width:100%;height:100%}
   :root:where(:not([data-theme="light"])) .bgfire{opacity:.92}
 }
 :root[data-theme="night"] .bgfire{opacity:.92}
+
+/* Only a bottom fade now. Legibility is carried by the frosted panel below,
+   which lets the copy sit OVER the plume instead of beside it. */
 .scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:
-    linear-gradient(103deg, var(--bg) 0%, var(--bg) 30%,
-                    color-mix(in srgb, var(--bg) 62%, transparent) 52%,
-                    color-mix(in srgb, var(--bg) 18%, transparent) 72%,
-                    transparent 88%),
-    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 40%, transparent) 14%, transparent 34%);
+  background:linear-gradient(to top, var(--bg) 0%,
+             color-mix(in srgb, var(--bg) 45%, transparent) 16%, transparent 40%);
 }
 .slide.hero .inner{
   position:relative;z-index:2;
   padding:clamp(52px,7vh,72px) clamp(18px,4vw,54px) clamp(44px,6vh,60px);
   justify-content:center;
 }
-.herocopy{max-width:min(60ch,62%)}
+.herocopy{
+  max-width:min(74ch,80%);
+  padding:clamp(20px,2.6vh,32px) clamp(22px,2.6vw,38px);
+  border-radius:10px;
+  border:1px solid var(--cardEdge);
+  background:color-mix(in srgb, var(--bg) 70%, transparent);
+  /* frosted, so the plume stays visible through the copy rather than being
+     masked out behind it */
+  backdrop-filter:blur(20px) saturate(1.15);
+  -webkit-backdrop-filter:blur(20px) saturate(1.15);
+  box-shadow:var(--shadow);
+}
+@supports not (backdrop-filter:blur(1px)){
+  /* no blur available: fall back to a more opaque panel so text stays legible */
+  .herocopy{background:color-mix(in srgb, var(--bg) 92%, transparent)}
+}
 @media (max-width:900px){
   .herocopy{max-width:100%}
-  .scrim{background:
-    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 72%, transparent) 42%,
-                    color-mix(in srgb, var(--bg) 40%, transparent) 78%, transparent 100%)}
 }
 
 /* old two-column cover */
