@@ -31,43 +31,40 @@ SLIDES = r"""
    <span class="label">how much burns</span>
    <div class="plot">
     <div class="bars">
-     <div class="pbar"><span class="pfill ghost" style="height:50%"></span></div>
+     <div class="pbar"><span class="pfill ghost" style="height:43%"></span></div>
+     <div class="pbar"><span class="pfill soft" style="height:67%"></span></div>
      <div class="pbar"><span class="pfill" style="height:100%"></span></div>
     </div>
-    <div class="blabels"><span>without warming</span><span>observed</span></div>
+    <div class="blabels"><span>1990s avg<br>3.3 M</span><span>2025<br>5.1 M</span><span>2015&ndash;24 avg<br>7.6 M</span></div>
    </div>
-   <p class="claim"><b class="hl">2&times;</b> the western-US forest area burned, 1984&ndash;2015</p>
-   <p class="src">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770, 2016</p>
+   <p class="claim"><b class="hl">7.6 million acres</b> a year now &mdash; more than double the 1990s.
+   77,850 fires in 2025 alone.</p>
+   <p class="src">National Interagency Fire Center, annual reports</p>
   </div>
 
   <div class="cell c4 mark">
    <span class="label">what it costs</span>
    <div class="plot">
     <div class="bars">
-     <div class="pbar"><span class="pfill ghost" style="height:41%"></span></div>
-     <div class="pbar"><span class="pfill" style="height:72%"></span></div>
-     <div class="pbar"><span class="pfill soft" style="height:100%"></span></div>
+     <div class="pbar"><span class="pfill soft" style="height:74%"></span></div>
+     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
     </div>
-    <div class="blabels"><span>1990s</span><span>today</span><span>2050</span></div>
+    <div class="blabels"><span>2015&ndash;24 avg<br>$2.9 bn</span><span>2050 projected<br>$3.9 bn</span></div>
    </div>
-   <p class="claim"><b class="hl">$2.9 bn</b> a year to fight &mdash; <b>$394&ndash;893 bn</b> all in</p>
-   <p class="src">USDA Forest Service R&amp;D &middot; US Joint Economic Committee</p>
+   <p class="claim"><b class="hl">$2.9 bn a year</b> to fight them, averaged 2015&ndash;24, rising
+   <b>42% by 2050</b>. All in: <b>$394&ndash;893 bn a year</b>.</p>
+   <p class="src">USDA Forest Service R&amp;D &middot; US Joint Economic Committee, 2023</p>
   </div>
 
   <div class="cell c4 mark">
-   <span class="label">how to solve it</span>
+   <span class="label">what we can do</span>
    <div class="plot">
     <div class="statslot"><span class="stat hl">1,600+</span></div>
-    <div class="blabels"><span>cameras, eight western states</span></div>
+    <div class="blabels"><span>cameras already watching,<br>eight western states</span></div>
    </div>
-   <p class="claim">Not more sensors &mdash; <b class="hl">making the ones we have usable</b></p>
+   <p class="claim"><b class="hl">Detect it earlier</b>, with sensors already on the ridgelines
+   &mdash; not by building more.</p>
    <p class="src">ALERTWest &middot; ALERTCalifornia, deployed today</p>
-  </div>
-
-  <div class="cell c12 flat">
-   <p class="tiny" style="margin:0"><b>Honest note.</b> Evidence that speed <em>alone</em> reduces
-   acreage is mixed &mdash; Ba&#803;lek et&nbsp;al. (<i>PLOS ONE</i>, 2024). So we claim an operational
-   result, not an outcome one. <span class="dim">Slide 18 states this in full.</span></p>
   </div>
 
  </div>
