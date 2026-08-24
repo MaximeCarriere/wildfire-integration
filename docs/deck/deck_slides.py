@@ -24,41 +24,41 @@ SLIDES = r"""
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">More land burns, it costs more,<br>and the fires that matter are the ones caught <span class="hl">late</span>.</h2>
+ <h2 class="anim">More land burns. It costs more.<br>And the sensors to catch it earlier are <span class="hl">already installed</span>.</h2>
  <div class="bento anim">
-  <div class="cell c4 hot"><span class="label">how much burns</span>
+
+  <div class="cell c4 hot">
+   <span class="label">how much burns</span>
    <span class="stat bad">2&times;</span>
-   <p class="tiny" style="margin:0">Human-caused warming <b>doubled the cumulative western-US forest
-   fire area over 1984&ndash;2015</b>, and drove more than half the rise in fuel aridity since the
-   1970s.</p>
-   <p class="tiny dim" style="margin:6px 0 0">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770,
-   2016. Western-US <em>forest</em> area, that window &mdash; not a pre-suppression baseline.</p></div>
+   <p style="margin:0">Human-caused warming <b>doubled the western-US forest area burned</b>
+   over 1984&ndash;2015, and drove more than half the rise in fuel aridity since the 1970s.</p>
+   <p class="tiny dim" style="margin-top:auto">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770, 2016</p>
+  </div>
 
-  <div class="cell c4 warmb"><span class="label">what it costs</span>
+  <div class="cell c4 warmb">
+   <span class="label">what it costs</span>
    <span class="stat warn">$2.9 bn</span>
-   <p class="tiny" style="margin:0">a year in federal suppression alone, averaged over the last decade
-   and projected to rise <b>42% by 2050</b>. Counting health, property and disruption:
-   <b>$394&ndash;893 bn</b> a year.</p>
-   <p class="tiny dim" style="margin:6px 0 0">USDA Forest Service R&amp;D; US Joint Economic
-   Committee, 2023.</p></div>
+   <p style="margin:0">a year in federal suppression alone, <b>rising 42% by 2050</b>.
+   Counting health, property and disruption: <b>$394&ndash;893 bn</b> a year.</p>
+   <p class="tiny dim" style="margin-top:auto">USDA Forest Service R&amp;D &middot; US Joint Economic Committee</p>
+  </div>
 
-  <div class="cell c4 mark"><span class="label">where the leverage is</span>
-   <span class="stat hl">initial<br>attack</span>
-   <p class="tiny" style="margin:0">Almost every fire is stopped on first attack. Detecting a fire
-   <b>while its behaviour is still benign</b> is what lets crews deploy in time to keep that success
-   rate up.</p>
-   <p class="tiny dim" style="margin:6px 0 0">ASME Open J. Eng., <i>A Review of Technologies for the
-   Early Detection of Wildfires</i>, 2025.</p></div>
+  <div class="cell c4 mark">
+   <span class="label">how to solve it</span>
+   <span class="stat hl">1,000+</span>
+   <p style="margin:0">cameras <b>already watch</b> the ridgelines. The answer is not more sensors
+   &mdash; it is <b class="hl">making the ones we have usable</b>.</p>
+   <p class="tiny dim" style="margin-top:auto">ALERTCalifornia, deployed today</p>
+  </div>
 
-  <div class="cell c12 flat"><h3>But we will not overclaim this, because the evidence is mixed</h3>
-   <p style="margin:0">The mechanism &mdash; earlier detection, higher initial-attack success &mdash; is
-   well established in the fire-management literature. The <em>economic</em> effect of shaving reporting
-   delay is not. Ba&#803;lek et&nbsp;al. (<i>PLOS ONE</i>, 2024) analysed Western Canadian fires
-   2015&ndash;2020 and found <b>no evidence that fire size increases with reporting delay</b>; an hour
-   saved buys about <b>0.25%</b> of suppression cost.
-   <b class="hl">The value of detection is greatest where detection is currently poor</b> &mdash; and in
-   a network already drowning in alerts, the binding problem is not speed. It is that nobody can read
-   them. That is slide 02.</p></div>
+  <div class="cell c12 flat">
+   <p class="tiny" style="margin:0"><b>Honest note.</b> The mechanism &mdash; earlier detection, higher
+   initial-attack success &mdash; is well established. The <em>economic</em> effect of shaving reporting
+   delay is not: Ba&#803;lek et&nbsp;al. (<i>PLOS ONE</i>, 2024) found no evidence that fire size grows
+   with reporting delay. <b class="hl">So we claim an operational result, not an outcome one</b> &mdash;
+   4.4&times; fewer alerts a human must read. Slide 18 states this in full.</p>
+  </div>
+
  </div>
 </div></section>
 
