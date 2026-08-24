@@ -314,33 +314,32 @@ SLIDES = r"""
 <!-- WHY EDGE -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">__N__ &middot; why the edge, not the cloud</p>
- <h2 class="anim">It is not about speed. It is about <span class="hl">what the radio can carry</span>.</h2>
+ <h2 class="anim">Three reasons. <span class="hl">None of them is speed</span>.</h2>
  <div class="bento headsonly anim">
-  <div class="cell c3 mark"><span class="label">1 &middot; the message has to fit</span>
+  <div class="cell c6 mark"><span class="label">1 &middot; the link is the constraint</span>
    <h3>371 ms, under a 400 ms ceiling</h3>
    <p class="tiny" style="margin:0">US rules cap a single transmission at <b>400 ms</b> on these
-   channels. Our nine-byte report takes <b class="hl">371 ms</b>. The full sixteen-byte one takes
-   <b>412 ms</b> and does not fit. The short profile is not a preference; it is the reason there is
-   a message at all.</p></div>
+   channels. Our nine-byte report takes <b class="hl">371 ms</b>. The full sixteen-byte record takes
+   <b>412 ms</b> and does not fit: the short profile exists because of that ceiling, not because we
+   liked it.</p>
+   <p class="tiny" style="margin:8px 0 0">Volume hits the same wall. A detector reading every frame
+   produces thousands of detections a day, and shipping them all to a data centre is <b>about an hour
+   of transmitting per camera, every day</b>, on a channel shared with every other camera on the ridge.
+   Shipping only the conclusions is <b class="hl">under a minute</b> &mdash; and when the link drops,
+   nine bytes wait in a queue where a video stream would simply have been lost.</p></div>
 
-  <div class="cell c3"><span class="label">2 &middot; and there cannot be many</span>
-   <h3>An hour a day, or under a minute</h3>
-   <p class="tiny" style="margin:0">A detector reading every frame produces thousands of detections a
-   day. Sending them all is <b>about an hour of transmitting per camera, every day</b>, on a channel
-   shared with every other camera on the ridge. Sending only the conclusions is <b class="hl">under a
-   minute</b> &mdash; and they share one link out, not one subscription each.</p></div>
-
-  <div class="cell c3"><span class="label">3 &middot; the link only has to work sometimes</span>
-   <h3>A stream needs a live link. A report can wait.</h3>
-   <p class="tiny" style="margin:0">A camera that streams goes blind the moment its link drops, and
-   fire weather is when links drop. Nine bytes can <b>sit in a queue</b> until the link returns, or
-   leave by a different route entirely. The evidence is not lost just because the path is.</p></div>
-
-  <div class="cell c3"><span class="label">4 &middot; privacy</span>
+  <div class="cell c3"><span class="label">2 &middot; privacy</span>
    <h3>Nothing is sent, so nothing can leak</h3>
    <p class="tiny" style="margin:0">To decide in a data centre you have to send it pictures. Then
    images of roads, driveways and back gardens sit on somebody's servers, for as long as somebody
    keeps them. Here the frame is read on the camera and deleted there.</p></div>
+
+  <div class="cell c3"><span class="label">3 &middot; nobody else in the loop</span>
+   <h3>No subscription, no vendor, no surprises</h3>
+   <p class="tiny" style="margin:0">Eight cameras share one link out instead of a data plan each, and
+   there is <b>no monthly bill for the deciding</b>. The integrator is a small fixed program, pinned
+   to golden test vectors, so the same evidence always gives the same alert. <b>It cannot be re-tuned
+   overnight, and it does not stop when a company does.</b></p></div>
 
   <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>And three things we will not
   claim.</b> It is not latency: a round trip to a data centre takes a fraction of a second, and a fire
