@@ -23,33 +23,64 @@ SLIDES = r"""
  <h2 class="anim">Six questions. Here is where each is answered.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
-   <p class="tiny" style="margin:0">A thousand cameras that work, and one bottleneck that does not
-   scale. <span class="dim">&rarr; 01&ndash;03</span></p></div>
+   <p class="tiny" style="margin:0">Twice the acreage of the 1990s, decided in the first hour &mdash;
+   and a thousand cameras whose alerts nobody can afford to read.
+   <span class="dim">&rarr; 01&ndash;04</span></p></div>
   <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
    <p class="tiny" style="margin:0">Dispatchers first, then everyone downstream of a faster first
-   response. <span class="dim">&rarr; 04</span></p></div>
+   response. <span class="dim">&rarr; 05</span></p></div>
   <div class="cell c6 flat"><span class="label">3 &middot; technical approach, hardware, edge AI</span>
    <p class="tiny" style="margin:0">A two-layer spiking network on the Arduino UNO Q, fed by a
-   detector that never leaves the pole. <span class="dim">&rarr; 05&ndash;11, 14</span></p></div>
+   detector that never leaves the pole. <span class="dim">&rarr; 06&ndash;12, 15</span></p></div>
   <div class="cell c6 flat"><span class="label">4 &middot; why it must be the edge, not the cloud</span>
    <p class="tiny" style="margin:0">Three reasons, only one of which is bandwidth.
-   <span class="dim">&rarr; 15</span></p></div>
+   <span class="dim">&rarr; 16</span></p></div>
   <div class="cell c6 flat"><span class="label">5 &middot; building in the open</span>
    <p class="tiny" style="margin:0">Already public, already reproducible, mistakes included.
-   <span class="dim">&rarr; 18</span></p></div>
+   <span class="dim">&rarr; 19</span></p></div>
   <div class="cell c6 warmb"><span class="label">6 &middot; an honest read on feasibility</span>
    <p class="tiny" style="margin:0">What is built and measured, and what could still sink it.
-   <span class="dim">&rarr; 12, 13, 17, 19</span></p></div>
+   <span class="dim">&rarr; 13, 14, 18, 20</span></p></div>
   <div class="cell c12"><p style="margin:0"><b>No code is required at this stage.</b> We wrote it
   anyway &mdash; not as the deliverable, but because it is the only way to answer question six with
   numbers instead of intentions.</p></div>
  </div>
 </div></section>
 
-<!-- 2 PROBLEM -->
+<!-- 1 STAKES -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">Wildfire cameras don't have a detection problem.<br>They have an <span class="bad">attention</span> problem.</h2>
+ <h2 class="anim">America burns twice as much as it used to.<br>And it is decided in the <span class="hl">first hour</span>.</h2>
+ <div class="bento anim">
+  <div class="cell c3 hot"><span class="label">acres burned, per year</span>
+   <span class="stat bad">2&times;</span>
+   <p class="tiny">3.3 million in the 1990s &rarr; <b>7.0 million</b> since 2000. Fire seasons are
+   lengthening as the climate dries.</p></div>
+  <div class="cell c3 warmb"><span class="label">federal suppression</span>
+   <span class="stat warn">$2.9 bn</span>
+   <p class="tiny">a year, on average, over the last decade &mdash; projected to rise a further 42% by
+   2050.</p></div>
+  <div class="cell c3 warmb"><span class="label">total economic cost</span>
+   <span class="stat warn">$394&ndash;893 bn</span>
+   <p class="tiny">a year in damages and losses, once health, property and disruption are counted.</p></div>
+  <div class="cell c3 mark"><span class="label">but escaped fires are</span>
+   <span class="stat hl">~10%</span>
+   <p class="tiny">of ignitions &mdash; and in one Canadian study they accounted for
+   <b>85% of the area burned</b>.</p></div>
+
+  <div class="cell c12 mark"><p style="margin:0;font-size:1.06rem">Nearly every fire is stopped on
+  first attack. <b class="hl">The few that are not are the ones that become catastrophes</b> &mdash; and
+  what separates them is usually how long the fire had to grow before anyone arrived.
+  A fire is cheap to stop for about an hour. After that it is not.</p>
+  <p class="tiny" style="margin:8px 0 0">So the leverage is not in fighting fires better. It is in
+  <b>finding them sooner</b>, while initial attack still works.</p></div>
+ </div>
+</div></section>
+
+<!-- 2 PROBLEM -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">02 &middot; the obstacle</p>
+ <h2 class="anim">America already built the sensors.<br>The alerts are <span class="bad">unusable</span> at scale.</h2>
  <div class="bento anim" style="margin-top:8px">
   <div class="cell c4 mark"><span class="label">deployed today</span>
    <span class="stat">1,000+</span><p class="tiny">AI cameras watching California alone.
@@ -69,7 +100,7 @@ SLIDES = r"""
 
 <!-- 3 WHAT THE CAMERA SEES -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">02 &middot; why it is hard</p>
+ <p class="eyebrow anim">03 &middot; why it is hard</p>
  <h2 class="anim">This is what the camera actually sees.</h2>
  <div class="bento anim">
   <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
@@ -90,7 +121,7 @@ SLIDES = r"""
 
 <!-- 4 SCALING PARADOX -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">03 &middot; the trap</p>
+ <p class="eyebrow anim">04 &middot; the trap</p>
  <h2 class="anim">Every camera you add makes the problem<br>better <em>and</em> worse.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">What scales</h3>
@@ -113,7 +144,7 @@ SLIDES = r"""
 
 <!-- WHO BENEFITS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">04 &middot; who benefits</p>
+ <p class="eyebrow anim">05 &middot; who benefits</p>
  <h2 class="anim">The first beneficiary is the person<br>we stop <span class="hl">interrupting</span>.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">Dispatchers and watchstanders</h3>
@@ -139,7 +170,7 @@ SLIDES = r"""
 
 <!-- 5 THE IDEA -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">05 &middot; the idea</p>
+ <p class="eyebrow anim">06 &middot; the idea</p>
  <h2 class="anim">Stop treating cameras as alarms.<br>Treat them as <span class="hl">nerve endings</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p style="margin:0">A single nerve ending is <b>weak, noisy and often wrong</b>.
@@ -163,12 +194,17 @@ SLIDES = r"""
    <p class="tiny" style="margin:0">Integrates over <b>time</b>. &ldquo;Is this plume still there?&rdquo;</p></div>
   <div class="cell c6 flat"><h3><span class="hl">Layer 2</span> &mdash; on the board</h3>
    <p class="tiny" style="margin:0">Integrates over <b>space</b>. &ldquo;Do towers at different angles agree?&rdquo;</p></div>
+  <div class="cell c12"><p style="margin:0;font-size:1.04rem">
+   <b class="hl">Early detection</b> from cameras already on the ridge &nbsp;&rarr;&nbsp;
+   <b class="hl">a drone confirms</b> before anyone is dispatched &nbsp;&rarr;&nbsp;
+   <b class="hl">a dial for how paranoid to be</b>, set by the operator and by the fire weather.
+   <span class="dim">No new towers. No new cameras. No images leaving the hillside.</span></p></div>
  </div>
 </div></section>
 
 <!-- 6 STATEWIDE END TO END -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">06 &middot; end to end</p>
+ <p class="eyebrow anim">07 &middot; end to end</p>
  <h2 class="anim">One fire, from first wisp to a drone overhead.</h2>
  <div class="bento anim" style="flex:1;align-content:stretch">
   <div class="cell c8 pad0" style="padding:8px">
@@ -198,7 +234,7 @@ SLIDES = r"""
 
 <!-- 6 LAYER 1 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">07 &middot; layer one</p>
+ <p class="eyebrow anim">08 &middot; layer one</p>
  <h2 class="anim">Patience, in one number.</h2>
  <div class="bento anim">
   <div class="cell c8 pad0" style="padding:14px 6px 6px">
@@ -220,7 +256,7 @@ SLIDES = r"""
 
 <!-- 7 LAYER 2 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">08 &middot; layer two</p>
+ <p class="eyebrow anim">09 &middot; layer two</p>
  <h2 class="anim">One tower gives you a direction.<br>Two give you a <span class="hl">place</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is &mdash; distance is
@@ -240,7 +276,7 @@ SLIDES = r"""
 
 <!-- 8 OSBORNE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">09 &middot; precedent</p>
+ <p class="eyebrow anim">10 &middot; precedent</p>
  <h2 class="anim">This is a 1911 idea, done in silicon.</h2>
  <div class="bento anim">
   <div class="cell c7"><p style="font-size:1.06rem">For most of the last century, fires were found
@@ -264,7 +300,7 @@ SLIDES = r"""
 
 <!-- 9 HAZE / SURROUND -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">10 &middot; the hard case</p>
+ <p class="eyebrow anim">11 &middot; the hard case</p>
  <h2 class="anim">Agreement alone would make things <span class="bad">worse</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>Here is the trap. If you simply reward agreement, then a marine layer
@@ -286,7 +322,7 @@ SLIDES = r"""
 
 <!-- 10 CONFIRMATION -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">11 &middot; after the alert</p>
+ <p class="eyebrow anim">12 &middot; after the alert</p>
  <h2 class="anim">The alert isn't the end. It's a question.</h2>
  <div class="bento anim">
   <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is worth
@@ -313,7 +349,7 @@ SLIDES = r"""
 
 <!-- 11 RESULTS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">12 &middot; does it work</p>
+ <p class="eyebrow anim">13 &middot; does it work</p>
  <h2 class="anim">Eight simulated days. Same cameras, same evidence, four ways of reading it.</h2>
  <div class="bento anim">
   <div class="cell c7 pad0" style="padding:12px">
@@ -332,7 +368,7 @@ SLIDES = r"""
 
 <!-- 12 STEAM VENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">13 &middot; the nuisance test</p>
+ <p class="eyebrow anim">14 &middot; the nuisance test</p>
  <h2 class="anim">A steam vent that two towers can see, running for six hours.</h2>
  <div class="bento anim">
   <div class="cell c3 hot"><span class="label">raw detections</span><span class="stat bad">2,700</span>
@@ -352,7 +388,7 @@ SLIDES = r"""
 
 <!-- 13 HARDWARE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">14 &middot; the hardware</p>
+ <p class="eyebrow anim">15 &middot; the hardware</p>
  <h2 class="anim">Two brains, and we use both for what they're for.</h2>
  <div class="bento anim">
   <div class="cell c5 pad0" id="unoq-slot">
@@ -377,7 +413,7 @@ SLIDES = r"""
 
 <!-- WHY EDGE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">15 &middot; why the edge, not the cloud</p>
+ <p class="eyebrow anim">16 &middot; why the edge, not the cloud</p>
  <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
  <div class="bento anim">
   <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
@@ -404,7 +440,7 @@ SLIDES = r"""
 
 <!-- 14 NOT A REPLACEMENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">16 &middot; where we fit</p>
+ <p class="eyebrow anim">17 &middot; where we fit</p>
  <h2 class="anim">Satellites own <span class="hl">everywhere</span>.<br>We own the <span class="hl">first ten minutes</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at
@@ -464,7 +500,7 @@ SLIDES = r"""
 
 <!-- 14 HONEST -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">17 &middot; what we don't claim</p>
+ <p class="eyebrow anim">18 &middot; what we don't claim</p>
  <h2 class="anim">Three things we could have hidden.</h2>
  <div class="bento anim">
   <div class="cell c4 warmb"><h3>A simpler method logs fewer alarms</h3>
@@ -488,7 +524,7 @@ SLIDES = r"""
 
 <!-- BUILDING IN THE OPEN -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">18 &middot; building in the open</p>
+ <p class="eyebrow anim">19 &middot; building in the open</p>
  <h2 class="anim">We are not promising to.<br>We already <span class="hl">are</span>.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">Already public</h3>
@@ -521,7 +557,7 @@ SLIDES = r"""
 
 <!-- 15 CLOSE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">19 &middot; where this goes</p>
+ <p class="eyebrow anim">20 &middot; where this goes</p>
  <h2 class="anim">The core is built, measured, and already runs on the chip.</h2>
  <div class="bento anim">
   <div class="cell c3 mark"><span class="stat sm hl">53</span><span class="label">tests passing</span></div>
