@@ -4,10 +4,11 @@ SLIDES = r"""
  <div class="cover">
   <div>
    <p class="eyebrow anim">Resilient America Preparedness Challenge &middot; Track A</p>
-   <h1 class="anim">Nobody is<br>watching the<br><span class="hl">thousandth camera.</span></h1>
-   <p class="lead anim">America has built a nervous system for wildfire and forgotten
-   to build the brain. We built the brain &mdash; small enough to run on a $50 board,
-   at the tower, with the network down.</p>
+   <h1 class="anim">Early wildfire detection,<br>and the integrator that<br>makes it <span class="hl">usable</span>.</h1>
+   <p class="lead anim">America has built a nervous system for wildfire and forgotten to build the
+   brain. A thousand cameras already watch the ridgelines; nobody can afford to read what they
+   report. We built the layer that turns them into one trustworthy, located alert &mdash; small
+   enough to run on a $50 board, at the tower, with the network down.</p>
    <div class="rule anim"></div>
    <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&mdash;&nbsp;
    confidential edge AI, built small and sealed shut &nbsp;&middot;&nbsp;
@@ -17,67 +18,44 @@ SLIDES = r"""
  </div>
 </div></section>
 
-<!-- INDEX -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">what a proposal must answer</p>
- <h2 class="anim">Six questions. Here is where each is answered.</h2>
- <div class="bento anim">
-  <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
-   <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns &mdash;
-   and a thousand cameras whose alerts nobody can afford to read.
-   <span class="dim">&rarr; 01&ndash;04</span></p></div>
-  <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
-   <p class="tiny" style="margin:0">Dispatchers first, then everyone downstream of a faster first
-   response. <span class="dim">&rarr; 05</span></p></div>
-  <div class="cell c6 flat"><span class="label">3 &middot; technical approach, hardware, edge AI</span>
-   <p class="tiny" style="margin:0">A two-layer spiking network on the Arduino UNO Q, fed by a
-   detector that never leaves the pole. <span class="dim">&rarr; 06&ndash;12, 15</span></p></div>
-  <div class="cell c6 flat"><span class="label">4 &middot; why it must be the edge, not the cloud</span>
-   <p class="tiny" style="margin:0">Three reasons, only one of which is bandwidth.
-   <span class="dim">&rarr; 16</span></p></div>
-  <div class="cell c6 flat"><span class="label">5 &middot; building in the open</span>
-   <p class="tiny" style="margin:0">Already public, already reproducible, mistakes included.
-   <span class="dim">&rarr; 19</span></p></div>
-  <div class="cell c6 warmb"><span class="label">6 &middot; an honest read on feasibility</span>
-   <p class="tiny" style="margin:0">What is built and measured, and what could still sink it.
-   <span class="dim">&rarr; 13, 14, 18, 20</span></p></div>
-  <div class="cell c12"><p style="margin:0"><b>No code is required at this stage.</b> We wrote it
-  anyway &mdash; not as the deliverable, but because it is the only way to answer question six with
-  numbers instead of intentions.</p></div>
- </div>
-</div></section>
-
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">Anthropogenic warming has <span class="hl">doubled</span> the forest area burned in the western US.</h2>
+ <h2 class="anim">More land burns, it costs more,<br>and the fires that matter are the ones caught <span class="hl">late</span>.</h2>
  <div class="bento anim">
-  <div class="cell c7 mark"><p style="margin:0">Abatzoglou &amp; Williams (2016) attribute
-  <b>more than half</b> of the observed rise in fuel aridity since the 1970s to human-caused climate
-  change, and find it <b class="hl">doubled the cumulative western-US forest fire area over
-  1984&ndash;2015</b>. Between 2000 and 2015 it added <b>75% more forested area</b> experiencing
-  high fire-danger conditions.</p>
-  <p class="tiny" style="margin:8px 0 0"><i>Impact of anthropogenic climate change on wildfire across
-  western US forests</i>, PNAS 113(42):11770&ndash;11775. The attribution is to <b>western US forest</b>
-  fire area over a defined window &mdash; not to all US land, and not against a pre-suppression
-  baseline, where the comparison would run the other way.</p></div>
-  <div class="cell c5"><span class="label">federal suppression</span>
-   <span class="stat warn">$2.9 bn</span>
-   <p class="tiny" style="margin:2px 0 10px">a year, averaged over the last decade, projected +42% by 2050.</p>
-   <span class="label">total economic cost</span>
-   <span class="stat sm warn">$394&ndash;893 bn</span>
-   <p class="tiny" style="margin:2px 0 0">a year once health, property and disruption are counted.</p></div>
+  <div class="cell c4 hot"><span class="label">how much burns</span>
+   <span class="stat bad">2&times;</span>
+   <p class="tiny" style="margin:0">Human-caused warming <b>doubled the cumulative western-US forest
+   fire area over 1984&ndash;2015</b>, and drove more than half the rise in fuel aridity since the
+   1970s.</p>
+   <p class="tiny dim" style="margin:6px 0 0">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770,
+   2016. Western-US <em>forest</em> area, that window &mdash; not a pre-suppression baseline.</p></div>
 
-  <div class="cell c12 hot"><h3 class="bad">And the obvious next claim does not survive the literature</h3>
-   <p style="margin:0">It is tempting to say faster detection means smaller fires and lower cost.
-   <b>The best study we could find says otherwise.</b> Analysing Western Canadian fires 2015&ndash;2020,
-   Ba&#803;lek et&nbsp;al. (PLOS ONE, 2024) find <b>no evidence that fire size increases with reporting
-   delay</b>; delays account for ~3% of suppression costs, and cutting them by a full hour buys a
-   <b>0.25%</b> cost reduction. Their conclusion: detection investment is
-   <em>&ldquo;not justified on suppression cost savings alone&rdquo;</em>.</p>
-   <p class="tiny" style="margin:8px 0 0"><b class="hl">So we do not make that claim.</b> What we
-   measured is different, and narrower: the false-alarm load that makes an existing camera network
-   unusable. That is slide 02, and it is the only thing our numbers support.</p></div>
+  <div class="cell c4 warmb"><span class="label">what it costs</span>
+   <span class="stat warn">$2.9 bn</span>
+   <p class="tiny" style="margin:0">a year in federal suppression alone, averaged over the last decade
+   and projected to rise <b>42% by 2050</b>. Counting health, property and disruption:
+   <b>$394&ndash;893 bn</b> a year.</p>
+   <p class="tiny dim" style="margin:6px 0 0">USDA Forest Service R&amp;D; US Joint Economic
+   Committee, 2023.</p></div>
+
+  <div class="cell c4 mark"><span class="label">where the leverage is</span>
+   <span class="stat hl">initial<br>attack</span>
+   <p class="tiny" style="margin:0">Almost every fire is stopped on first attack. Detecting a fire
+   <b>while its behaviour is still benign</b> is what lets crews deploy in time to keep that success
+   rate up.</p>
+   <p class="tiny dim" style="margin:6px 0 0">ASME Open J. Eng., <i>A Review of Technologies for the
+   Early Detection of Wildfires</i>, 2025.</p></div>
+
+  <div class="cell c12 flat"><h3>But we will not overclaim this, because the evidence is mixed</h3>
+   <p style="margin:0">The mechanism &mdash; earlier detection, higher initial-attack success &mdash; is
+   well established in the fire-management literature. The <em>economic</em> effect of shaving reporting
+   delay is not. Ba&#803;lek et&nbsp;al. (<i>PLOS ONE</i>, 2024) analysed Western Canadian fires
+   2015&ndash;2020 and found <b>no evidence that fire size increases with reporting delay</b>; an hour
+   saved buys about <b>0.25%</b> of suppression cost.
+   <b class="hl">The value of detection is greatest where detection is currently poor</b> &mdash; and in
+   a network already drowning in alerts, the binding problem is not speed. It is that nobody can read
+   them. That is slide 02.</p></div>
  </div>
 </div></section>
 
@@ -594,6 +572,36 @@ SLIDES = r"""
   <div class="cell c12"><p style="margin:0;font-size:1.05rem"><span class="mark">&#8251;</span>
    <b>Kernwerk</b> &mdash; <span class="dim">confidential edge AI, built small and sealed shut.</span>
    &nbsp; <span class="hl">Press <kbd>A</kbd> for the technical appendix.</span></p></div>
+ </div>
+</div></section>
+
+<!-- INDEX -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">coverage</p>
+ <h2 class="anim">The six things a proposal must answer.</h2>
+ <div class="bento anim">
+  <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
+   <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns &mdash;
+   and a thousand cameras whose alerts nobody can afford to read.
+   <span class="dim">&rarr; 01&ndash;04</span></p></div>
+  <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
+   <p class="tiny" style="margin:0">Dispatchers first, then everyone downstream of a faster first
+   response. <span class="dim">&rarr; 05</span></p></div>
+  <div class="cell c6 flat"><span class="label">3 &middot; technical approach, hardware, edge AI</span>
+   <p class="tiny" style="margin:0">A two-layer spiking network on the Arduino UNO Q, fed by a
+   detector that never leaves the pole. <span class="dim">&rarr; 06&ndash;12, 15</span></p></div>
+  <div class="cell c6 flat"><span class="label">4 &middot; why it must be the edge, not the cloud</span>
+   <p class="tiny" style="margin:0">Three reasons, only one of which is bandwidth.
+   <span class="dim">&rarr; 16</span></p></div>
+  <div class="cell c6 flat"><span class="label">5 &middot; building in the open</span>
+   <p class="tiny" style="margin:0">Already public, already reproducible, mistakes included.
+   <span class="dim">&rarr; 19</span></p></div>
+  <div class="cell c6 warmb"><span class="label">6 &middot; an honest read on feasibility</span>
+   <p class="tiny" style="margin:0">What is built and measured, and what could still sink it.
+   <span class="dim">&rarr; 13, 14, 18, 20</span></p></div>
+  <div class="cell c12"><p style="margin:0"><b>No code is required at this stage.</b> We wrote it
+  anyway &mdash; not as the deliverable, but because it is the only way to answer question six with
+  numbers instead of intentions.</p></div>
  </div>
 </div></section>
 

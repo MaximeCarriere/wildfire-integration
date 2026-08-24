@@ -36,13 +36,16 @@ CSS = r"""
 }
 
 html,body{height:100%}
+/* One fluid scale, on the ROOT, so every rem in the sheet follows it.
+   Putting it on <body> left headings (sized in rem) pinned to 16px while body
+   text grew -- which is why the sizes stopped relating to each other. */
+html{font-size:clamp(15px, 0.58vw + 0.66vh, 20px)}
 body{
   margin:0;background:var(--bg);color:var(--front);
   /* Scale with BOTH axes. A vw-only scale leaves a tall window mostly empty,
      which is what made every slide look like a small block floating in
      whitespace. */
-  font-size:clamp(15px, 0.60vw + 0.70vh, 20px);
-  line-height:1.5;overflow:hidden;
+  font-size:1rem;line-height:1.5;overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -101,16 +104,16 @@ body{
 
 /* ================= type ================= */
 .eyebrow{
-  font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--select);
+  font-size:0.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--select);
   margin:0 0 14px;display:flex;align-items:center;gap:9px;
 }
 .eyebrow::before{content:"";width:9px;height:9px;background:var(--select);border-radius:2px;flex:none}
-h1{font-size:clamp(2rem,0.9rem+2.4vw+1.1vh,3.4rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;font-weight:bold;text-wrap:balance}
-h2{font-size:clamp(1.35rem,0.8rem+1.1vw+0.9vh,2.1rem);line-height:1.18;letter-spacing:-.015em;margin:0 0 16px;font-weight:bold;text-wrap:balance}
-h3{font-size:1rem;margin:0 0 8px;font-weight:bold}
+h1{font-size:2.55rem;line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;font-weight:bold;text-wrap:balance}
+h2{font-size:1.72rem;line-height:1.18;letter-spacing:-.015em;margin:0 0 16px;font-weight:bold;text-wrap:balance}
+h3{font-size:1.02rem;margin:0 0 8px;font-weight:bold}
 p{margin:0 0 12px;overflow-wrap:break-word}
-.lead{font-size:clamp(1rem,.9rem+.4vw,1.22rem);line-height:1.5;color:var(--dim);max-width:62ch}
-.tiny{font-size:12px;color:var(--dim);line-height:1.45}
+.lead{font-size:1.16rem;line-height:1.5;color:var(--dim);max-width:62ch}
+.tiny{font-size:0.76rem;color:var(--dim);line-height:1.45}
 .dim{color:var(--dim)}
 .hl{color:var(--select)}
 .warn{color:var(--yellow)}
@@ -149,16 +152,16 @@ a{color:var(--select)}
 }
 
 /* stat */
-.stat{font-size:clamp(1.7rem,1rem+2.4vw,2.9rem);line-height:1;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.stat.sm{font-size:clamp(1.3rem,.9rem+1.4vw,1.9rem)}
-.label{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.stat{font-size:2.45rem;line-height:1;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stat.sm{font-size:1.62rem}
+.label{font-size:0.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
 
 /* media */
 .shot{position:relative;border-radius:7px;overflow:hidden;background:#000;line-height:0}
 .shot img{width:100%;height:100%;object-fit:cover;display:block}
 .shot .cap{
   position:absolute;left:0;right:0;bottom:0;padding:10px 12px;
-  background:linear-gradient(transparent,#000c);color:#fff;font-size:12px;line-height:1.35;
+  background:linear-gradient(transparent,#000c);color:#fff;font-size:0.74rem;line-height:1.35;
 }
 figure{margin:0}
 figure img{width:100%;display:block;border-radius:7px;border:1px solid var(--cardEdge)}
@@ -172,9 +175,9 @@ figure img{width:100%;display:block;border-radius:7px;border:1px solid var(--car
 
 /* table */
 .tw{overflow-x:auto;border:1px solid var(--line);border-radius:7px}
-table{border-collapse:collapse;width:100%;font-size:13px;min-width:30rem}
+table{border-collapse:collapse;width:100%;font-size:0.79rem;min-width:30rem}
 th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--line2);white-space:nowrap}
-thead th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:normal}
+thead th{font-size:0.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:normal}
 tbody tr:last-child td{border-bottom:none}
 td.n{text-align:right;font-variant-numeric:tabular-nums}
 tr.hero td{background:color-mix(in srgb,var(--select) 12%,transparent);font-weight:bold}
@@ -182,12 +185,12 @@ tr.hero td{background:color-mix(in srgb,var(--select) 12%,transparent);font-weig
 /* comparison matrix -- built to be READ ACROSS, not word by word.
    Every cell gets a status square, so the pattern down a column is visible
    before any of the text is. */
-.mx{font-size:13.5px;table-layout:fixed}
+.mx{font-size:0.82rem;table-layout:fixed}
 .mx th,.mx td{white-space:normal;vertical-align:top;padding:11px 12px;line-height:1.35}
-.mx thead th{font-size:11px;letter-spacing:.09em;padding-bottom:9px}
+.mx thead th{font-size:0.64rem;letter-spacing:.09em;padding-bottom:9px}
 .mx th.rh{
   text-align:left;font-weight:normal;color:var(--dim);
-  font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;width:9rem;
+  font-size:0.63rem;letter-spacing:.09em;text-transform:uppercase;width:9rem;
 }
 .mx col.us{width:14rem}
 .mx .k{
@@ -201,12 +204,12 @@ tr.hero td{background:color-mix(in srgb,var(--select) 12%,transparent);font-weig
 .mx tbody tr:last-child td{background:color-mix(in srgb,var(--front) 4%,transparent)}
 .mx tbody tr:last-child td:last-child{background:color-mix(in srgb,var(--select) 10%,transparent)}
 .mx thead th:last-child{color:var(--select)}
-.mxkey{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--dim);margin-top:10px}
+.mxkey{display:flex;gap:16px;flex-wrap:wrap;font-size:0.66rem;color:var(--dim);margin-top:10px}
 .mxkey span{display:flex;align-items:center}
 
 /* lists */
 ul.clean{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-ul.clean li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;line-height:1.45;overflow-wrap:break-word}
+ul.clean li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:0.84rem;line-height:1.45;overflow-wrap:break-word}
 ul.clean li::before{content:"";width:7px;height:7px;background:var(--select);border-radius:2px;margin-top:7px}
 ul.clean li.no::before{background:var(--red)}
 ul.clean li.warnb::before{background:var(--yellow)}
