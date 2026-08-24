@@ -131,8 +131,8 @@ a{color:var(--select)}
 .inner > .bento{align-content:center}
 .cell{
   background:var(--card);border:1px solid var(--cardEdge);border-radius:7px;
-  padding:clamp(14px,1.6vw,22px);box-shadow:var(--shadow);
-  display:flex;flex-direction:column;gap:8px;
+  padding:clamp(16px,1.8vw,26px);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:clamp(9px,1.2vh,14px);
   /* min-width:0 lets a grid child actually shrink; without it long words and
      wide tables push the cell past its column and collide with the next one */
   min-width:0;overflow-wrap:break-word;
@@ -164,9 +164,14 @@ a{color:var(--select)}
 .bars .pfill{width:100%;background:var(--select);border-radius:3px 3px 0 0;display:block}
 .bars .pfill.soft{opacity:.55}
 .bars .pfill.ghost{background:var(--front);opacity:.20}
+/* the number in the third cell stands where the other two have bars, so all
+   three visuals share a baseline and the row reads as one rhythm */
+.statslot{height:clamp(54px,7vh,84px);display:flex;align-items:flex-end}
+.statslot .stat{line-height:0.9}
 .blabels{display:flex;gap:10px}
 .blabels span{flex:1;min-width:0;text-align:center;font-size:0.6rem;line-height:1.2;color:var(--dim)}
-.pnote{font-size:0.72rem;line-height:1.35;color:var(--dim)}
+.claim{font-size:0.95rem;line-height:1.45;margin:0}
+.src{font-size:0.68rem;line-height:1.35;color:var(--dim);margin:auto 0 0}
 
 /* stat */
 .stat{font-size:2.45rem;line-height:1;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:-.02em}

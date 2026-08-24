@@ -25,7 +25,7 @@ SLIDES = r"""
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
  <h2 class="anim">More land burns. It costs more.<br>And the sensors to catch it earlier are <span class="hl">already installed</span>.</h2>
- <div class="bento anim">
+ <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
   <div class="cell c4 mark">
    <span class="label">how much burns</span>
@@ -35,11 +35,9 @@ SLIDES = r"""
      <div class="pbar"><span class="pfill" style="height:100%"></span></div>
     </div>
     <div class="blabels"><span>without warming</span><span>observed</span></div>
-    <div class="pnote"><b class="hl">2&times;</b> the western-US forest area burned, 1984&ndash;2015</div>
    </div>
-   <p style="margin:0">Human-caused warming drove <b>more than half</b> the rise in fuel aridity
-   since the 1970s.</p>
-   <p class="tiny dim" style="margin-top:auto">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770, 2016</p>
+   <p class="claim"><b class="hl">2&times;</b> the western-US forest area burned, 1984&ndash;2015</p>
+   <p class="src">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770, 2016</p>
   </div>
 
   <div class="cell c4 mark">
@@ -51,27 +49,25 @@ SLIDES = r"""
      <div class="pbar"><span class="pfill soft" style="height:100%"></span></div>
     </div>
     <div class="blabels"><span>1990s</span><span>today</span><span>2050</span></div>
-    <div class="pnote">federal suppression: <b class="hl">$2.9 bn</b> a year, <b>+42% by 2050</b></div>
    </div>
-   <p style="margin:0">Counting health, property and disruption: <b>$394&ndash;893 bn</b> a year.</p>
-   <p class="tiny dim" style="margin-top:auto">USDA Forest Service R&amp;D &middot; US Joint Economic Committee</p>
+   <p class="claim"><b class="hl">$2.9 bn</b> a year to fight &mdash; <b>$394&ndash;893 bn</b> all in</p>
+   <p class="src">USDA Forest Service R&amp;D &middot; US Joint Economic Committee</p>
   </div>
 
   <div class="cell c4 mark">
    <span class="label">how to solve it</span>
-   <span class="stat hl">1,600+</span>
-   <p style="margin:0">cameras <b>already watch</b> eight western states &mdash; 1,200 of them in
-   California alone. The answer is not more sensors: it is
-   <b class="hl">making the ones we have usable</b>.</p>
-   <p class="tiny dim" style="margin-top:auto">ALERTWest &middot; ALERTCalifornia, deployed today</p>
+   <div class="plot">
+    <div class="statslot"><span class="stat hl">1,600+</span></div>
+    <div class="blabels"><span>cameras, eight western states</span></div>
+   </div>
+   <p class="claim">Not more sensors &mdash; <b class="hl">making the ones we have usable</b></p>
+   <p class="src">ALERTWest &middot; ALERTCalifornia, deployed today</p>
   </div>
 
   <div class="cell c12 flat">
-   <p class="tiny" style="margin:0"><b>Honest note.</b> The mechanism &mdash; earlier detection, higher
-   initial-attack success &mdash; is well established. The <em>economic</em> effect of shaving reporting
-   delay is not: Ba&#803;lek et&nbsp;al. (<i>PLOS ONE</i>, 2024) found no evidence that fire size grows
-   with reporting delay. <b class="hl">So we claim an operational result, not an outcome one</b> &mdash;
-   4.4&times; fewer alerts a human must read. Slide 18 states this in full.</p>
+   <p class="tiny" style="margin:0"><b>Honest note.</b> Evidence that speed <em>alone</em> reduces
+   acreage is mixed &mdash; Ba&#803;lek et&nbsp;al. (<i>PLOS ONE</i>, 2024). So we claim an operational
+   result, not an outcome one. <span class="dim">Slide 18 states this in full.</span></p>
   </div>
 
  </div>
