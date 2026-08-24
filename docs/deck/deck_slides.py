@@ -24,7 +24,7 @@ SLIDES = r"""
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">More land burns. It costs more.<br>And nearly all of it comes from the few fires that <span class="hl">get away</span>.</h2>
+ <h2 class="anim">More land burns, and it costs more.<br>Nearly all of it comes from the few fires that were <span class="hl">not caught in time</span>.</h2>
  <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
   <div class="cell c4 mark">
