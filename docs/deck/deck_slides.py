@@ -671,32 +671,41 @@ SLIDES = r"""
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">__N__ &middot; building in the open</p>
  <h2 class="anim">We are not promising to.<br>We already <span class="hl">are</span>.</h2>
- <div class="bento anim">
-  <div class="cell c6 mark"><h3 class="hl">Already public</h3>
-   <ul class="clean" style="margin-top:6px">
-    <li>Apache-2.0 from the first commit, deliberately permissive, and kept separate from the
-    AGPL detector by a process boundary</li>
-    <li>The simulator is public too, <b>so anyone can attack our numbers with our own tools</b></li>
-    <li>Every figure regenerates with one command</li>
-   </ul></div>
-  <div class="cell c6 hot"><h3 class="bad">Including the mistakes</h3>
-   <p class="tiny" style="margin:0 0 6px">An appendix of this deck is titled <em>&ldquo;four things the
-   measurements forced us to fix&rdquo;</em>. It documents a normalisation scheme that masked real fires,
-   an adaptation rule that did nothing, and a rate-coding bug of our own making.</p>
-   <p class="tiny" style="margin:0"><b class="hl">Negative results get published at the same volume as
-   positive ones.</b> A build log that only contains successes is marketing.</p></div>
-  <div class="cell c12 flat"><h3>Through Stage Two</h3>
-   <div class="bento" style="gap:10px">
-    <div class="cell c4 bare"><span class="label">build notes</span>
-     <p class="tiny" style="margin:0">At each milestone: what was tried, what the measurement said,
-     what changed as a result.</p></div>
-    <div class="cell c4 bare"><span class="label">hardware files</span>
-     <p class="tiny" style="margin:0">Wiring, radio choice and node build published alongside the
-     firmware, so the prototype is reproducible and not just watchable.</p></div>
-    <div class="cell c4 bare"><span class="label">adaptation guidance</span>
-     <p class="tiny" style="margin:0">A written account of how to retarget it, the thresholds
-     are deployment-specific, and saying so is more useful than shipping ours.</p></div>
-   </div></div>
+ <div class="bento headsonly anim">
+  <div class="cell c4 mark"><span class="label">two repositories, both public</span>
+   <h3>The integrator and the detector</h3>
+   <p class="tiny" style="margin:0">This system is <b>Apache-2.0 from the first commit</b>. The
+   detector is a separate public study, <b>AGPL-3.0</b> because YOLOv5 is. They meet across a
+   <b>process boundary</b> rather than by linking, so both licences stay intact and the commercial
+   path stays open.</p></div>
+
+  <div class="cell c4"><span class="label">where the pictures come from</span>
+   <h3>D-Fire, and the gap we do not hide</h3>
+   <p class="tiny" style="margin:0">Trained on <b>D-Fire</b>: 21,527 labelled fire and smoke images,
+   published by Ven&acirc;ncio et al. in 2022, free to download. The tower frames here are HPWREN /
+   ALERTCalifornia. <b class="hl">But D-Fire is ground-level surveillance and web photos from Brazil,
+   not tower imagery from a Californian ridge</b>, so the detector has not been tested on the domain it
+   would work in. A named risk, not a footnote.</p></div>
+
+  <div class="cell c4"><span class="label">how the numbers stay honest</span>
+   <h3>One harness, frozen splits</h3>
+   <p class="tiny" style="margin:0">Every measurement goes through one harness with a version stamp:
+   change it and earlier results are void and get re-run. Splits are frozen and checksummed, so
+   <b>training refuses to start</b> if they drift. Accuracy is bit-reproducible, and no figure is
+   drawn by hand.</p></div>
+
+  <div class="cell c7 hot"><h3 class="bad">Including everything that failed</h3>
+   <p class="tiny" style="margin:0 0 6px">Pruning <b>lost on accuracy and speed at once</b>. One
+   default quantisation setting cost <b>67% of the accuracy</b>. In this repo: a normalisation scheme that masked real fires, an
+   adaptation rule that did nothing, a rate-coding bug of our own making.</p>
+   <p class="tiny" style="margin:0"><b class="hl">Negative results get published as loudly as
+   positive ones.</b> A log of only successes is marketing.</p></div>
+
+  <div class="cell c5 flat"><h3>Through Stage Two</h3>
+   <p class="tiny" style="margin:0"><b>Build notes</b> at each milestone: what was tried, what the
+   measurement said, what changed. <b>Hardware files</b> beside the firmware, so the prototype is
+   reproducible and not merely watchable. <b>Retargeting guidance</b>, since the thresholds are
+   deployment-specific and saying so beats shipping ours.</p></div>
  </div>
 </div></section>
 
@@ -737,22 +746,22 @@ SLIDES = r"""
   <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
    <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns,
    and a thousand cameras whose alerts nobody can afford to read.
-   <span class="dim">&rarr; 01, 03&ndash;05</span></p></div>
+   <span class="dim">&rarr; __REF:the problem__, __REF:the obstacle__, __REF:why it is hard__, __REF:the trap__</span></p></div>
   <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
    <p class="tiny" style="margin:0">Dispatchers first, then everyone downstream of a faster first
-   response. <span class="dim">&rarr; 02</span></p></div>
+   response. <span class="dim">&rarr; __REF:who benefits__</span></p></div>
   <div class="cell c6 flat"><span class="label">3 &middot; technical approach, hardware, edge AI</span>
    <p class="tiny" style="margin:0">A two-layer spiking network on the Arduino UNO Q, fed by a
-   detector that never leaves the pole. <span class="dim">&rarr; 06&ndash;12, 15</span></p></div>
+   detector that never leaves the pole. <span class="dim">&rarr; __REF:the idea__&ndash;__REF:the demo, end to end__, __REF:layer two__, __REF:the hardware__</span></p></div>
   <div class="cell c6 flat"><span class="label">4 &middot; why it must be the edge, not the cloud</span>
-   <p class="tiny" style="margin:0">Three reasons, only one of which is bandwidth.
-   <span class="dim">&rarr; 16</span></p></div>
+   <p class="tiny" style="margin:0">What the radio can carry, privacy, and depending on nobody.
+   <span class="dim">&rarr; __REF:why the edge, not the cloud__</span></p></div>
   <div class="cell c6 flat"><span class="label">5 &middot; building in the open</span>
-   <p class="tiny" style="margin:0">Already public, already reproducible, mistakes included.
-   <span class="dim">&rarr; 19</span></p></div>
+   <p class="tiny" style="margin:0">Two public repos, the dataset named, the failures published too.
+   <span class="dim">&rarr; __REF:building in the open__</span></p></div>
   <div class="cell c6 warmb"><span class="label">6 &middot; an honest read on feasibility</span>
    <p class="tiny" style="margin:0">What is built and measured, and what could still sink it.
-   <span class="dim">&rarr; 13, 14, 18, 20</span></p></div>
+   <span class="dim">&rarr; __REF:the hard case__, __REF:does it work__, __REF:the nuisance test__, __REF:what we don't claim__</span></p></div>
   <div class="cell c12"><p style="margin:0"><b>No code is required at this stage.</b> We wrote it
   anyway, not as the deliverable, but because it is the only way to answer question six with
   numbers instead of intentions.</p></div>
@@ -1148,6 +1157,24 @@ def _number(s):
 SLIDES, _MAIN_NUMBERED, _APX_NUMBERED = _number(SLIDES)
 
 # the deck's own contents page: numbers must run 01..N with nothing missing
+# Cross-references are written by NAME in the source (__REF:the obstacle__) and
+# resolved to numbers here, so a reorder can never leave a slide pointing at the
+# wrong place. The coverage slide had been pointing at five wrong slides.
+_LABELS = {lab.strip(): num for num, lab in
+           re.findall(r'<p class="eyebrow anim">(\d\d) &middot; ([^<]*)</p>', SLIDES)}
+
+
+def _resolve_refs(s):
+    def sub(m):
+        key = m.group(1).strip()
+        assert key in _LABELS, f"cross-reference to unknown slide: {key!r}"
+        return _LABELS[key]
+    return re.sub(r'__REF:([^_]+)__', sub, s)
+
+
+SLIDES = _resolve_refs(SLIDES)
+assert "__REF:" not in SLIDES
+
 _seen = re.findall(r'<p class="eyebrow anim">(\d\d) &middot;', SLIDES)
 assert _seen == [f"{i:02d}" for i in range(1, _MAIN_NUMBERED + 1)], \
     f"slide numbering is not contiguous: {_seen}"
