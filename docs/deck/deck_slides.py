@@ -314,33 +314,42 @@ SLIDES = r"""
 <!-- WHY EDGE -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">__N__ &middot; why the edge, not the cloud</p>
- <h2 class="anim">It is not about speed. It is about <span class="hl">how much has to travel</span>.</h2>
+ <h2 class="anim">It is not about speed. It is about <span class="hl">what the radio can carry</span>.</h2>
  <div class="bento headsonly anim">
-  <div class="cell c4 mark"><span class="label">1 &middot; it throws almost everything away</span>
-   <h3>79,000 reports in. 800 messages out.</h3>
-   <p class="tiny" style="margin:0">Our eight test cameras produce about <b>79,000 reports a day</b>,
-   and nearly all of them are dust, cloud or glare. The integrator's job is to bin those and keep what
-   matters: <b>about 800 messages a day</b>, a hundred times fewer. Sort on the hill and the link out
-   carries the 800. Sort in a data centre and it has to carry all 79,000 first, over the longest and
-   most expensive part of the whole system.</p></div>
+  <div class="cell c3 mark"><span class="label">1 &middot; the message has to fit</span>
+   <h3>371 ms, under a 400 ms ceiling</h3>
+   <p class="tiny" style="margin:0">US rules cap a single transmission at <b>400 ms</b> on these
+   channels. Our nine-byte report takes <b class="hl">371 ms</b>. The full sixteen-byte one takes
+   <b>412 ms</b> and does not fit. The short profile is not a preference; it is the reason there is
+   a message at all.</p></div>
 
-  <div class="cell c4 flat"><span class="label">2 &middot; the picture stays on the pole</span>
+  <div class="cell c3"><span class="label">2 &middot; and there cannot be many</span>
+   <h3>An hour a day, or under a minute</h3>
+   <p class="tiny" style="margin:0">A detector reading every frame produces thousands of detections a
+   day. Sending them all is <b>about an hour of transmitting per camera, every day</b>, on a channel
+   shared with every other camera on the ridge. Sending only the conclusions is <b class="hl">under a
+   minute</b> &mdash; and they share one link out, not one subscription each.</p></div>
+
+  <div class="cell c3"><span class="label">3 &middot; power</span>
+   <h3>The radio is what drains the battery</h3>
+   <p class="tiny" style="margin:0">Transmitting is the largest electrical load on a ridge site.
+   Streaming means the radio never stops. Reporting means it wakes for under a minute a day. That is
+   the difference between <b>a small solar panel and mains power</b>, and so between a ridge you can
+   put a camera on and one you cannot.</p></div>
+
+  <div class="cell c3"><span class="label">4 &middot; privacy</span>
    <h3>Nothing is sent, so nothing can leak</h3>
    <p class="tiny" style="margin:0">To decide in a data centre you have to send it pictures. Then
    images of roads, driveways and back gardens sit on somebody's servers, for as long as somebody
    keeps them. Here the frame is read on the camera and deleted there.</p></div>
 
-  <div class="cell c4 flat"><span class="label">3 &middot; so it works with no internet</span>
-   <h3>A few hundred tiny messages fit anywhere</h3>
-   <p class="tiny" style="margin:0">Because so little has to get out, the link can be a long-range
-   radio or a satellite tag, the kind that could never have carried video. That opens up ridges with
-   no connection at all, which is much of the ground that burns.</p></div>
-
-  <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>Two honest notes.</b> Those 800
-  messages include repeated updates on the same fire; the number anyone actually has to investigate is
-  far smaller, and the results slide gives it. And if the link out is fully down, the alert cannot leave either
-  &mdash; the integrator keeps deciding, but somebody still has to hear it.</p></div>
+  <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>And two things we will not claim.</b>
+  It is not latency: a round trip to a data centre takes a fraction of a second and a fire takes
+  minutes. And if the link out is fully down, the alert cannot leave either &mdash; the integrator
+  keeps deciding, but somebody still has to hear it.</p></div>
  </div>
+ <p class="tiny anim" style="margin-top:8px">Airtime from the Semtech time-on-air formula at
+ LoRaWAN US915 DR0 (SF10, 125 kHz, CR 4/5), including the 13-byte LoRaWAN header.</p>
 </div></section>
 
 <!-- 2 PROBLEM -->
