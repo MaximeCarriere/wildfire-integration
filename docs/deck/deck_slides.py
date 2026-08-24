@@ -127,7 +127,7 @@ SLIDES = r"""
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">03 &middot; the idea</p>
  <h2 class="anim">Four steps, and only one of them is <span class="hl">new hardware</span></h2>
- <div class="bento anim" style="gap:clamp(12px,1.5vw,18px)">
+ <div class="bento steps anim" style="gap:clamp(12px,1.5vw,18px)">
 
   <div class="cell c3 mark">
    <span class="label">step 1 &nbsp;&rarr;&nbsp; the cameras</span>
@@ -163,10 +163,11 @@ SLIDES = r"""
   </div>
 
   <div class="cell c12 flat">
-   <p style="margin:0;font-size:1.04rem">No new towers, and no images leaving the hillside.
-   <b class="hl">The cameras are the eyes</b>: each one decides whether it saw something worth
-   reporting. <b class="hl">The integrator is the brain</b>: it decides whether those reports add up
-   to an alert.</p>
+   <p style="margin:0;font-size:1.04rem">No new towers, and no images leaving the hillside.</p>
+   <p style="margin:7px 0 0;font-size:1.04rem"><b class="hl">The cameras are the eyes</b>: each one
+   decides whether it saw something worth reporting.</p>
+   <p style="margin:4px 0 0;font-size:1.04rem"><b class="hl">The integrator is the brain</b>: it
+   decides whether those reports add up to an alert.</p>
   </div>
 
  </div>

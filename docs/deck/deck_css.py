@@ -183,8 +183,17 @@ a{color:var(--select)}
    sharp at any projector size, and cost nothing to load */
 .stepicon{
   width:clamp(36px,4.6vh,48px);height:clamp(36px,4.6vh,48px);
-  display:block;color:var(--select);flex:none;margin:2px 0 2px;
+  display:block;color:var(--select);flex:none;
+  /* the cell is a flex column, so align-self is what centres it; a margin
+     would fight the cell's own gap */
+  align-self:center;
 }
+
+/* .mark paints a whole cell in the accent. On the step cards that is too much
+   green at once, so keep the accent on the heading and return the body copy to
+   normal ink; .hl spans inside still highlight because they set colour directly. */
+.steps .cell.mark{color:var(--front);font-weight:normal}
+.steps .cell.mark h3{color:var(--select)}
 
 /* media */
 .shot{position:relative;border-radius:7px;overflow:hidden;background:#000;line-height:0}
