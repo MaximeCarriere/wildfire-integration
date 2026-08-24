@@ -131,6 +131,7 @@ SLIDES = r"""
 
   <div class="cell c3 mark">
    <span class="label">step 1 &nbsp;&rarr;&nbsp; the cameras</span>
+   <svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="14.5" width="39" height="26" rx="4.5"/><path d="M17.5 14.5v-2a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v2"/><circle cx="24" cy="27.5" r="8"/><circle cx="36.5" cy="20.5" r="1.7" fill="currentColor" stroke="none"/></svg>
    <h3>Use what is already there</h3>
    <p class="claim" style="font-size:0.9rem"><b class="hl">1,600+</b> cameras are already installed
    across eight western states. New ones go up only where there is a gap.</p>
@@ -138,6 +139,7 @@ SLIDES = r"""
 
   <div class="cell c3 mark">
    <span class="label">step 2 &nbsp;&rarr;&nbsp; the model</span>
+   <svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.4 14.4 21 19.2M13.4 24 21 20.4M13.4 33.6 21 29.4M13.4 24 21 28.2"/><path d="M27 19.6 34.2 23.2M27 29 34.2 24.8"/><circle cx="9.5" cy="14.4" r="3.6"/><circle cx="9.5" cy="24" r="3.6"/><circle cx="9.5" cy="33.6" r="3.6"/><circle cx="24" cy="19" r="3.6"/><circle cx="24" cy="29.6" r="3.6"/><circle cx="38" cy="24" r="3.6"/><circle cx="9.5" cy="24" r="1.7" fill="currentColor" stroke="none"/><circle cx="24" cy="19" r="1.7" fill="currentColor" stroke="none"/><circle cx="38" cy="24" r="1.7" fill="currentColor" stroke="none"/></svg>
    <h3>Look on the pole</h3>
    <p class="claim" style="font-size:0.9rem">A <b class="hl">small AI model</b>, about 7 million
    parameters, runs on the camera itself and spots plumes, smoke and fire.
@@ -146,6 +148,7 @@ SLIDES = r"""
 
   <div class="cell c3 mark">
    <span class="label">step 3 &nbsp;&rarr;&nbsp; the link</span>
+   <svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 28v11M17 39h14"/><circle cx="24" cy="24" r="2.6" fill="currentColor" stroke="none"/><path d="M17.6 17.6a9 9 0 0 0 0 12.8M30.4 17.6a9 9 0 0 1 0 12.8"/><path d="M12.6 12.6a16 16 0 0 0 0 22.8M35.4 12.6a16 16 0 0 1 0 22.8"/></svg>
    <h3>Send a verdict, not a photo</h3>
    <p class="claim" style="font-size:0.9rem">The camera radios <b class="hl">a few bytes</b>: what it
    thinks it saw, and how sure it is. Small enough to cross any radio, anywhere.</p>
@@ -153,6 +156,7 @@ SLIDES = r"""
 
   <div class="cell c3 mark">
    <span class="label">step 4 &nbsp;&rarr;&nbsp; the integrator</span>
+   <svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 12.5v25"/><path d="M24 13.2c-1.8-2.6-6.4-2.6-8 .5-3.7.3-5.5 4-3.7 6.7-2.7 1.9-2.7 6.4 0 8.3-.3 3.7 3 6.4 6.5 5.5 1.4 2.2 4.2 2.4 5.2.6"/><path d="M24 13.2c1.8-2.6 6.4-2.6 8 .5 3.7.3 5.5 4 3.7 6.7 2.7 1.9 2.7 6.4 0 8.3.3 3.7-3 6.4-6.5 5.5-1.4 2.2-4.2 2.4-5.2.6"/><path d="M16.6 20.4h3.6L24 23.4M16.2 30.2h4l3.8-3"/><path d="M31.4 20.4h-3.6L24 23.4M31.8 30.2h-4L24 27.2"/><circle cx="15" cy="20.4" r="1.6"/><circle cx="14.6" cy="30.2" r="1.6"/><circle cx="33" cy="20.4" r="1.6"/><circle cx="33.4" cy="30.2" r="1.6"/></svg>
    <h3>Decide, then check</h3>
    <p class="claim" style="font-size:0.9rem">An <b class="hl">Arduino UNO Q</b> gathers those reports
    and weighs them. Only when several agree does it <b>send a drone to confirm</b>.</p>

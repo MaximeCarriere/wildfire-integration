@@ -179,6 +179,13 @@ a{color:var(--select)}
 .stat.sm{font-size:1.62rem}
 .label{font-size:0.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
 
+/* step icons: inline SVG so they take the accent from currentColor, stay
+   sharp at any projector size, and cost nothing to load */
+.stepicon{
+  width:clamp(36px,4.6vh,48px);height:clamp(36px,4.6vh,48px);
+  display:block;color:var(--select);flex:none;margin:2px 0 2px;
+}
+
 /* media */
 .shot{position:relative;border-radius:7px;overflow:hidden;background:#000;line-height:0}
 .shot img{width:100%;height:100%;object-fit:cover;display:block}
