@@ -224,13 +224,48 @@ ul.clean li.warnb::before{background:var(--yellow)}
 
 canvas{display:block;width:100%;height:100%}
 .canvasbox{position:relative;width:100%;min-height:190px;flex:1;min-width:0;overflow:hidden}
-.canvasbox.fireplate{border-radius:9px;overflow:hidden;box-shadow:var(--shadow)}
 .cover ul.clean li{font-size:0.95rem;line-height:1.5}
 .cover ul.clean li::before{margin-top:9px}
 
-/* cover */
+/* cover -- the fire runs full bleed behind everything, and a scrim keeps the
+   copy on solid ground. The scrim is built from --bg, so it works in either
+   theme without the fire needing to know which one is active. */
+.slide.hero{padding:0}
+.bgfire{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.60}
+/* Embers read brighter against a dark ground, so night can carry more of them.
+   Declared in BOTH dark scopes: the media query covers the OS setting, the
+   data-theme scope covers the toggle. */
+@media (prefers-color-scheme:dark){
+  :root:where(:not([data-theme="light"])) .bgfire{opacity:.92}
+}
+:root[data-theme="night"] .bgfire{opacity:.92}
+.scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(103deg, var(--bg) 0%, var(--bg) 30%,
+                    color-mix(in srgb, var(--bg) 62%, transparent) 52%,
+                    color-mix(in srgb, var(--bg) 18%, transparent) 72%,
+                    transparent 88%),
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 40%, transparent) 14%, transparent 34%);
+}
+.slide.hero .inner{
+  position:relative;z-index:2;
+  padding:clamp(52px,7vh,72px) clamp(18px,4vw,54px) clamp(44px,6vh,60px);
+  justify-content:center;
+}
+.herocopy{max-width:min(60ch,62%)}
+@media (max-width:900px){
+  .herocopy{max-width:100%}
+  .scrim{background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 72%, transparent) 42%,
+                    color-mix(in srgb, var(--bg) 40%, transparent) 78%, transparent 100%)}
+}
+
+/* old two-column cover */
 .cover{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,60px);align-items:center}
 @media (max-width:900px){.cover{grid-template-columns:1fr}.cover .art{display:none}}
+.hero ul.clean li{font-size:0.95rem;line-height:1.5}
+.hero ul.clean li::before{margin-top:9px}
 .rule{height:1px;background:var(--line);margin:20px 0}
 
 /* appendix divider slide */

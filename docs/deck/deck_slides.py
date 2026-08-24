@@ -1,11 +1,13 @@
 SLIDES = r"""
 <!-- 1 COVER -->
-<section class="slide"><div class="inner">
- <div class="cover">
-  <div>
+<section class="slide hero">
+ <canvas class="bgfire" data-anim="fire"></canvas>
+ <div class="scrim"></div>
+ <div class="inner">
+  <div class="herocopy">
    <p class="eyebrow anim">Resilient America Preparedness Challenge &middot; Track A</p>
    <h1 class="anim">Early wildfire detection,<br>and the integrator that<br>makes it <span class="hl">usable</span>.</h1>
-   <ul class="clean anim" style="margin:0 0 4px;gap:11px">
+   <ul class="clean anim" style="margin:0 0 6px;gap:11px">
     <li>America has built a nervous system for wildfire and forgotten to build the brain.</li>
     <li>A thousand cameras already watch the ridgelines. Nobody can afford to read what they report.</li>
     <li>We built the layer that turns them into one trustworthy, located alert.</li>
@@ -16,9 +18,8 @@ SLIDES = r"""
    confidential edge AI, built small and sealed shut &nbsp;&middot;&nbsp;
    <span class="dim">press <kbd>&rarr;</kbd> to advance, <kbd>?</kbd> for keys</span></p>
   </div>
-  <div class="art anim"><div class="canvasbox fireplate" style="min-height:min(62vh,460px)"><canvas data-anim="fire"></canvas></div></div>
  </div>
-</div></section>
+</section>
 
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">

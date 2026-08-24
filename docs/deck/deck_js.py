@@ -196,11 +196,12 @@ ANIM.fire=function(c){
   for(var i=0;i<N;i++){ var q={}; spawn(q,true); P.push(q); }
 
   loop(function(){
+    /* Clear to TRANSPARENT and paint only the embers. Painting a dark plate
+       here and fading the whole canvas produced a grey smudge over a light
+       page -- the plate, not the fire, was what showed through. On a
+       transparent ground the embers land as a warm wash in either theme. */
     x.globalCompositeOperation='source-over';
-    var bg=x.createLinearGradient(0,0,0,H);
-    bg.addColorStop(0,'#090c0e'); bg.addColorStop(0.6,'#160e0b'); bg.addColorStop(1,'#2e1207');
-    x.fillStyle=bg; x.fillRect(0,0,W,H);
-
+    x.clearRect(0,0,W,H);
     x.globalCompositeOperation='lighter';
     for(var i=0;i<P.length;i++){
       var p=P[i];
@@ -223,14 +224,12 @@ ANIM.fire=function(c){
     }
     x.globalAlpha=1;
 
+    /* additive floor glow only -- no black vignette, which would darken the
+       page background rather than the fire */
     var fl=x.createRadialGradient(W*0.5,H*1.05,0,W*0.5,H*1.05,W*0.62);
-    fl.addColorStop(0,'rgba(255,120,34,0.55)'); fl.addColorStop(1,'rgba(255,80,18,0)');
+    fl.addColorStop(0,'rgba(255,120,34,0.45)'); fl.addColorStop(1,'rgba(255,80,18,0)');
     x.fillStyle=fl; x.fillRect(0,H*0.5,W,H*0.5);
-
     x.globalCompositeOperation='source-over';
-    var vg=x.createRadialGradient(W*0.5,H*0.62,Math.min(W,H)*0.2,W*0.5,H*0.5,Math.max(W,H)*0.75);
-    vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.5)');
-    x.fillStyle=vg; x.fillRect(0,0,W,H);
   });
 };
 
