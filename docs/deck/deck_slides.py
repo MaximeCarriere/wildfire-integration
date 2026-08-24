@@ -73,74 +73,9 @@ SLIDES = r"""
  </div>
 </div></section>
 
-<!-- 2 PROBLEM -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">02 &middot; the obstacle</p>
- <h2 class="anim">America already built the sensors.<br>The alerts are <span class="bad">unusable</span> at scale.</h2>
- <div class="bento anim" style="margin-top:8px">
-  <div class="cell c4 mark"><span class="label">deployed today</span>
-   <span class="stat">1,000+</span><p class="tiny">AI cameras watching California alone.
-   The network works. It sees fires.</p></div>
-  <div class="cell c4 hot"><span class="label">and therefore</span>
-   <span class="stat bad">~1,000</span><p class="tiny">false alarms every day, network-wide.
-   Cloud. Fog. Dust. Steam off a geothermal plant.</p></div>
-  <div class="cell c4 warmb"><span class="label">costing, every day</span>
-   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention &mdash;
-   <b>more than four full shifts</b> &mdash; spent looking at cloud and dust. At two minutes a check.</p></div>
-  <div class="cell c12 flat"><p style="margin:0">Every one of those is resolved the same way it was in
-  1935: <b>a person looks.</b> Operators even had to teach the software, by hand, to ignore the steam
-  off the Geysers field. <b class="hl">The confirmation step is a human being</b> &mdash; and that
-  human is the one part of the system you cannot buy more of.</p></div>
- </div>
-</div></section>
-
-<!-- 3 WHAT THE CAMERA SEES -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">03 &middot; why it is hard</p>
- <h2 class="anim">This is what the camera actually sees.</h2>
- <div class="bento anim">
-  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
-    <img src="__IMG_TINY__" alt="A wide hillside landscape with a very small smoke plume marked by a tiny box">
-    <div class="cap">A real fire. The plume is <b>under 0.1%</b> of the frame.</div></div></div>
-  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
-    <img src="__IMG_NIGHT__" alt="A near-black night frame with a small marked fire">
-    <div class="cap">Night. Most of the frame is black.</div></div></div>
-  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
-    <img src="__IMG_EMPTY__" alt="An empty hillside landscape with no fire">
-    <div class="cap">Nothing at all &mdash; <b>47%</b> of frames.</div></div></div>
-  <div class="cell c12 flat"><p style="margin:0">A detector good enough to catch the first
-  picture will also fire on haze, on a dust plume off a road, on headlights, on a cloud
-  shadow crossing a ridge. <b>Better models do not fix this.</b> Ambiguity is in the pixels.</p></div>
- </div>
- <p class="tiny anim" style="margin-top:10px">Frames: HPWREN / ALERTCalifornia tower network, from our own detector benchmark.</p>
-</div></section>
-
-<!-- 4 SCALING PARADOX -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">04 &middot; the trap</p>
- <h2 class="anim">Every camera you add makes the problem<br>better <em>and</em> worse.</h2>
- <div class="bento anim">
-  <div class="cell c6 mark"><h3 class="hl">What scales</h3>
-   <ul class="clean">
-    <li>Coverage &mdash; more ridgelines watched</li>
-    <li>Redundancy &mdash; a fire seen from two angles</li>
-    <li>Speed &mdash; someone is always looking</li>
-   </ul></div>
-  <div class="cell c6 hot"><h3 class="bad">What doesn't</h3>
-   <ul class="clean">
-    <li class="no">The person confirming each alert</li>
-    <li class="no">Their attention at 3&nbsp;a.m. on day nine of a siege</li>
-    <li class="no">Their patience after the 200th cloud</li>
-   </ul></div>
-  <div class="cell c12"><p style="margin:0;font-size:1.05rem">So the fix cannot be a better camera
-  or a better model. <b class="hl">It has to be a layer that sits above all of them</b> and decides,
-  from many weak and unreliable signals, whether anything is really burning &mdash; and where.</p></div>
- </div>
-</div></section>
-
 <!-- WHO BENEFITS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">04 &middot; who benefits</p>
+ <p class="eyebrow anim">02 &middot; who benefits</p>
  <h2 class="anim">The people who <span class="hl">live in it</span>,<br>and the people <span class="hl">sent into it</span></h2>
  <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
@@ -190,6 +125,71 @@ SLIDES = r"""
    we stop spending them, and the aircraft, on cloud and dust.</p>
   </div>
 
+ </div>
+</div></section>
+
+<!-- 2 PROBLEM -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">03 &middot; the obstacle</p>
+ <h2 class="anim">America already built the sensors.<br>The alerts are <span class="bad">unusable</span> at scale.</h2>
+ <div class="bento anim" style="margin-top:8px">
+  <div class="cell c4 mark"><span class="label">deployed today</span>
+   <span class="stat">1,000+</span><p class="tiny">AI cameras watching California alone.
+   The network works. It sees fires.</p></div>
+  <div class="cell c4 hot"><span class="label">and therefore</span>
+   <span class="stat bad">~1,000</span><p class="tiny">false alarms every day, network-wide.
+   Cloud. Fog. Dust. Steam off a geothermal plant.</p></div>
+  <div class="cell c4 warmb"><span class="label">costing, every day</span>
+   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention &mdash;
+   <b>more than four full shifts</b> &mdash; spent looking at cloud and dust. At two minutes a check.</p></div>
+  <div class="cell c12 flat"><p style="margin:0">Every one of those is resolved the same way it was in
+  1935: <b>a person looks.</b> Operators even had to teach the software, by hand, to ignore the steam
+  off the Geysers field. <b class="hl">The confirmation step is a human being</b> &mdash; and that
+  human is the one part of the system you cannot buy more of.</p></div>
+ </div>
+</div></section>
+
+<!-- 3 WHAT THE CAMERA SEES -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">04 &middot; why it is hard</p>
+ <h2 class="anim">This is what the camera actually sees.</h2>
+ <div class="bento anim">
+  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
+    <img src="__IMG_TINY__" alt="A wide hillside landscape with a very small smoke plume marked by a tiny box">
+    <div class="cap">A real fire. The plume is <b>under 0.1%</b> of the frame.</div></div></div>
+  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
+    <img src="__IMG_NIGHT__" alt="A near-black night frame with a small marked fire">
+    <div class="cap">Night. Most of the frame is black.</div></div></div>
+  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
+    <img src="__IMG_EMPTY__" alt="An empty hillside landscape with no fire">
+    <div class="cap">Nothing at all &mdash; <b>47%</b> of frames.</div></div></div>
+  <div class="cell c12 flat"><p style="margin:0">A detector good enough to catch the first
+  picture will also fire on haze, on a dust plume off a road, on headlights, on a cloud
+  shadow crossing a ridge. <b>Better models do not fix this.</b> Ambiguity is in the pixels.</p></div>
+ </div>
+ <p class="tiny anim" style="margin-top:10px">Frames: HPWREN / ALERTCalifornia tower network, from our own detector benchmark.</p>
+</div></section>
+
+<!-- 4 SCALING PARADOX -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">05 &middot; the trap</p>
+ <h2 class="anim">Every camera you add makes the problem<br>better <em>and</em> worse.</h2>
+ <div class="bento anim">
+  <div class="cell c6 mark"><h3 class="hl">What scales</h3>
+   <ul class="clean">
+    <li>Coverage &mdash; more ridgelines watched</li>
+    <li>Redundancy &mdash; a fire seen from two angles</li>
+    <li>Speed &mdash; someone is always looking</li>
+   </ul></div>
+  <div class="cell c6 hot"><h3 class="bad">What doesn't</h3>
+   <ul class="clean">
+    <li class="no">The person confirming each alert</li>
+    <li class="no">Their attention at 3&nbsp;a.m. on day nine of a siege</li>
+    <li class="no">Their patience after the 200th cloud</li>
+   </ul></div>
+  <div class="cell c12"><p style="margin:0;font-size:1.05rem">So the fix cannot be a better camera
+  or a better model. <b class="hl">It has to be a layer that sits above all of them</b> and decides,
+  from many weak and unreliable signals, whether anything is really burning &mdash; and where.</p></div>
  </div>
 </div></section>
 
@@ -630,10 +630,10 @@ SLIDES = r"""
   <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
    <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns &mdash;
    and a thousand cameras whose alerts nobody can afford to read.
-   <span class="dim">&rarr; 01&ndash;04</span></p></div>
+   <span class="dim">&rarr; 01, 03&ndash;05</span></p></div>
   <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
    <p class="tiny" style="margin:0">Dispatchers first, then everyone downstream of a faster first
-   response. <span class="dim">&rarr; 05</span></p></div>
+   response. <span class="dim">&rarr; 02</span></p></div>
   <div class="cell c6 flat"><span class="label">3 &middot; technical approach, hardware, edge AI</span>
    <p class="tiny" style="margin:0">A two-layer spiking network on the Arduino UNO Q, fed by a
    detector that never leaves the pole. <span class="dim">&rarr; 06&ndash;12, 15</span></p></div>
