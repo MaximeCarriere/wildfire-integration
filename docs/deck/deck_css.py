@@ -169,7 +169,8 @@ a{color:var(--select)}
 .statslot{height:clamp(54px,7vh,84px);display:flex;align-items:flex-end}
 .statslot .stat{line-height:0.9}
 .blabels{display:flex;gap:10px}
-.blabels span{flex:1;min-width:0;text-align:center;font-size:0.6rem;line-height:1.2;color:var(--dim)}
+.blabels span{flex:1;min-width:0;text-align:center;font-size:0.62rem;line-height:1.3;color:var(--dim)}
+.blabels b{color:var(--front);font-weight:bold}
 .claim{font-size:0.95rem;line-height:1.45;margin:0}
 .src{font-size:0.68rem;line-height:1.35;color:var(--dim);margin:auto 0 0}
 

@@ -63,10 +63,10 @@ SLIDES = r"""
      <div class="pbar"><span class="pfill ghost" style="height:12%"></span></div>
      <div class="pbar"><span class="pfill" style="height:100%"></span></div>
     </div>
-    <div class="blabels"><span>10% of fires<br>escaped</span><span>85% of the<br>area burned</span></div>
+    <div class="blabels"><span><b>1 in 10</b> fires<br>escapes&hellip;</span><span>&hellip;and burns
+    <b>85%</b> of<br>all the land lost</span></div>
    </div>
-   <p class="claim">The <b class="hl">earlier a fire is found</b>, the better the chance crews
-   stop it on the first try.</p>
+   <p class="claim">The <b class="hl">earlier a fire is found</b>, the better the chance to stop it.</p>
    <p class="src">NE Alberta, reported in <i>Int. J. Wildland Fire</i> &middot; ASME Open J. Eng., 2025</p>
   </div>
 
