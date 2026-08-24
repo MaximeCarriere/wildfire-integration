@@ -70,18 +70,28 @@ distributed signals and decides whether anything is actually burning, and where.
 
 ## 2. Affected community and beneficiaries
 
-- **Wildland fire dispatchers and camera-network watchstanders**, who absorb the
-  false-alarm load today and whose attention is the scarce resource during a
-  red-flag event — precisely when alarm volume peaks.
-- **Rural and wildland-urban-interface communities** in California, Oregon,
-  Nevada, Colorado and across the West, where minutes between ignition and
-  first response determine whether an incident stays a spot fire.
-- **Volunteer and small municipal fire departments**, who cannot staff a
-  24-hour camera watch and are therefore excluded from the benefits of the
-  networks their counties are already paying for.
-- **Tribal and remote land managers** operating where cellular backhaul is
-  intermittent or absent, and where a system that needs the cloud to think is a
-  system that stops thinking exactly when it is needed.
+**People living in the wildland–urban interface, first.** The WUI held **43.4
+million homes** by 2010, up from 30.8 million in 1990 — roughly **one in three
+American homes**, and the fastest-growing land use type in the conterminous
+United States (Radeloff et al., *PNAS* 115(13):3314, 2018). These are the
+people an alert is ultimately for.
+
+**Firefighters, second — through better use of crews and equipment.** Aircraft
+and personnel are the most expensive part of suppression: an air tanker costs
+upward of **$14,000 an hour**, a heavy helicopter roughly **$150,000 a day**. An
+alert that is corroborated and carries coordinates sends those resources to a
+fire rather than to a dust plume, and keeps them available for the next one.
+
+**Dispatchers and watchstanders**, who absorb the false-alarm load today and
+whose attention runs out exactly when it is needed most — on a red-flag day,
+when volume peaks.
+
+**Volunteer and small municipal departments**, and **tribal and remote land
+managers**, who cannot staff a 24-hour camera watch and are therefore excluded
+from the benefit of networks their counties already fund.
+
+Nobody is displaced. We do not remove the watchstander — we stop spending
+them, and the aircraft, on cloud and dust.
 
 ## 3. Technical approach
 

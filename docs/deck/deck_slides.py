@@ -140,27 +140,56 @@ SLIDES = r"""
 
 <!-- WHO BENEFITS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">05 &middot; who benefits</p>
- <h2 class="anim">The first beneficiary is the person<br>we stop <span class="hl">interrupting</span>.</h2>
- <div class="bento anim">
-  <div class="cell c6 mark"><h3 class="hl">Dispatchers and watchstanders</h3>
-   <p class="tiny" style="margin:0">They absorb the false-alarm load today. Their attention is the
-   scarcest resource in the system, and it runs out exactly when it is needed most &mdash; on a
-   red-flag day, when alarm volume peaks.</p></div>
-  <div class="cell c6"><h3>Wildland-urban-interface communities</h3>
-   <p class="tiny" style="margin:0">California, Oregon, Nevada, Colorado. The minutes between ignition
-   and first response decide whether an incident stays a spot fire. Every false alarm cleared faster
-   is attention available for the real one.</p></div>
-  <div class="cell c6"><h3>Volunteer and small municipal departments</h3>
-   <p class="tiny" style="margin:0">They cannot staff a 24-hour camera watch, so they are excluded from
-   the benefit of networks their counties already pay for. A filtered, located alert is one they can
-   actually act on.</p></div>
-  <div class="cell c6"><h3>Tribal and remote land managers</h3>
-   <p class="tiny" style="margin:0">Operating where backhaul is intermittent or absent. A system that
-   needs the cloud to think stops thinking exactly when it is needed.</p></div>
-  <div class="cell c12 flat"><p style="margin:0">And nobody is displaced. <b class="hl">We do not remove
-  the watchstander</b> &mdash; we stop spending them on cloud and dust so they are still sharp for the
-  alert that matters.</p></div>
+ <p class="eyebrow anim">04 &middot; who benefits</p>
+ <h2 class="anim">The people who <span class="hl">live in it</span>,<br>and the people <span class="hl">sent into it</span></h2>
+ <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
+
+  <div class="cell c6 mark">
+   <span class="label">who is exposed</span>
+   <div class="plot">
+    <div class="bars">
+     <div class="pbar"><span class="pfill ghost" style="height:71%"></span></div>
+     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
+    </div>
+    <div class="blabels"><span>1990<br><b>30.8 M</b> homes</span><span>2010<br><b>43.4 M</b> homes</span></div>
+   </div>
+   <p class="claim"><b class="hl">About one in three American homes</b> sits in the
+   wildland&ndash;urban interface &mdash; and it is the <b>fastest-growing land use in the
+   country</b>. These are the people an alert is ultimately for.</p>
+   <p class="src">Radeloff et&nbsp;al., <i>PNAS</i> 115(13):3314, 2018</p>
+  </div>
+
+  <div class="cell c6 mark">
+   <span class="label">who is sent</span>
+   <div class="plot">
+    <div class="statslot"><span class="stat hl">$14,000</span></div>
+    <div class="blabels"><span>an hour for an air tanker &mdash; and about $150,000 a day for a heavy helicopter</span></div>
+   </div>
+   <p class="claim">Crews and aircraft are the most expensive part of fighting a fire.
+   <b class="hl">A corroborated alert with coordinates sends them to a fire</b> rather than to a
+   dust plume &mdash; and keeps them available for the next one.</p>
+   <p class="src">Aerial firefighting cost reporting, 2024&ndash;25</p>
+  </div>
+
+  <div class="cell c6 flat">
+   <span class="label">and the people watching the screens</span>
+   <p class="claim" style="font-size:0.88rem">Dispatchers and watchstanders absorb the false-alarm
+   load today. Their attention runs out exactly when it is needed most &mdash; on a red-flag day,
+   when the volume peaks.</p>
+  </div>
+
+  <div class="cell c6 flat">
+   <span class="label">and the departments that cannot staff a watch</span>
+   <p class="claim" style="font-size:0.88rem">Volunteer and small municipal crews, and tribal and
+   remote land managers, are excluded from networks their counties already pay for. A filtered,
+   located alert is one they can act on without a control room.</p>
+  </div>
+
+  <div class="cell c12 flat">
+   <p style="margin:0">Nobody is displaced. <b class="hl">We do not remove the watchstander</b> &mdash;
+   we stop spending them, and the aircraft, on cloud and dust.</p>
+  </div>
+
  </div>
 </div></section>
 
