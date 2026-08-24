@@ -222,9 +222,59 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- TECHNICAL APPROACH -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">07 &middot; technical approach</p>
+ <h2 class="anim">Four steps, and only one of them is <span class="hl">new hardware</span></h2>
+ <div class="bento anim" style="gap:clamp(12px,1.5vw,18px)">
+
+  <div class="cell c3 mark">
+   <span class="label">step 1 &nbsp;&rarr;&nbsp; the cameras</span>
+   <h3>Use what is on the ridge</h3>
+   <p class="claim" style="font-size:0.88rem"><b class="hl">1,600+</b> pan-tilt-zoom cameras are
+   already installed across eight western states. New nodes go in only where there is a gap.
+   <b>Nothing about an existing tower changes.</b></p>
+  </div>
+
+  <div class="cell c3 mark">
+   <span class="label">step 2 &nbsp;&rarr;&nbsp; the model</span>
+   <h3>Detect on the pole</h3>
+   <p class="claim" style="font-size:0.88rem">YOLOv5s at 512 px, measured at <b>0.778 mAP50</b> on
+   D-Fire. It runs <b>on the camera</b> and the frame is discarded there. Output is two numbers:
+   <b class="hl">1 for plume, 2 for fire</b>, plus a confidence.</p>
+  </div>
+
+  <div class="cell c3 mark">
+   <span class="label">step 3 &nbsp;&rarr;&nbsp; the link</span>
+   <h3>Nine bytes by radio</h3>
+   <p class="claim" style="font-size:0.88rem"><b class="hl">LoRa</b> at its longest-range setting
+   carries it: US915 DR0 caps the payload at 11 bytes and our record is 9. LTE-M, satellite IoT or an
+   existing microwave backhaul work equally well. <b>The radio is an add-on board</b>, since the UNO Q
+   has only Wi-Fi and Bluetooth.</p>
+  </div>
+
+  <div class="cell c3 mark">
+   <span class="label">step 4 &nbsp;&rarr;&nbsp; the integrator</span>
+   <h3>Decide, then check</h3>
+   <p class="claim" style="font-size:0.88rem">An <b class="hl">Arduino UNO Q</b> fuses those reports
+   across cameras and across time. When the evidence crosses the bar it asks a camera to slew and
+   look; <b>a drone goes only if that cannot settle it.</b></p>
+  </div>
+
+  <div class="cell c12 flat">
+   <p style="margin:0"><b>Why this board.</b> The <b class="hl">STM32U585</b> runs the integrator:
+   always on, fixed-point, no allocator, 116 KB of state, so it cannot stall. The
+   <b class="hl">Dragonwing QRB2210</b> runs Linux beside it for radio ingest, the confirmation model
+   on a zoomed crop, and dispatch. The part that must never miss anything sits on the part that never
+   gets busy.</p>
+  </div>
+
+ </div>
+</div></section>
+
 <!-- 6 STATEWIDE END TO END -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">07 &middot; end to end</p>
+ <p class="eyebrow anim">08 &middot; end to end</p>
  <h2 class="anim">One fire, from first wisp to a drone overhead.</h2>
  <div class="bento anim" style="flex:1;align-content:stretch">
   <div class="cell c8 pad0" style="padding:8px">
@@ -254,7 +304,7 @@ SLIDES = r"""
 
 <!-- 6 LAYER 1 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">08 &middot; layer one</p>
+ <p class="eyebrow anim">09 &middot; layer one</p>
  <h2 class="anim">Patience, in one number.</h2>
  <div class="bento anim">
   <div class="cell c8 pad0" style="padding:14px 6px 6px">
@@ -276,7 +326,7 @@ SLIDES = r"""
 
 <!-- 7 LAYER 2 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">09 &middot; layer two</p>
+ <p class="eyebrow anim">10 &middot; layer two</p>
  <h2 class="anim">One tower gives you a direction.<br>Two give you a <span class="hl">place</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is, distance is
@@ -296,7 +346,7 @@ SLIDES = r"""
 
 <!-- 8 OSBORNE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">10 &middot; precedent</p>
+ <p class="eyebrow anim">11 &middot; precedent</p>
  <h2 class="anim">This is a 1911 idea, done in silicon.</h2>
  <div class="bento anim">
   <div class="cell c7"><p style="font-size:1.06rem">For most of the last century, fires were found
@@ -320,7 +370,7 @@ SLIDES = r"""
 
 <!-- 9 HAZE / SURROUND -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">11 &middot; the hard case</p>
+ <p class="eyebrow anim">12 &middot; the hard case</p>
  <h2 class="anim">Agreement alone would make things <span class="bad">worse</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>Here is the trap. If you simply reward agreement, then a marine layer
@@ -342,7 +392,7 @@ SLIDES = r"""
 
 <!-- 10 CONFIRMATION -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">12 &middot; after the alert</p>
+ <p class="eyebrow anim">13 &middot; after the alert</p>
  <h2 class="anim">The alert isn't the end. It's a question.</h2>
  <div class="bento anim">
   <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is worth
@@ -369,7 +419,7 @@ SLIDES = r"""
 
 <!-- 11 RESULTS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">13 &middot; does it work</p>
+ <p class="eyebrow anim">14 &middot; does it work</p>
  <h2 class="anim">Eight simulated days. Same cameras, same evidence, four ways of reading it.</h2>
  <div class="bento anim">
   <div class="cell c7 pad0" style="padding:12px">
@@ -388,7 +438,7 @@ SLIDES = r"""
 
 <!-- 12 STEAM VENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">14 &middot; the nuisance test</p>
+ <p class="eyebrow anim">15 &middot; the nuisance test</p>
  <h2 class="anim">A steam vent that two towers can see, running for six hours.</h2>
  <div class="bento anim">
   <div class="cell c3 hot"><span class="label">raw detections</span><span class="stat bad">2,700</span>
@@ -408,7 +458,7 @@ SLIDES = r"""
 
 <!-- 13 HARDWARE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">15 &middot; the hardware</p>
+ <p class="eyebrow anim">16 &middot; the hardware</p>
  <h2 class="anim">Two brains, and we use both for what they're for.</h2>
  <div class="bento anim">
   <div class="cell c5 pad0" id="unoq-slot">
@@ -433,7 +483,7 @@ SLIDES = r"""
 
 <!-- WHY EDGE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">16 &middot; why the edge, not the cloud</p>
+ <p class="eyebrow anim">17 &middot; why the edge, not the cloud</p>
  <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
  <div class="bento anim">
   <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
@@ -464,7 +514,7 @@ SLIDES = r"""
 
 <!-- 14 NOT A REPLACEMENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">17 &middot; where we fit</p>
+ <p class="eyebrow anim">18 &middot; where we fit</p>
  <h2 class="anim">Satellites own <span class="hl">everywhere</span>.<br>We own the <span class="hl">first ten minutes</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at
@@ -524,7 +574,7 @@ SLIDES = r"""
 
 <!-- 14 HONEST -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">18 &middot; what we don't claim</p>
+ <p class="eyebrow anim">19 &middot; what we don't claim</p>
  <h2 class="anim">Four things we could have hidden.</h2>
  <div class="bento anim">
   <div class="cell c4 warmb"><h3>A simpler method logs fewer alarms</h3>
@@ -557,7 +607,7 @@ SLIDES = r"""
 
 <!-- BUILDING IN THE OPEN -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">19 &middot; building in the open</p>
+ <p class="eyebrow anim">20 &middot; building in the open</p>
  <h2 class="anim">We are not promising to.<br>We already <span class="hl">are</span>.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">Already public</h3>
@@ -590,7 +640,7 @@ SLIDES = r"""
 
 <!-- 15 CLOSE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">20 &middot; where this goes</p>
+ <p class="eyebrow anim">21 &middot; where this goes</p>
  <h2 class="anim">The core is built, measured, and already runs on the chip.</h2>
  <div class="bento anim">
   <div class="cell c3 mark"><span class="stat sm hl">53</span><span class="label">tests passing</span></div>
