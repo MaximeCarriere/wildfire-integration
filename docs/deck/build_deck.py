@@ -20,13 +20,15 @@ css = (CSS.replace("__F_REG__", raw64("/tmp/kwfonts/Regular.woff2"))
 
 slides = (SLIDES
   .replace("__IMG_TINY__",     b64(S/"img/plume_tiny.jpg", "image/jpeg"))
+  .replace("__IMG_SMALL__",    b64(S/"img/plume_small.jpg", "image/jpeg"))
+  .replace("__IMG_LARGE__",    b64(S/"img/plume_large.jpg", "image/jpeg"))
   .replace("__IMG_NIGHT__",    b64(S/"img/night.jpg", "image/jpeg"))
   .replace("__IMG_EMPTY__",    b64(S/"img/empty.jpg", "image/jpeg"))
   .replace("__IMG_PARETO__",   b64(REPO/"results/figures/pareto.png", "image/png"))
   .replace("__IMG_PARETO_N__", b64(REPO/"results/figures/pareto-dark.png", "image/png"))
   .replace("__IMG_UNOQ__",     b64(REPO/"docs/media/unoq.webp", "image/webp")))
 
-MAIN = 23
+MAIN = 24
 
 HTML = """<title>Nobody Is Watching the Thousandth Camera</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">

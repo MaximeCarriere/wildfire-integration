@@ -292,7 +292,7 @@ ANIM.lif=function(c){
     var whyY=H-5, nameY=H-16, barBot=H-29;
     var barH=Math.max(26,Math.min(46,H*0.15));
     var barTop=barBot-barH;
-    var pad={l:52,r:74,t:26,b:H-barTop+18};
+    var pad={l:52,r:74,t:26,b:H-barTop+40};
     var gw=W-pad.l-pad.r, gh=H-pad.t-pad.b, gb=pad.t+gh;
     var X=function(t){return pad.l+t*gw;}, Yv=function(v){return gb-Math.min(v,1.15)/1.15*gh;};
 

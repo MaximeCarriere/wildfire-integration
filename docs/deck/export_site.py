@@ -24,13 +24,16 @@ def raw64(p): return base64.b64encode(pathlib.Path(p).read_bytes()).decode()
 
 IMAGES = {
     "--img-plume-tiny": (S/"img/plume_tiny.jpg", "image/jpeg"),
+    "--img-plume-small":(S/"img/plume_small.jpg","image/jpeg"),
+    "--img-plume-large":(S/"img/plume_large.jpg","image/jpeg"),
     "--img-night":      (S/"img/night.jpg",      "image/jpeg"),
     "--img-empty":      (S/"img/empty.jpg",      "image/jpeg"),
     "--img-pareto":     (REPO/"results/figures/pareto.png",      "image/png"),
     "--img-pareto-dk":  (REPO/"results/figures/pareto-dark.png", "image/png"),
     "--img-unoq":       (REPO/"docs/media/unoq.webp",            "image/webp"),
 }
-TOKEN = {"__IMG_TINY__":"--img-plume-tiny", "__IMG_NIGHT__":"--img-night",
+TOKEN = {"__IMG_TINY__":"--img-plume-tiny",
+         "__IMG_SMALL__":"--img-plume-small", "__IMG_LARGE__":"--img-plume-large", "__IMG_NIGHT__":"--img-night",
          "__IMG_EMPTY__":"--img-empty", "__IMG_PARETO__":"--img-pareto",
          "__IMG_PARETO_N__":"--img-pareto-dk",
          "__IMG_UNOQ__":"--img-unoq"}
@@ -161,7 +164,7 @@ CHROME_BOT = """</main>
 </div></div>
 """
 
-MAIN = 23
+MAIN = 24
 html = (HEAD.replace("__CSS__", css).replace("__EXTRA__", EXTRA_CSS)
             .replace("__MAIN__", str(MAIN))
         + CHROME_TOP + slides + CHROME_BOT

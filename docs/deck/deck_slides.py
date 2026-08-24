@@ -1,3 +1,4 @@
+import re
 SLIDES = r"""
 <!-- 1 COVER -->
 <section class="slide hero">
@@ -23,7 +24,7 @@ SLIDES = r"""
 
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">01 &middot; the problem</p>
+ <p class="eyebrow anim">__N__ &middot; the problem</p>
  <h2 class="anim">More land burns, and it costs more.<br>Nearly all of it comes from the few fires that were <span class="hl">not caught in time</span>.</h2>
  <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
@@ -75,7 +76,7 @@ SLIDES = r"""
 
 <!-- WHO BENEFITS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">02 &middot; who benefits</p>
+ <p class="eyebrow anim">__N__ &middot; who benefits</p>
  <h2 class="anim">The people who <span class="hl">live in it</span>,<br>and the people <span class="hl">sent into it</span></h2>
  <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
@@ -125,7 +126,7 @@ SLIDES = r"""
 
 <!-- THE IDEA -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">03 &middot; the idea</p>
+ <p class="eyebrow anim">__N__ &middot; the idea</p>
  <h2 class="anim">Four steps, and only one of them is <span class="hl">new hardware</span></h2>
  <div class="bento headsonly anim" style="gap:clamp(12px,1.5vw,18px)">
 
@@ -173,9 +174,115 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- STEP 1 THE CAMERA -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">__N__ &middot; step one, the camera</p>
+ <h2 class="anim">What one camera can <span class="hl">honestly</span> see</h2>
+ <div class="bento headsonly anim">
+  <div class="cell c4 pad0"><div class="shot" style="height:clamp(112px,22vh,206px)">
+    <img src="__IMG_LARGE__" alt="A wide smoke plume filling most of a hillside frame">
+    <div class="cap">Big, or close. <b>Anyone can see this one.</b></div></div></div>
+  <div class="cell c4 pad0"><div class="shot" style="height:clamp(112px,22vh,206px)">
+    <img src="__IMG_SMALL__" alt="A hillside with a modest smoke plume marked by a box">
+    <div class="cap">Under <b>1%</b> of the frame. Accuracy <b>0.61</b>.</div></div></div>
+  <div class="cell c4 pad0"><div class="shot" style="height:clamp(112px,22vh,206px)">
+    <img src="__IMG_TINY__" alt="The same hillside with a barely visible smoke plume">
+    <div class="cap">Under <b>0.1%</b>, about 20&times;20 px. Accuracy <b>0.14</b>.</div></div></div>
+
+  <div class="cell c5 mark"><span class="label">on the pole</span>
+   <h3>A small model, measured on real hardware</h3>
+   <p class="tiny" style="margin:0">YOLOv5s: <b>7 million parameters</b>, 14.4 MB, fed 512-pixel
+   frames. <b>0.778 accuracy at 179 frames a second, on 8.5 watts</b>, or 474 frames a second in
+   17 MB once converted for the runtime. All measured by us on a $249 Jetson.</p>
+   <p class="tiny dim" style="margin:auto 0 0">Frames: HPWREN / ALERTCalifornia. Accuracy is
+   mAP50 on D-Fire.</p></div>
+
+  <div class="cell c7"><span class="label">how far</span>
+   <h3>Range is not how far it can see. It is <span class="hl">pixels on the smoke</span>.</h3>
+   <p class="tiny" style="margin:0">A ridgetop camera sees tens of kilometres; detection stops far
+   sooner. Zoomed to about two degrees of view, a 30 m plume lands on roughly <b>30 pixels at
+   15 km</b> and <b>15 pixels at 30 km</b> &mdash; the step from the middle frame above to the
+   right-hand one, and from <b>0.61</b> accuracy to <b>0.14</b>. A bigger model does not buy the
+   distance back: <b>6.6&times; the parameters</b> moves distant smoke only from 0.17 to 0.20.</p>
+   <p class="tiny dim" style="margin:auto 0 0">And it is a trade, not a setting: wide enough to
+   watch everything and an early plume is a pixel or two; tight enough to resolve one and the
+   camera sees two degrees of a 360-degree horizon. Range figures are geometry, not a field
+   trial.</p></div>
+
+  <div class="cell c12 flat"><p style="margin:0">A distant camera is a weak witness, and stays one.
+  <b class="hl">That gap is what the next two steps close.</b></p></div>
+ </div>
+</div></section>
+
+<!-- STEP 2 THE VERDICT -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">__N__ &middot; step two, the verdict</p>
+ <h2 class="anim">It never sends a <span class="hl">picture</span></h2>
+ <div class="bento headsonly anim">
+  <div class="cell c12 mark">
+   <p class="mono" style="margin:0 0 10px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
+    90 10 05 00&nbsp; 29 00&nbsp; 6f 0b&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 9f 04&nbsp; 18 ad</p>
+   <p style="margin:0"><b>Camera 41, at 09:13, looking along 292.7&deg;, says <span class="hl">2</span>,
+   four fifths sure.</b> Sixteen bytes, and that is the entire message.</p>
+  </div>
+
+  <div class="cell c4"><span class="label">what it says</span>
+   <h3>A two-word vocabulary</h3>
+   <p class="tiny" style="margin:0"><b class="hl">1</b> means plume or smoke. <b class="hl">2</b> means
+   fire. Nothing else. Smoke arrives early and is often wrong; fire arrives late and is rarely wrong,
+   so the two are weighed differently instead of both counting as &ldquo;a report&rdquo;.</p></div>
+
+  <div class="cell c4"><span class="label">where to look</span>
+   <h3>Who, and which way</h3>
+   <p class="tiny" style="margin:0">Where each camera stands is already known, so it never sends its
+   own position. It sends the <b>direction it was looking</b>, to a tenth of a degree, and <b>how
+   tightly it holds that direction</b>, here &plusmn;2&deg;. One camera gives a line. It takes two to
+   give a place.</p></div>
+
+  <div class="cell c4"><span class="label">how it travels</span>
+   <h3>Any radio, anywhere</h3>
+   <p class="tiny" style="margin:0">Sixteen bytes fits in a spare corner of the backhaul these towers
+   already have. Where there is none, a <b>9-byte</b> profile fits LoRa at its slowest and
+   longest-reaching setting, or LTE-M, or satellite IoT.</p></div>
+
+  <div class="cell c5"><span class="label">image data transmitted</span>
+   <span class="stat hl">0 bytes</span>
+   <p class="tiny" style="margin:4px 0 0">Not to a server, not to us, not to anyone. The picture is
+   looked at on the pole and discarded there.</p></div>
+  <div class="cell c7"><h3>Why this matters beyond bandwidth</h3>
+   <p style="margin:0">There is <b>nothing to intercept, nothing to breach, nothing to subpoena</b>,
+   and no surveillance capability for anyone to misuse later. <b class="hl">A town can accept a camera
+   watching its ridge without accepting a camera watching itself.</b></p></div>
+ </div>
+</div></section>
+
+<!-- 6 LAYER 1 ANIMATED -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">__N__ &middot; step three, the integrator</p>
+ <h2 class="anim">Patience, in one number.</h2>
+ <div class="bento anim">
+  <div class="cell c8 pad0" style="padding:14px 6px 6px">
+    <div class="canvasbox" style="min-height:min(52vh,360px)"><canvas data-anim="lif"></canvas></div></div>
+  <div class="cell c4"><p>The integrator keeps a single running number: <b>how much evidence
+  have I seen here lately?</b></p>
+  <p>Every report pushes it up. It <b class="hl">leaks away</b> constantly, so old evidence
+  fades on its own. A flicker never builds. A real plume keeps pushing, and the number climbs
+  until it crosses the bar, and <b>crossing the bar is what sends the drone</b>.</p>
+  <p><b class="hl">The bar moves.</b> An operator can raise it, or fire weather lowers it, and
+  the same evidence then alerts sooner or later.</p>
+  <p><b class="hl">And every place keeps its own.</b> A steam vent that has been investigated
+  three times sits behind a higher bar; a cell where lightning struck two days ago sits behind
+  a lower one. Same network, same evidence, different answer per place.</p>
+  <p class="tiny" style="margin-top:auto"><b>In time:</b> evidence halves about every
+  <b>3&frac12; minutes</b> if nothing renews it, and across eight simulated days the median fire is
+  alerted <b>13 minutes</b> after it starts.<br><b>In memory:</b> one 32-bit number per place, which
+  is the whole reason this fits on a microcontroller.</p></div>
+ </div>
+</div></section>
+
 <!-- 6 STATEWIDE END TO END -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">04 &middot; end to end</p>
+ <p class="eyebrow anim">__N__ &middot; the demo, end to end</p>
  <h2 class="anim">One fire, from first wisp to a drone overhead.</h2>
  <div class="bento anim" style="flex:1;align-content:stretch">
   <div class="cell c8 pad0" style="padding:8px">
@@ -205,7 +312,7 @@ SLIDES = r"""
 
 <!-- 2 PROBLEM -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">05 &middot; the obstacle</p>
+ <p class="eyebrow anim">__N__ &middot; the obstacle</p>
  <h2 class="anim">America already built the sensors.<br>The alerts are <span class="bad">unusable</span> at scale.</h2>
  <div class="bento anim" style="margin-top:8px">
   <div class="cell c4 mark"><span class="label">deployed today</span>
@@ -226,7 +333,7 @@ SLIDES = r"""
 
 <!-- 3 WHAT THE CAMERA SEES -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">06 &middot; why it is hard</p>
+ <p class="eyebrow anim">__N__ &middot; why it is hard</p>
  <h2 class="anim">This is what the camera actually sees.</h2>
  <div class="bento anim">
   <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
@@ -247,7 +354,7 @@ SLIDES = r"""
 
 <!-- 4 SCALING PARADOX -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">07 &middot; the trap</p>
+ <p class="eyebrow anim">__N__ &middot; the trap</p>
  <h2 class="anim">Every camera you add makes the problem<br>better <em>and</em> worse.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">What scales</h3>
@@ -268,57 +375,9 @@ SLIDES = r"""
  </div>
 </div></section>
 
-<!-- WHAT THE CAMERA SENDS -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">08 &middot; what the camera sends</p>
- <h2 class="anim">It never sends a <span class="hl">picture</span></h2>
- <div class="bento anim">
-  <div class="cell c12 mark">
-   <p class="mono" style="margin:0 0 10px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
-    94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
-   <p style="margin:0"><b>Camera 41, at 09:12, says <span class="hl">2</span>, four fifths sure.</b>
-   1 means plume, 2 means fire. That is the whole vocabulary.</p>
-  </div>
-  <div class="cell c5"><span class="label">image data transmitted</span>
-   <span class="stat hl">0 bytes</span>
-   <p class="tiny" style="margin:4px 0 0">Not to a server, not to us, not to anyone. The picture is
-   looked at on the pole and discarded there.</p></div>
-  <div class="cell c7"><h3>Why this matters beyond bandwidth</h3>
-   <p style="margin:0">There is <b>nothing to intercept, nothing to breach, nothing to subpoena</b>,
-   and no surveillance capability for anyone to misuse later. <b class="hl">A town can accept a camera
-   watching its ridge without accepting a camera watching itself.</b></p></div>
-  <div class="cell c6 flat"><h3><span class="hl">Layer 1</span>, at the camera</h3>
-   <p class="tiny" style="margin:0">Integrates over <b>time</b>. Is this plume still there?</p></div>
-  <div class="cell c6 flat"><h3><span class="hl">Layer 2</span>, on the board</h3>
-   <p class="tiny" style="margin:0">Integrates over <b>space</b>. Do towers at different angles agree?</p></div>
- </div>
-</div></section>
-
-<!-- 6 LAYER 1 ANIMATED -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">09 &middot; layer one</p>
- <h2 class="anim">Patience, in one number.</h2>
- <div class="bento anim">
-  <div class="cell c8 pad0" style="padding:14px 6px 6px">
-    <div class="canvasbox" style="min-height:min(52vh,360px)"><canvas data-anim="lif"></canvas></div></div>
-  <div class="cell c4"><p>The integrator keeps a single running number: <b>how much evidence
-  have I seen here lately?</b></p>
-  <p>Every report pushes it up. It <b class="hl">leaks away</b> constantly, so old evidence
-  fades on its own. A flicker never builds. A real plume keeps pushing, and the number climbs
-  until it crosses the bar, and <b>crossing the bar is what sends the drone</b>.</p>
-  <p><b class="hl">The bar moves.</b> An operator can raise it, or fire weather lowers it, and
-  the same evidence then alerts sooner or later.</p>
-  <p><b class="hl">And every place keeps its own.</b> A steam vent that has been investigated
-  three times sits behind a higher bar; a cell where lightning struck two days ago sits behind
-  a lower one. Same network, same evidence, different answer per place.</p>
-  <p class="tiny" style="margin-top:auto"><b>Cost:</b> one 32-bit number per place. That is the
-  whole reason this fits on a microcontroller.</p></div>
- </div>
-</div></section>
-
 <!-- 7 LAYER 2 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">10 &middot; layer two</p>
+ <p class="eyebrow anim">__N__ &middot; layer two</p>
  <h2 class="anim">One tower gives you a direction.<br>Two give you a <span class="hl">place</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is, distance is
@@ -338,7 +397,7 @@ SLIDES = r"""
 
 <!-- 8 OSBORNE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">11 &middot; precedent</p>
+ <p class="eyebrow anim">__N__ &middot; precedent</p>
  <h2 class="anim">This is a 1911 idea, done in silicon.</h2>
  <div class="bento anim">
   <div class="cell c7"><p style="font-size:1.06rem">For most of the last century, fires were found
@@ -362,7 +421,7 @@ SLIDES = r"""
 
 <!-- 9 HAZE / SURROUND -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">12 &middot; the hard case</p>
+ <p class="eyebrow anim">__N__ &middot; the hard case</p>
  <h2 class="anim">Agreement alone would make things <span class="bad">worse</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>Here is the trap. If you simply reward agreement, then a marine layer
@@ -384,7 +443,7 @@ SLIDES = r"""
 
 <!-- 10 CONFIRMATION -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">13 &middot; after the alert</p>
+ <p class="eyebrow anim">__N__ &middot; after the alert</p>
  <h2 class="anim">The alert isn't the end. It's a question.</h2>
  <div class="bento headsonly anim">
   <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is worth
@@ -411,7 +470,7 @@ SLIDES = r"""
 
 <!-- 11 RESULTS -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">14 &middot; does it work</p>
+ <p class="eyebrow anim">__N__ &middot; does it work</p>
  <h2 class="anim">Eight simulated days. Same cameras, same evidence, four ways of reading it.</h2>
  <div class="bento anim">
   <div class="cell c7 pad0" style="padding:12px">
@@ -430,7 +489,7 @@ SLIDES = r"""
 
 <!-- 12 STEAM VENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">15 &middot; the nuisance test</p>
+ <p class="eyebrow anim">__N__ &middot; the nuisance test</p>
  <h2 class="anim">A steam vent that two towers can see, running for six hours.</h2>
  <div class="bento anim">
   <div class="cell c3 hot"><span class="label">raw detections</span><span class="stat bad">2,700</span>
@@ -450,7 +509,7 @@ SLIDES = r"""
 
 <!-- 13 HARDWARE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">16 &middot; the hardware</p>
+ <p class="eyebrow anim">__N__ &middot; the hardware</p>
  <h2 class="anim">Two brains, and we use both for what they're for.</h2>
  <div class="bento anim">
   <div class="cell c5" id="unoq-slot">
@@ -475,7 +534,7 @@ SLIDES = r"""
 
 <!-- WHY EDGE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">17 &middot; why the edge, not the cloud</p>
+ <p class="eyebrow anim">__N__ &middot; why the edge, not the cloud</p>
  <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
  <div class="bento anim">
   <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
@@ -506,7 +565,7 @@ SLIDES = r"""
 
 <!-- 14 NOT A REPLACEMENT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">18 &middot; where we fit</p>
+ <p class="eyebrow anim">__N__ &middot; where we fit</p>
  <h2 class="anim">Satellites own <span class="hl">everywhere</span>.<br>We own the <span class="hl">first ten minutes</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at
@@ -566,7 +625,7 @@ SLIDES = r"""
 
 <!-- 14 HONEST -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">19 &middot; what we don't claim</p>
+ <p class="eyebrow anim">__N__ &middot; what we don't claim</p>
  <h2 class="anim">Four things we could have hidden.</h2>
  <div class="bento anim">
   <div class="cell c4 warmb"><h3>A simpler method logs fewer alarms</h3>
@@ -599,7 +658,7 @@ SLIDES = r"""
 
 <!-- BUILDING IN THE OPEN -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">20 &middot; building in the open</p>
+ <p class="eyebrow anim">__N__ &middot; building in the open</p>
  <h2 class="anim">We are not promising to.<br>We already <span class="hl">are</span>.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">Already public</h3>
@@ -632,7 +691,7 @@ SLIDES = r"""
 
 <!-- 15 CLOSE -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">21 &middot; where this goes</p>
+ <p class="eyebrow anim">__N__ &middot; where this goes</p>
  <h2 class="anim">The core is built, measured, and already runs on the chip.</h2>
  <div class="bento anim">
   <div class="cell c3 mark"><span class="stat sm hl">53</span><span class="label">tests passing</span></div>
@@ -698,7 +757,7 @@ SLIDES = r"""
 </div></div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A1 &middot; the four mechanisms</p>
+ <p class="eyebrow anim">__A__ &middot; the four mechanisms</p>
  <h2 class="anim">What each cell actually computes.</h2>
  <div class="bento anim">
   <div class="cell c6"><h3>1 &middot; Coincidence gain</h3><p class="tiny" style="margin:0">Each cell
@@ -725,7 +784,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A2 &middot; method</p>
+ <p class="eyebrow anim">__A__ &middot; method</p>
  <h2 class="anim">How the numbers were produced.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3>Grounded, not invented</h3>
@@ -750,7 +809,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A3 &middot; baselines</p>
+ <p class="eyebrow anim">__A__ &middot; baselines</p>
  <h2 class="anim">What we compared against, and the full table.</h2>
  <div class="tw anim"><table>
   <thead><tr><th>Method</th><th>False alerts/day</th><th>Detected</th><th>Latency</th><th>Localises</th></tr></thead>
@@ -771,7 +830,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A4 &middot; engineering</p>
+ <p class="eyebrow anim">__A__ &middot; engineering</p>
  <h2 class="anim">Why the chip version is already trustworthy.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><h3>No floating point, no library, no allocator</h3>
@@ -795,7 +854,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A5 &middot; what changed</p>
+ <p class="eyebrow anim">__A__ &middot; what changed</p>
  <h2 class="anim">Four things the measurements forced us to fix.</h2>
  <div class="bento anim">
   <div class="cell c6 hot"><h3>Global normalisation was dangerous</h3>
@@ -820,7 +879,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A6 &middot; the sensing layers</p>
+ <p class="eyebrow anim">__A__ &middot; the sensing layers</p>
  <h2 class="anim">The numbers behind the comparison.</h2>
  <div class="bento anim">
   <div class="cell c12 pad0"><div class="tw"><table>
@@ -861,7 +920,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A7 &middot; does it need a direction?</p>
+ <p class="eyebrow anim">__A__ &middot; does it need a direction?</p>
  <h2 class="anim">No. It just costs you.</h2>
  <div class="bento anim">
   <div class="cell c12 flat"><p style="margin:0">A PTZ tower knows its pan angle, so a bearing is usually
@@ -918,7 +977,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A8 &middot; the radio, honestly</p>
+ <p class="eyebrow anim">__A__ &middot; the radio, honestly</p>
  <h2 class="anim">The least-validated part of this design.</h2>
  <div class="bento anim">
   <div class="cell c12 warmb"><h3 class="warn">Where &ldquo;32 km&rdquo; came from: nowhere physical</h3>
@@ -980,7 +1039,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">15 &middot; what comes next</p>
+ <p class="eyebrow anim">__A__ &middot; what comes next</p>
  <h2 class="anim">Cameras are the first sensor.<br>They don't all join the <span class="hl">same way</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0">A new sensor answers one of three questions, and each
@@ -1034,7 +1093,7 @@ SLIDES = r"""
 </div></section>
 
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">A9 &middot; references</p>
+ <p class="eyebrow anim">__A__ &middot; references</p>
  <h2 class="anim">Sources, code, licence.</h2>
  <div class="bento anim">
   <div class="cell c6"><h3>Code</h3>
@@ -1058,3 +1117,26 @@ SLIDES = r"""
  </div>
 </div></section>
 """
+
+# Slide numbers are assigned here, in document order, rather than written into
+# each slide by hand. Reordering the deck can then never leave behind a
+# duplicate number or a gap -- which it did, twice, when they were hardcoded.
+def _number(s):
+    n = a = 0
+    out = []
+    for chunk in re.split(r'(__N__|__A__)', s):
+        if chunk == "__N__":
+            n += 1; out.append(f"{n:02d}")
+        elif chunk == "__A__":
+            a += 1; out.append(f"A{a}")
+        else:
+            out.append(chunk)
+    return "".join(out), n, a
+
+
+SLIDES, _MAIN_NUMBERED, _APX_NUMBERED = _number(SLIDES)
+
+# the deck's own contents page: numbers must run 01..N with nothing missing
+_seen = re.findall(r'<p class="eyebrow anim">(\d\d) &middot;', SLIDES)
+assert _seen == [f"{i:02d}" for i in range(1, _MAIN_NUMBERED + 1)], \
+    f"slide numbering is not contiguous: {_seen}"
