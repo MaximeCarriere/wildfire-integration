@@ -24,7 +24,7 @@ SLIDES = r"""
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">More land burns. It costs more.<br>And the sensors to catch it earlier are <span class="hl">already installed</span>.</h2>
+ <h2 class="anim">More land burns. It costs more.<br>And nearly all of it comes from the few fires that <span class="hl">get away</span>.</h2>
  <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
   <div class="cell c4 mark">
@@ -57,14 +57,17 @@ SLIDES = r"""
   </div>
 
   <div class="cell c4 mark">
-   <span class="label">what we can do</span>
+   <span class="label">what earlier detection prevents</span>
    <div class="plot">
-    <div class="statslot"><span class="stat hl">1,600+</span></div>
-    <div class="blabels"><span>cameras already watching,<br>eight western states</span></div>
+    <div class="bars">
+     <div class="pbar"><span class="pfill ghost" style="height:12%"></span></div>
+     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
+    </div>
+    <div class="blabels"><span>10% of fires<br>escaped</span><span>85% of the<br>area burned</span></div>
    </div>
-   <p class="claim"><b class="hl">Detect it earlier</b>, with sensors already on the ridgelines
-   &mdash; not by building more.</p>
-   <p class="src">ALERTWest &middot; ALERTCalifornia, deployed today</p>
+   <p class="claim">Almost every fire is stopped on first attack. Catch one
+   <b class="hl">while its behaviour is still benign</b> and it stays among them.</p>
+   <p class="src">NE Alberta, reported in <i>Int. J. Wildland Fire</i> &middot; ASME Open J. Eng., 2025</p>
   </div>
 
  </div>
