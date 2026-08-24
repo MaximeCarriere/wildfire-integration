@@ -926,7 +926,10 @@ ANIM.statewide=function(c){
 
     /* ---------- legend -- over the ocean, left ---------- */
     if(W>620 && p>=P.dots){
-      var lw=196, lh=150, lx=12, ly=Math.max(14,H*0.10);
+      /* six rows at 24px from a 32px header, plus the last row's second
+         line: 178px minimum. At 150 the drone row started 2px BELOW the
+         box and its icon and caption spilled onto the map. */
+      var lw=216, lh=196, lx=12, ly=Math.max(14,H*0.09);
       panel(lx,ly,lw,lh,'WHAT YOU ARE LOOKING AT','');
       var ex=lx+18, ey=ly+38, row=24;
       function item(icon,title,sub){

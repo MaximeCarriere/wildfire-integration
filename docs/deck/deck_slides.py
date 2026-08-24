@@ -159,9 +159,10 @@ SLIDES = r"""
   </div>
 
   <div class="cell c12 flat">
-   <p style="margin:0">No new towers, no new cameras where cameras exist, and no images leaving the
-   hillside. <b class="hl">The camera decides whether. The integrator decides where, and whether it
-   is worth anyone's time.</b></p>
+   <p style="margin:0;font-size:1.04rem">No new towers, and no images leaving the hillside.
+   <b class="hl">The cameras are the eyes</b>: each one decides whether it saw something worth
+   reporting. <b class="hl">The integrator is the brain</b>: it decides whether those reports add up
+   to an alert.</p>
   </div>
 
  </div>
