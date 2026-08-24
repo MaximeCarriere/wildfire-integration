@@ -176,16 +176,16 @@ SLIDES = r"""
 
 <!-- STEP 1 THE CAMERA -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">__N__ &middot; step one, the camera</p>
+ <p class="eyebrow anim">__N__ &middot; steps one and two, the camera and the model</p>
  <h2 class="anim">What one camera can <span class="hl">honestly</span> see</h2>
  <div class="bento headsonly anim">
-  <div class="cell c4 pad0"><div class="shot" style="height:clamp(112px,22vh,206px)">
+  <div class="cell c4 pad0"><div class="shot" style="height:clamp(108px,20vh,206px)">
     <img src="__IMG_LARGE__" alt="A wide smoke plume filling most of a hillside frame">
     <div class="cap">Big, or close. <b>Anyone can see this one.</b></div></div></div>
-  <div class="cell c4 pad0"><div class="shot" style="height:clamp(112px,22vh,206px)">
+  <div class="cell c4 pad0"><div class="shot" style="height:clamp(108px,20vh,206px)">
     <img src="__IMG_SMALL__" alt="A hillside with a modest smoke plume marked by a box">
     <div class="cap">Under <b>1%</b> of the frame. Accuracy <b>0.61</b>.</div></div></div>
-  <div class="cell c4 pad0"><div class="shot" style="height:clamp(112px,22vh,206px)">
+  <div class="cell c4 pad0"><div class="shot" style="height:clamp(108px,20vh,206px)">
     <img src="__IMG_TINY__" alt="The same hillside with a barely visible smoke plume">
     <div class="cap">Under <b>0.1%</b>, about 20&times;20 px. Accuracy <b>0.14</b>.</div></div></div>
 
@@ -199,66 +199,67 @@ SLIDES = r"""
 
   <div class="cell c7"><span class="label">how far</span>
    <h3>Range is not how far it can see. It is <span class="hl">pixels on the smoke</span>.</h3>
-   <p class="tiny" style="margin:0">A ridgetop camera sees tens of kilometres; detection stops far
-   sooner. Zoomed to about two degrees of view, a 30 m plume lands on roughly <b>30 pixels at
-   15 km</b> and <b>15 pixels at 30 km</b> &mdash; the step from the middle frame above to the
-   right-hand one, and from <b>0.61</b> accuracy to <b>0.14</b>. A bigger model does not buy the
-   distance back: <b>6.6&times; the parameters</b> moves distant smoke only from 0.17 to 0.20.</p>
+   <p class="tiny" style="margin:0">A ridgetop camera sees tens of kilometres. Detection stops far
+   sooner, because an early plume is only a few pixels wide and below roughly 20&times;20 pixels the
+   detector mostly misses it. That puts useful detection at <b class="hl">about 15 km</b> per camera.
+   And since a fire has to be seen by <b>two</b> cameras before it can be placed rather than merely
+   reported, it means <b class="hl">one camera every 10 to 15 km</b> along the ridges, which is the
+   density of our eight-camera test region.</p>
    <p class="tiny dim" style="margin:auto 0 0">And it is a trade, not a setting: wide enough to
    watch everything and an early plume is a pixel or two; tight enough to resolve one and the
    camera sees two degrees of a 360-degree horizon. Range figures are geometry, not a field
    trial.</p></div>
 
-  <div class="cell c12 flat"><p style="margin:0">A distant camera is a weak witness, and stays one.
-  <b class="hl">That gap is what the next two steps close.</b></p></div>
+  <div class="cell c12 flat"><p style="margin:0">A distant camera is a weak witness, and a bigger
+  model does not fix it. <b class="hl">The next two steps do.</b></p></div>
  </div>
 </div></section>
 
 <!-- STEP 2 THE VERDICT -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">__N__ &middot; step two, the verdict</p>
+ <p class="eyebrow anim">__N__ &middot; step three, the verdict</p>
  <h2 class="anim">It never sends a <span class="hl">picture</span></h2>
  <div class="bento headsonly anim">
   <div class="cell c12 mark">
-   <p class="mono" style="margin:0 0 10px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
+   <span class="label">the whole transmission, exactly as it goes out over the air</span>
+   <p class="mono" style="margin:6px 0 10px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
     90 10 05 00&nbsp; 29 00&nbsp; 6f 0b&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 9f 04&nbsp; 18 ad</p>
    <p style="margin:0"><b>Camera 41, at 09:13, looking along 292.7&deg;, says <span class="hl">2</span>,
-   four fifths sure.</b> Sixteen bytes, and that is the entire message.</p>
+   four fifths sure.</b> All of it &mdash; <b>sixteen bytes</b>.</p>
   </div>
 
-  <div class="cell c4"><span class="label">what it says</span>
+  <div class="cell c3"><span class="label">what it says</span>
    <h3>A two-word vocabulary</h3>
    <p class="tiny" style="margin:0"><b class="hl">1</b> means plume or smoke. <b class="hl">2</b> means
-   fire. Nothing else. Smoke arrives early and is often wrong; fire arrives late and is rarely wrong,
-   so the two are weighed differently instead of both counting as &ldquo;a report&rdquo;.</p></div>
+   fire. Nothing else. Smoke comes early and is often wrong, fire comes late and rarely is, so the two
+   are weighed differently.</p></div>
 
   <div class="cell c4"><span class="label">where to look</span>
    <h3>Who, and which way</h3>
-   <p class="tiny" style="margin:0">Where each camera stands is already known, so it never sends its
-   own position. It sends the <b>direction it was looking</b>, to a tenth of a degree, and <b>how
-   tightly it holds that direction</b>, here &plusmn;2&deg;. One camera gives a line. It takes two to
-   give a place.</p></div>
+   <p class="tiny" style="margin:0">Each camera's position is already known, so it never sends it. It
+   sends the <b>direction it was looking</b>, to a tenth of a degree, and <b>how tightly it holds
+   it</b>, here &plusmn;2&deg;. One camera gives a line; two give a place.</p></div>
 
-  <div class="cell c4"><span class="label">how it travels</span>
-   <h3>Any radio, anywhere</h3>
-   <p class="tiny" style="margin:0">Sixteen bytes fits in a spare corner of the backhaul these towers
-   already have. Where there is none, a <b>9-byte</b> profile fits LoRa at its slowest and
-   longest-reaching setting, or LTE-M, or satellite IoT.</p></div>
+  <div class="cell c5"><span class="label">how it travels</span>
+   <h3>Usually on the link that is already there</h3>
+   <p class="tiny" style="margin:0">Most of these towers already carry backhaul for their video, and
+   sixteen bytes costs nothing there: <b>use it wherever it exists</b>. On a ridge without it, a
+   <b>9-byte</b> profile crosses LoRa, where line of sight sets the range, not power:
+   <b class="hl">~23 km</b> mast to mast, <b class="hl">60 km+</b> ridge to ridge, comfortably past
+   the spacing between cameras.</p></div>
 
-  <div class="cell c5"><span class="label">image data transmitted</span>
-   <span class="stat hl">0 bytes</span>
-   <p class="tiny" style="margin:4px 0 0">Not to a server, not to us, not to anyone. The picture is
-   looked at on the pole and discarded there.</p></div>
-  <div class="cell c7"><h3>Why this matters beyond bandwidth</h3>
-   <p style="margin:0">There is <b>nothing to intercept, nothing to breach, nothing to subpoena</b>,
-   and no surveillance capability for anyone to misuse later. <b class="hl">A town can accept a camera
-   watching its ridge without accepting a camera watching itself.</b></p></div>
+  <div class="cell c12"><h3><span class="hl">No picture is ever sent</span>, and that is what makes it
+   acceptable to live beside</h3>
+   <p style="margin:0">Those sixteen bytes go out; the frame does not. A ridge camera sees more than
+   forest &mdash; roads, driveways, back gardens. With no image leaving the pole there is <b>no footage
+   of anybody to store, leak or hand over</b>. <b class="hl">It watches for fire without ever watching
+   people.</b></p></div>
  </div>
 </div></section>
 
 <!-- 6 LAYER 1 ANIMATED -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">__N__ &middot; step three, the integrator</p>
+ <p class="eyebrow anim">__N__ &middot; step four, the integrator</p>
  <h2 class="anim">Patience, in one number.</h2>
  <div class="bento anim">
   <div class="cell c8 pad0" style="padding:14px 6px 6px">
