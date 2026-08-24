@@ -116,157 +116,52 @@ SLIDES = r"""
   </div>
 
   <div class="cell c12 flat">
-   <p style="margin:0">Those numbers do not improve on their own. <b class="hl">More homes inside
-   the interface every year, and more days of fire weather to send crews into.</b></p>
+   <p style="margin:0"><b class="hl">More homes at risk every year, more days of fire weather, and
+   more potential casualties.</b></p>
   </div>
 
  </div>
 </div></section>
 
-<!-- 2 PROBLEM -->
+<!-- THE IDEA -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">03 &middot; the obstacle</p>
- <h2 class="anim">America already built the sensors.<br>The alerts are <span class="bad">unusable</span> at scale.</h2>
- <div class="bento anim" style="margin-top:8px">
-  <div class="cell c4 mark"><span class="label">deployed today</span>
-   <span class="stat">1,000+</span><p class="tiny">AI cameras watching California alone.
-   The network works. It sees fires.</p></div>
-  <div class="cell c4 hot"><span class="label">and therefore</span>
-   <span class="stat bad">~1,000</span><p class="tiny">false alarms every day, network-wide.
-   Cloud. Fog. Dust. Steam off a geothermal plant.</p></div>
-  <div class="cell c4 warmb"><span class="label">costing, every day</span>
-   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention,
-   <b>more than four full shifts</b>, spent looking at cloud and dust. At two minutes a check.</p></div>
-  <div class="cell c12 flat"><p style="margin:0">Every one of those is resolved the same way it was in
-  1935: <b>a person looks.</b> Operators even had to teach the software, by hand, to ignore the steam
-  off the Geysers field. <b class="hl">The confirmation step is a human being</b>, and that
-  human is the one part of the system you cannot buy more of.</p></div>
- </div>
-</div></section>
-
-<!-- 3 WHAT THE CAMERA SEES -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">04 &middot; why it is hard</p>
- <h2 class="anim">This is what the camera actually sees.</h2>
- <div class="bento anim">
-  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
-    <img src="__IMG_TINY__" alt="A wide hillside landscape with a very small smoke plume marked by a tiny box">
-    <div class="cap">A real fire. The plume is <b>under 0.1%</b> of the frame.</div></div></div>
-  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
-    <img src="__IMG_NIGHT__" alt="A near-black night frame with a small marked fire">
-    <div class="cap">Night. Most of the frame is black.</div></div></div>
-  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
-    <img src="__IMG_EMPTY__" alt="An empty hillside landscape with no fire">
-    <div class="cap">Nothing at all, <b>47%</b> of frames.</div></div></div>
-  <div class="cell c12 flat"><p style="margin:0">A detector good enough to catch the first
-  picture will also fire on haze, on a dust plume off a road, on headlights, on a cloud
-  shadow crossing a ridge. <b>Better models do not fix this.</b> Ambiguity is in the pixels.</p></div>
- </div>
- <p class="tiny anim" style="margin-top:10px">Frames: HPWREN / ALERTCalifornia tower network, from our own detector benchmark.</p>
-</div></section>
-
-<!-- 4 SCALING PARADOX -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">05 &middot; the trap</p>
- <h2 class="anim">Every camera you add makes the problem<br>better <em>and</em> worse.</h2>
- <div class="bento anim">
-  <div class="cell c6 mark"><h3 class="hl">What scales</h3>
-   <ul class="clean">
-    <li>Coverage, more ridgelines watched</li>
-    <li>Redundancy, a fire seen from two angles</li>
-    <li>Speed, someone is always looking</li>
-   </ul></div>
-  <div class="cell c6 hot"><h3 class="bad">What doesn't</h3>
-   <ul class="clean">
-    <li class="no">The person confirming each alert</li>
-    <li class="no">Their attention at 3&nbsp;a.m. on day nine of a siege</li>
-    <li class="no">Their patience after the 200th cloud</li>
-   </ul></div>
-  <div class="cell c12"><p style="margin:0;font-size:1.05rem">So the fix cannot be a better camera
-  or a better model. <b class="hl">It has to be a layer that sits above all of them</b> and decides,
-  from many weak and unreliable signals, whether anything is really burning, and where.</p></div>
- </div>
-</div></section>
-
-<!-- 5 THE IDEA -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">06 &middot; the idea</p>
- <h2 class="anim">Stop treating cameras as alarms.<br>Treat them as <span class="hl">nerve endings</span>.</h2>
- <div class="bento anim">
-  <div class="cell c5"><p style="margin:0">A single nerve ending is <b>weak, noisy and often wrong</b>.
-  Your brain never acts on one. It waits to see whether the signal persists, and whether other nerves
-  agree.</p></div>
-  <div class="cell c7 mark"><span class="label">so each camera sends</span>
-   <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-     <span class="stat hl">16 bytes</span>
-     <span class="tiny" style="max-width:30ch">a twitch, not a video stream. Small enough for LoRa,
-     satellite, or a dying cellular link.</span></div></div>
-
-  <div class="cell c12 hot"><h3 class="bad">It never sends a picture</h3>
-   <p class="mono" style="margin:0 0 8px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
-    94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
-   <p style="margin:0"><b>Camera 41, at 09:12, says <span class="hl">2</span>, four fifths sure.</b>
-   1 means plume, 2 means fire, the whole vocabulary. <b class="hl">The camera decides <em>whether</em>;
-   the board decides <em>where</em>.</b> Zero bytes of image leave the pole, so there is nothing to
-   intercept, breach or subpoena, and no surveillance capability to misuse.</p></div>
-
-  <div class="cell c6 flat"><h3><span class="hl">Layer 1</span>, at the camera</h3>
-   <p class="tiny" style="margin:0">Integrates over <b>time</b>. &ldquo;Is this plume still there?&rdquo;</p></div>
-  <div class="cell c6 flat"><h3><span class="hl">Layer 2</span>, on the board</h3>
-   <p class="tiny" style="margin:0">Integrates over <b>space</b>. &ldquo;Do towers at different angles agree?&rdquo;</p></div>
-  <div class="cell c12"><p style="margin:0;font-size:1.04rem">
-   <b class="hl">Early detection</b> from cameras already on the ridge &nbsp;&rarr;&nbsp;
-   <b class="hl">a drone confirms</b> before anyone is dispatched &nbsp;&rarr;&nbsp;
-   <b class="hl">a dial for how paranoid to be</b>, set by the operator and by the fire weather.
-   <span class="dim">No new towers. No new cameras. No images leaving the hillside.</span></p></div>
- </div>
-</div></section>
-
-<!-- TECHNICAL APPROACH -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">07 &middot; technical approach</p>
+ <p class="eyebrow anim">03 &middot; the idea</p>
  <h2 class="anim">Four steps, and only one of them is <span class="hl">new hardware</span></h2>
  <div class="bento anim" style="gap:clamp(12px,1.5vw,18px)">
 
   <div class="cell c3 mark">
    <span class="label">step 1 &nbsp;&rarr;&nbsp; the cameras</span>
-   <h3>Use what is on the ridge</h3>
-   <p class="claim" style="font-size:0.88rem"><b class="hl">1,600+</b> pan-tilt-zoom cameras are
-   already installed across eight western states. New nodes go in only where there is a gap.
-   <b>Nothing about an existing tower changes.</b></p>
+   <h3>Use what is already there</h3>
+   <p class="claim" style="font-size:0.9rem"><b class="hl">1,600+</b> cameras are already installed
+   across eight western states. New ones go up only where there is a gap.</p>
   </div>
 
   <div class="cell c3 mark">
    <span class="label">step 2 &nbsp;&rarr;&nbsp; the model</span>
-   <h3>Detect on the pole</h3>
-   <p class="claim" style="font-size:0.88rem">YOLOv5s at 512 px, measured at <b>0.778 mAP50</b> on
-   D-Fire. It runs <b>on the camera</b> and the frame is discarded there. Output is two numbers:
-   <b class="hl">1 for plume, 2 for fire</b>, plus a confidence.</p>
+   <h3>Look on the pole</h3>
+   <p class="claim" style="font-size:0.9rem">A <b class="hl">small AI model</b>, about 7 million
+   parameters, runs on the camera itself and spots plumes, smoke and fire.
+   <b>The picture never leaves the pole.</b></p>
   </div>
 
   <div class="cell c3 mark">
    <span class="label">step 3 &nbsp;&rarr;&nbsp; the link</span>
-   <h3>Nine bytes by radio</h3>
-   <p class="claim" style="font-size:0.88rem"><b class="hl">LoRa</b> at its longest-range setting
-   carries it: US915 DR0 caps the payload at 11 bytes and our record is 9. LTE-M, satellite IoT or an
-   existing microwave backhaul work equally well. <b>The radio is an add-on board</b>, since the UNO Q
-   has only Wi-Fi and Bluetooth.</p>
+   <h3>Send a verdict, not a photo</h3>
+   <p class="claim" style="font-size:0.9rem">The camera radios <b class="hl">a few bytes</b>: what it
+   thinks it saw, and how sure it is. Small enough to cross any radio, anywhere.</p>
   </div>
 
   <div class="cell c3 mark">
    <span class="label">step 4 &nbsp;&rarr;&nbsp; the integrator</span>
    <h3>Decide, then check</h3>
-   <p class="claim" style="font-size:0.88rem">An <b class="hl">Arduino UNO Q</b> fuses those reports
-   across cameras and across time. When the evidence crosses the bar it asks a camera to slew and
-   look; <b>a drone goes only if that cannot settle it.</b></p>
+   <p class="claim" style="font-size:0.9rem">An <b class="hl">Arduino UNO Q</b> gathers those reports
+   and weighs them. Only when several agree does it <b>send a drone to confirm</b>.</p>
   </div>
 
   <div class="cell c12 flat">
-   <p style="margin:0"><b>Why this board.</b> The <b class="hl">STM32U585</b> runs the integrator:
-   always on, fixed-point, no allocator, 116 KB of state, so it cannot stall. The
-   <b class="hl">Dragonwing QRB2210</b> runs Linux beside it for radio ingest, the confirmation model
-   on a zoomed crop, and dispatch. The part that must never miss anything sits on the part that never
-   gets busy.</p>
+   <p style="margin:0">No new towers, no new cameras where cameras exist, and no images leaving the
+   hillside. <b class="hl">The camera decides whether. The integrator decides where, and whether it
+   is worth anyone's time.</b></p>
   </div>
 
  </div>
@@ -274,7 +169,7 @@ SLIDES = r"""
 
 <!-- 6 STATEWIDE END TO END -->
 <section class="slide"><div class="inner">
- <p class="eyebrow anim">08 &middot; end to end</p>
+ <p class="eyebrow anim">04 &middot; end to end</p>
  <h2 class="anim">One fire, from first wisp to a drone overhead.</h2>
  <div class="bento anim" style="flex:1;align-content:stretch">
   <div class="cell c8 pad0" style="padding:8px">
@@ -299,6 +194,97 @@ SLIDES = r"""
    <p class="tiny dim" style="margin:0">Runs in real time on the board at the tower,
    no cloud, no video leaving the hillside.</p>
   </div>
+ </div>
+</div></section>
+
+<!-- 2 PROBLEM -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">05 &middot; the obstacle</p>
+ <h2 class="anim">America already built the sensors.<br>The alerts are <span class="bad">unusable</span> at scale.</h2>
+ <div class="bento anim" style="margin-top:8px">
+  <div class="cell c4 mark"><span class="label">deployed today</span>
+   <span class="stat">1,000+</span><p class="tiny">AI cameras watching California alone.
+   The network works. It sees fires.</p></div>
+  <div class="cell c4 hot"><span class="label">and therefore</span>
+   <span class="stat bad">~1,000</span><p class="tiny">false alarms every day, network-wide.
+   Cloud. Fog. Dust. Steam off a geothermal plant.</p></div>
+  <div class="cell c4 warmb"><span class="label">costing, every day</span>
+   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention,
+   <b>more than four full shifts</b>, spent looking at cloud and dust. At two minutes a check.</p></div>
+  <div class="cell c12 flat"><p style="margin:0">Every one of those is resolved the same way it was in
+  1935: <b>a person looks.</b> Operators even had to teach the software, by hand, to ignore the steam
+  off the Geysers field. <b class="hl">The confirmation step is a human being</b>, and that
+  human is the one part of the system you cannot buy more of.</p></div>
+ </div>
+</div></section>
+
+<!-- 3 WHAT THE CAMERA SEES -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">06 &middot; why it is hard</p>
+ <h2 class="anim">This is what the camera actually sees.</h2>
+ <div class="bento anim">
+  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
+    <img src="__IMG_TINY__" alt="A wide hillside landscape with a very small smoke plume marked by a tiny box">
+    <div class="cap">A real fire. The plume is <b>under 0.1%</b> of the frame.</div></div></div>
+  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
+    <img src="__IMG_NIGHT__" alt="A near-black night frame with a small marked fire">
+    <div class="cap">Night. Most of the frame is black.</div></div></div>
+  <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
+    <img src="__IMG_EMPTY__" alt="An empty hillside landscape with no fire">
+    <div class="cap">Nothing at all, <b>47%</b> of frames.</div></div></div>
+  <div class="cell c12 flat"><p style="margin:0">A detector good enough to catch the first
+  picture will also fire on haze, on a dust plume off a road, on headlights, on a cloud
+  shadow crossing a ridge. <b>Better models do not fix this.</b> Ambiguity is in the pixels.</p></div>
+ </div>
+ <p class="tiny anim" style="margin-top:10px">Frames: HPWREN / ALERTCalifornia tower network, from our own detector benchmark.</p>
+</div></section>
+
+<!-- 4 SCALING PARADOX -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">07 &middot; the trap</p>
+ <h2 class="anim">Every camera you add makes the problem<br>better <em>and</em> worse.</h2>
+ <div class="bento anim">
+  <div class="cell c6 mark"><h3 class="hl">What scales</h3>
+   <ul class="clean">
+    <li>Coverage, more ridgelines watched</li>
+    <li>Redundancy, a fire seen from two angles</li>
+    <li>Speed, someone is always looking</li>
+   </ul></div>
+  <div class="cell c6 hot"><h3 class="bad">What doesn't</h3>
+   <ul class="clean">
+    <li class="no">The person confirming each alert</li>
+    <li class="no">Their attention at 3&nbsp;a.m. on day nine of a siege</li>
+    <li class="no">Their patience after the 200th cloud</li>
+   </ul></div>
+  <div class="cell c12"><p style="margin:0;font-size:1.05rem">So the fix cannot be a better camera
+  or a better model. <b class="hl">It has to be a layer that sits above all of them</b> and decides,
+  from many weak and unreliable signals, whether anything is really burning, and where.</p></div>
+ </div>
+</div></section>
+
+<!-- WHAT THE CAMERA SENDS -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">08 &middot; what the camera sends</p>
+ <h2 class="anim">It never sends a <span class="hl">picture</span></h2>
+ <div class="bento anim">
+  <div class="cell c12 mark">
+   <p class="mono" style="margin:0 0 10px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
+    94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
+   <p style="margin:0"><b>Camera 41, at 09:12, says <span class="hl">2</span>, four fifths sure.</b>
+   1 means plume, 2 means fire. That is the whole vocabulary.</p>
+  </div>
+  <div class="cell c5"><span class="label">image data transmitted</span>
+   <span class="stat hl">0 bytes</span>
+   <p class="tiny" style="margin:4px 0 0">Not to a server, not to us, not to anyone. The picture is
+   looked at on the pole and discarded there.</p></div>
+  <div class="cell c7"><h3>Why this matters beyond bandwidth</h3>
+   <p style="margin:0">There is <b>nothing to intercept, nothing to breach, nothing to subpoena</b>,
+   and no surveillance capability for anyone to misuse later. <b class="hl">A town can accept a camera
+   watching its ridge without accepting a camera watching itself.</b></p></div>
+  <div class="cell c6 flat"><h3><span class="hl">Layer 1</span>, at the camera</h3>
+   <p class="tiny" style="margin:0">Integrates over <b>time</b>. Is this plume still there?</p></div>
+  <div class="cell c6 flat"><h3><span class="hl">Layer 2</span>, on the board</h3>
+   <p class="tiny" style="margin:0">Integrates over <b>space</b>. Do towers at different angles agree?</p></div>
  </div>
 </div></section>
 
