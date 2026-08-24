@@ -209,8 +209,19 @@ tr.hero td{background:color-mix(in srgb,var(--select) 12%,transparent);font-weig
 
 /* lists */
 ul.clean{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-ul.clean li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:0.84rem;line-height:1.45;overflow-wrap:break-word}
-ul.clean li::before{content:"";width:7px;height:7px;background:var(--select);border-radius:2px;margin-top:7px}
+/* A hanging indent, NOT a grid. As a two-column grid every inline element
+   inside the item became its own grid item -- so "text <b>x</b> text" was
+   three items wrapping onto extra rows, which is why a bolded phrase jumped
+   to its own line. Absolute positioning keeps the marker put and leaves the
+   item's content in normal inline flow. */
+ul.clean li{
+  position:relative;padding-left:18px;
+  font-size:0.84rem;line-height:1.45;overflow-wrap:break-word;
+}
+ul.clean li::before{
+  content:"";position:absolute;left:0;top:0.52em;
+  width:7px;height:7px;background:var(--select);border-radius:2px;
+}
 ul.clean li.no::before{background:var(--red)}
 ul.clean li.warnb::before{background:var(--yellow)}
 
@@ -225,7 +236,7 @@ ul.clean li.warnb::before{background:var(--yellow)}
 canvas{display:block;width:100%;height:100%}
 .canvasbox{position:relative;width:100%;min-height:190px;flex:1;min-width:0;overflow:hidden}
 .cover ul.clean li{font-size:0.95rem;line-height:1.5}
-.cover ul.clean li::before{margin-top:9px}
+.cover ul.clean li::before{top:0.55em}
 
 /* cover -- the fire runs full bleed behind everything, and a scrim keeps the
    copy on solid ground. The scrim is built from --bg, so it works in either
@@ -253,8 +264,8 @@ canvas{display:block;width:100%;height:100%}
   justify-content:center;
 }
 .herocopy{
-  max-width:min(74ch,80%);
-  padding:clamp(20px,2.6vh,32px) clamp(22px,2.6vw,38px);
+  max-width:min(88ch,92%);
+  padding:clamp(26px,3.2vh,40px) clamp(28px,3.2vw,48px);
   border-radius:10px;
   border:1px solid var(--cardEdge);
   background:color-mix(in srgb, var(--bg) 70%, transparent);
@@ -276,7 +287,7 @@ canvas{display:block;width:100%;height:100%}
 .cover{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,60px);align-items:center}
 @media (max-width:900px){.cover{grid-template-columns:1fr}.cover .art{display:none}}
 .hero ul.clean li{font-size:0.95rem;line-height:1.5}
-.hero ul.clean li::before{margin-top:9px}
+.hero ul.clean li::before{top:0.55em}
 .rule{height:1px;background:var(--line);margin:20px 0}
 
 /* appendix divider slide */
