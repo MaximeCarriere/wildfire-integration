@@ -31,9 +31,10 @@ SLIDES = r"""
    <span class="label">how much burns</span>
    <div class="plot">
     <div class="bars">
-     <div class="bar"><span class="fill ghost" style="height:50%"></span><span class="bl">without<br>warming</span></div>
-     <div class="bar"><span class="fill" style="height:100%"></span><span class="bl">observed</span></div>
+     <div class="bar"><span class="fill ghost" style="height:50%"></span></div>
+     <div class="bar"><span class="fill" style="height:100%"></span></div>
     </div>
+    <div class="blabels"><span>without warming</span><span>observed</span></div>
     <div class="pnote"><b class="hl">2&times;</b> the western-US forest area burned, 1984&ndash;2015</div>
    </div>
    <p style="margin:0">Human-caused warming drove <b>more than half</b> the rise in fuel aridity
@@ -45,10 +46,11 @@ SLIDES = r"""
    <span class="label">what it costs</span>
    <div class="plot">
     <div class="bars">
-     <div class="bar"><span class="fill ghost" style="height:41%"></span><span class="bl">1990s</span></div>
-     <div class="bar"><span class="fill" style="height:72%"></span><span class="bl">today</span></div>
-     <div class="bar"><span class="fill soft" style="height:100%"></span><span class="bl">2050</span></div>
+     <div class="bar"><span class="fill ghost" style="height:41%"></span></div>
+     <div class="bar"><span class="fill" style="height:72%"></span></div>
+     <div class="bar"><span class="fill soft" style="height:100%"></span></div>
     </div>
+    <div class="blabels"><span>1990s</span><span>today</span><span>2050</span></div>
     <div class="pnote">federal suppression: <b class="hl">$2.9 bn</b> a year, <b>+42% by 2050</b></div>
    </div>
    <p style="margin:0">Counting health, property and disruption: <b>$394&ndash;893 bn</b> a year.</p>

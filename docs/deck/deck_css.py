@@ -124,10 +124,11 @@ a{color:var(--select)}
 
 /* ================= bento ================= */
 .bento{display:grid;gap:clamp(10px,1.1vh,16px);grid-template-columns:repeat(12,1fr);align-content:center}
-/* the top-level bento takes the leftover height and lets its rows grow into
-   it, so cards reach the bottom of the frame instead of hugging the middle */
-.inner > .bento{flex:1;align-content:stretch}
-.inner > .bento > .cell{justify-content:flex-start}
+/* Rows are sized to their content and the block is centred. Stretching them
+   to fill the frame made every card tall with its text pinned to the top, so
+   the space just moved from around the block to inside each card. The real
+   cause of the original emptiness was the type scale, fixed on :root. */
+.inner > .bento{align-content:center}
 .cell{
   background:var(--card);border:1px solid var(--cardEdge);border-radius:7px;
   padding:clamp(14px,1.6vw,22px);box-shadow:var(--shadow);
@@ -152,13 +153,19 @@ a{color:var(--select)}
 }
 
 /* inline bar plots -- one hue, light to dark, no status colours */
-.plot{display:flex;flex-direction:column;gap:7px;margin:2px 0 4px}
-.bars{display:flex;align-items:flex-end;gap:10px;height:clamp(58px,7.5vh,86px)}
-.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:5px}
-.bar .fill{width:100%;background:var(--select);border-radius:3px 3px 0 0;display:block}
-.bar .fill.soft{background:color-mix(in srgb,var(--select) 55%,transparent)}
-.bar .fill.ghost{background:color-mix(in srgb,var(--front) 18%,transparent)}
-.bar .bl{font-size:0.6rem;line-height:1.2;color:var(--dim);text-align:center;white-space:nowrap}
+.plot{display:flex;flex-direction:column;gap:6px;margin:2px 0 4px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:clamp(54px,7vh,84px)}
+/* the bar is its own box with a definite height, so the fill's percentage has
+   something to resolve against. Labels sit in a SEPARATE row: as flex siblings
+   of the fill they competed for the same height and squashed the bars. */
+.bars .bar{flex:1;height:100%;display:flex;align-items:flex-end;min-width:0}
+.bars .fill{width:100%;background:var(--select);border-radius:3px 3px 0 0;display:block}
+/* opacity rather than color-mix -- one less feature to depend on for something
+   that must simply be visible */
+.bars .fill.soft{opacity:.55}
+.bars .fill.ghost{background:var(--front);opacity:.20}
+.blabels{display:flex;gap:10px}
+.blabels span{flex:1;min-width:0;text-align:center;font-size:0.6rem;line-height:1.2;color:var(--dim)}
 .pnote{font-size:0.72rem;line-height:1.35;color:var(--dim)}
 
 /* stat */
