@@ -11,7 +11,7 @@ SLIDES = r"""
     <li>America has built a nervous system for wildfire and forgotten to build the brain.</li>
     <li>A thousand cameras already watch the ridgelines. Nobody can afford to read what they report.</li>
     <li>We built the layer that turns them into one trustworthy, located alert.</li>
-    <li>The integrator is small enough to run on an <b>Arduino UNO Q</b>, at the tower, with no cloud in the loop.</li>
+    <li>The integrator is small enough to run on an <b>Arduino UNO Q</b>.</li>
    </ul>
    <div class="rule anim"></div>
    <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&mdash;&nbsp;
