@@ -314,31 +314,32 @@ SLIDES = r"""
 <!-- WHY EDGE -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">__N__ &middot; why the edge, not the cloud</p>
- <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
+ <h2 class="anim">It is not about speed. It is about <span class="hl">how much has to travel</span>.</h2>
  <div class="bento headsonly anim">
-  <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
-   <h3>Fire destroys comms</h3>
-   <p class="tiny" style="margin:0">The cameras' short-range link to the board is not the same link as
-   the <b>uplink out</b>. When the uplink congests or fails, which is what happens during a fire,
-   reports still reach the board and it still decides.
-   <b class="hl">A cloud service stops during the event it exists for.</b></p>
-   <p class="tiny" style="margin:6px 0 0"><span class="dim">Honestly: the decision survives, but the
-   alert still needs a way out. That is a local radio net or a queued message, not a claim that
-   nothing is lost.</span></p></div>
-  <div class="cell c4 flat"><span class="label">2 &middot; privacy</span>
-   <h3>Nothing to leak</h3>
-   <p class="tiny" style="margin:0">The detector runs on the pole and the frame dies there. A cloud
-   design has to ship pictures off the hillside instead &mdash; and then <b>images of roads, driveways
-   and back gardens exist on somebody's servers</b>, for somebody to lose.</p></div>
-  <div class="cell c4 flat"><span class="label">3 &middot; reach</span>
-   <h3>Where there is no link</h3>
-   <p class="tiny" style="margin:0">Nine bytes crosses LoRa or satellite IoT. Video cannot. This puts a
-   sensor on a ridge that could never have supported a stream, which is most of the country
-   that burns.</p></div>
-  <div class="cell c12 hot"><p style="margin:0"><b>And a reason we will not claim.</b> It is not about
-  latency. The cloud round-trip is milliseconds; a fire develops over minutes.
-  <b class="hl">Anyone arguing edge-for-latency here is arguing badly</b>, the honest case is
-  that the link is unreliable, the imagery is sensitive, and half the ground has no link at all.</p></div>
+  <div class="cell c4 mark"><span class="label">1 &middot; it throws almost everything away</span>
+   <h3>79,000 reports in. 800 messages out.</h3>
+   <p class="tiny" style="margin:0">Our eight test cameras produce about <b>79,000 reports a day</b>,
+   and nearly all of them are dust, cloud or glare. The integrator's job is to bin those and keep what
+   matters: <b>about 800 messages a day</b>, a hundred times fewer. Sort on the hill and the link out
+   carries the 800. Sort in a data centre and it has to carry all 79,000 first, over the longest and
+   most expensive part of the whole system.</p></div>
+
+  <div class="cell c4 flat"><span class="label">2 &middot; the picture stays on the pole</span>
+   <h3>Nothing is sent, so nothing can leak</h3>
+   <p class="tiny" style="margin:0">To decide in a data centre you have to send it pictures. Then
+   images of roads, driveways and back gardens sit on somebody's servers, for as long as somebody
+   keeps them. Here the frame is read on the camera and deleted there.</p></div>
+
+  <div class="cell c4 flat"><span class="label">3 &middot; so it works with no internet</span>
+   <h3>A few hundred tiny messages fit anywhere</h3>
+   <p class="tiny" style="margin:0">Because so little has to get out, the link can be a long-range
+   radio or a satellite tag, the kind that could never have carried video. That opens up ridges with
+   no connection at all, which is much of the ground that burns.</p></div>
+
+  <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>Two honest notes.</b> Those 800
+  messages include repeated updates on the same fire; the number anyone actually has to investigate is
+  far smaller, and the results slide gives it. And if the link out is fully down, the alert cannot leave either
+  &mdash; the integrator keeps deciding, but somebody still has to hear it.</p></div>
  </div>
 </div></section>
 
