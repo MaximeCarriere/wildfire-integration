@@ -38,7 +38,11 @@ CSS = r"""
 html,body{height:100%}
 body{
   margin:0;background:var(--bg);color:var(--front);
-  font-size:17px;line-height:1.5;overflow:hidden;
+  /* Scale with BOTH axes. A vw-only scale leaves a tall window mostly empty,
+     which is what made every slide look like a small block floating in
+     whitespace. */
+  font-size:clamp(15px, 0.60vw + 0.70vh, 20px);
+  line-height:1.5;overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -75,7 +79,7 @@ body{
 .deck{position:relative;height:100%;width:100%}
 .slide{
   position:absolute;inset:0;display:none;
-  padding:66px clamp(18px,4vw,54px) 60px;
+  padding:clamp(52px,7vh,72px) clamp(18px,4vw,54px) clamp(44px,6vh,60px);
   overflow-y:auto;overflow-x:hidden;
 }
 .slide.live{display:block}
@@ -101,8 +105,8 @@ body{
   margin:0 0 14px;display:flex;align-items:center;gap:9px;
 }
 .eyebrow::before{content:"";width:9px;height:9px;background:var(--select);border-radius:2px;flex:none}
-h1{font-size:clamp(2rem,1.1rem+3.4vw,3.3rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;font-weight:bold;text-wrap:balance}
-h2{font-size:clamp(1.4rem,1rem+1.5vw,2.05rem);line-height:1.18;letter-spacing:-.015em;margin:0 0 16px;font-weight:bold;text-wrap:balance}
+h1{font-size:clamp(2rem,0.9rem+2.4vw+1.1vh,3.4rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;font-weight:bold;text-wrap:balance}
+h2{font-size:clamp(1.35rem,0.8rem+1.1vw+0.9vh,2.1rem);line-height:1.18;letter-spacing:-.015em;margin:0 0 16px;font-weight:bold;text-wrap:balance}
 h3{font-size:1rem;margin:0 0 8px;font-weight:bold}
 p{margin:0 0 12px;overflow-wrap:break-word}
 .lead{font-size:clamp(1rem,.9rem+.4vw,1.22rem);line-height:1.5;color:var(--dim);max-width:62ch}
@@ -116,7 +120,11 @@ em{font-style:italic}
 a{color:var(--select)}
 
 /* ================= bento ================= */
-.bento{display:grid;gap:12px;grid-template-columns:repeat(12,1fr);align-content:center}
+.bento{display:grid;gap:clamp(10px,1.1vh,16px);grid-template-columns:repeat(12,1fr);align-content:center}
+/* the top-level bento takes the leftover height and lets its rows grow into
+   it, so cards reach the bottom of the frame instead of hugging the middle */
+.inner > .bento{flex:1;align-content:stretch}
+.inner > .bento > .cell{justify-content:flex-start}
 .cell{
   background:var(--card);border:1px solid var(--cardEdge);border-radius:7px;
   padding:clamp(14px,1.6vw,22px);box-shadow:var(--shadow);

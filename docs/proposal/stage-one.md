@@ -10,22 +10,40 @@ Pillars addressed: *anticipate and mitigate risk* · *enable real-time response*
 
 ## 1. Problem statement
 
-America burns roughly twice as much land as it did in the 1990s — 3.3 million
-acres a year then, 7.0 million a year since 2000 — and fire seasons are
-lengthening as the climate dries. Federal suppression alone has averaged
-**$2.9 billion a year** over the last decade, projected to rise a further 42%
-by 2050. Counting health, property and disruption, climate-exacerbated
-wildfire costs the United States **$394–893 billion annually**.
+Abatzoglou and Williams (2016) attribute **more than half** of the observed
+increase in fuel aridity across western US forests since the 1970s to
+human-caused climate change, and find that it **doubled the cumulative
+western-US forest fire area over 1984–2015**. Between 2000 and 2015 it added
+75% more forested area experiencing high fire-danger conditions.
+*(Impact of anthropogenic climate change on wildfire across western US
+forests*, PNAS 113(42):11770–11775.)
 
-But almost every fire is stopped on first attack. The few that escape are the
-ones that become catastrophes: in one Canadian study, response failures
-occurred in 10% of fires and accounted for **85% of the area burned**. What
-separates them is usually how long the fire had to grow before anyone
-arrived.
+That attribution is specifically to **western US forest** fire area over a
+defined window. It is not a claim about all US land, and not a claim against a
+pre-suppression baseline — measured against the 1930s, US area burned has
+fallen, and we will not quote a decade that flatters us.
 
-**A fire is cheap to stop for about an hour. After that it is not.** The
-leverage is therefore not in fighting fires better — it is in finding them
-sooner, while initial attack still works.
+Federal suppression has averaged **$2.9 billion a year** over the last decade,
+projected to rise a further 42% by 2050; counting health, property and
+disruption, climate-exacerbated wildfire costs the US **$394–893 billion**
+annually.
+
+### The claim we do not make
+
+It is tempting to argue that faster detection means smaller fires and lower
+cost. The best study we found says otherwise. Analysing Western Canadian fires
+2015–2020, Bałek et al. (PLOS ONE, 2024) find **no evidence that fire size
+increases with reporting delay**; delays account for roughly 3% of suppression
+costs, and cutting them by a full hour buys a 0.25% cost reduction. Their
+conclusion is that detection investment is *"not justified on suppression cost
+savings alone."*
+
+Their setting is remote boreal fire, much of it monitored rather than fought,
+and they measure suppression cost rather than evacuation lead time or property
+loss. But it is good evidence and it points away from the easy version of our
+pitch. **So we claim an operational result, not an outcome one:** we reduce the
+number of alerts a human must adjudicate. Whether that converts into fewer
+acres is unproven, and we have not tried to prove it.
 
 ### America already built the sensors, and cannot use them
 

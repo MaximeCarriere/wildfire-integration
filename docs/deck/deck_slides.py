@@ -23,7 +23,7 @@ SLIDES = r"""
  <h2 class="anim">Six questions. Here is where each is answered.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
-   <p class="tiny" style="margin:0">Twice the acreage of the 1990s, decided in the first hour &mdash;
+   <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns &mdash;
    and a thousand cameras whose alerts nobody can afford to read.
    <span class="dim">&rarr; 01&ndash;04</span></p></div>
   <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
@@ -50,30 +50,34 @@ SLIDES = r"""
 <!-- 1 STAKES -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">01 &middot; the problem</p>
- <h2 class="anim">America burns twice as much as it used to.<br>And it is decided in the <span class="hl">first hour</span>.</h2>
+ <h2 class="anim">Anthropogenic warming has <span class="hl">doubled</span> the forest area burned in the western US.</h2>
  <div class="bento anim">
-  <div class="cell c3 hot"><span class="label">acres burned, per year</span>
-   <span class="stat bad">2&times;</span>
-   <p class="tiny">3.3 million in the 1990s &rarr; <b>7.0 million</b> since 2000. Fire seasons are
-   lengthening as the climate dries.</p></div>
-  <div class="cell c3 warmb"><span class="label">federal suppression</span>
+  <div class="cell c7 mark"><p style="margin:0">Abatzoglou &amp; Williams (2016) attribute
+  <b>more than half</b> of the observed rise in fuel aridity since the 1970s to human-caused climate
+  change, and find it <b class="hl">doubled the cumulative western-US forest fire area over
+  1984&ndash;2015</b>. Between 2000 and 2015 it added <b>75% more forested area</b> experiencing
+  high fire-danger conditions.</p>
+  <p class="tiny" style="margin:8px 0 0"><i>Impact of anthropogenic climate change on wildfire across
+  western US forests</i>, PNAS 113(42):11770&ndash;11775. The attribution is to <b>western US forest</b>
+  fire area over a defined window &mdash; not to all US land, and not against a pre-suppression
+  baseline, where the comparison would run the other way.</p></div>
+  <div class="cell c5"><span class="label">federal suppression</span>
    <span class="stat warn">$2.9 bn</span>
-   <p class="tiny">a year, on average, over the last decade &mdash; projected to rise a further 42% by
-   2050.</p></div>
-  <div class="cell c3 warmb"><span class="label">total economic cost</span>
-   <span class="stat warn">$394&ndash;893 bn</span>
-   <p class="tiny">a year in damages and losses, once health, property and disruption are counted.</p></div>
-  <div class="cell c3 mark"><span class="label">but escaped fires are</span>
-   <span class="stat hl">~10%</span>
-   <p class="tiny">of ignitions &mdash; and in one Canadian study they accounted for
-   <b>85% of the area burned</b>.</p></div>
+   <p class="tiny" style="margin:2px 0 10px">a year, averaged over the last decade, projected +42% by 2050.</p>
+   <span class="label">total economic cost</span>
+   <span class="stat sm warn">$394&ndash;893 bn</span>
+   <p class="tiny" style="margin:2px 0 0">a year once health, property and disruption are counted.</p></div>
 
-  <div class="cell c12 mark"><p style="margin:0;font-size:1.06rem">Nearly every fire is stopped on
-  first attack. <b class="hl">The few that are not are the ones that become catastrophes</b> &mdash; and
-  what separates them is usually how long the fire had to grow before anyone arrived.
-  A fire is cheap to stop for about an hour. After that it is not.</p>
-  <p class="tiny" style="margin:8px 0 0">So the leverage is not in fighting fires better. It is in
-  <b>finding them sooner</b>, while initial attack still works.</p></div>
+  <div class="cell c12 hot"><h3 class="bad">And the obvious next claim does not survive the literature</h3>
+   <p style="margin:0">It is tempting to say faster detection means smaller fires and lower cost.
+   <b>The best study we could find says otherwise.</b> Analysing Western Canadian fires 2015&ndash;2020,
+   Ba&#803;lek et&nbsp;al. (PLOS ONE, 2024) find <b>no evidence that fire size increases with reporting
+   delay</b>; delays account for ~3% of suppression costs, and cutting them by a full hour buys a
+   <b>0.25%</b> cost reduction. Their conclusion: detection investment is
+   <em>&ldquo;not justified on suppression cost savings alone&rdquo;</em>.</p>
+   <p class="tiny" style="margin:8px 0 0"><b class="hl">So we do not make that claim.</b> What we
+   measured is different, and narrower: the false-alarm load that makes an existing camera network
+   unusable. That is slide 02, and it is the only thing our numbers support.</p></div>
  </div>
 </div></section>
 
@@ -501,7 +505,7 @@ SLIDES = r"""
 <!-- 14 HONEST -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">18 &middot; what we don't claim</p>
- <h2 class="anim">Three things we could have hidden.</h2>
+ <h2 class="anim">Four things we could have hidden.</h2>
  <div class="bento anim">
   <div class="cell c4 warmb"><h3>A simpler method logs fewer alarms</h3>
    <p class="tiny">Counting how many cameras agree, ignoring geometry, gives 30 a day to our 47.
@@ -515,6 +519,15 @@ SLIDES = r"""
    <p class="tiny">A controlled burn, or smoke drifting in from a fire outside the region, is
    <b>geometrically identical to an ignition</b>. No amount of cleverness in the maths fixes that.
    Only going and looking does.</p></div>
+  <div class="cell c12 hot"><h3 class="bad">The fourth, and the largest: we cannot claim fewer acres</h3>
+   <p style="margin:0">Ba&#803;lek et&nbsp;al. (PLOS ONE, 2024) found <b>no evidence that fire size
+   increases with reporting delay</b> across Western Canada 2015&ndash;2020, and that detection
+   investment is not justified on suppression-cost savings alone. Their setting is remote boreal fire,
+   many of them monitored rather than fought, and they measure suppression cost rather than evacuation
+   lead time or property loss &mdash; but it is good evidence and it points away from us.
+   <b class="hl">We therefore claim an operational result, not an outcome one:</b> 4.4&times; fewer
+   things a human must look at. Whether that converts into fewer acres is unproven, and we have not
+   tried to prove it.</p></div>
   <div class="cell c12 mark"><p style="margin:0">We are also careful about the neuroscience. A single
   one of these cells is, honestly, a weighted average with a threshold &mdash; and we say so.
   <b class="hl">The contribution is the network</b>: agreement across angles, the surround
