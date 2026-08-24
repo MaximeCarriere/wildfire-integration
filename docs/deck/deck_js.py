@@ -180,8 +180,12 @@ function makeSprite(rgb){
 var SPR=null;
 ANIM.fire=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
-  if(!SPR) SPR={hot:makeSprite('255,248,225'), mid:makeSprite('255,146,36'),
-                low:makeSprite('196,40,16'),  smoke:makeSprite('92,88,84')};
+  /* Kernwerk palette only. Photographic fire colours were off-brand, and the
+     DA's red (#ee5253) is a light UI red -- added over the slate ground it
+     turns pink. Red is also SEMANTIC in this deck (fire reported, threshold
+     crossed), so spending it on decoration would weaken it. The flame is the
+     brand yellow; the teal appears as sparse signal-embers. */
+  if(!SPR) SPR={flame:makeSprite('255,168,1'), spark:makeSprite('0,184,148')};
   var rnd=mulberry(4711), P=[];
   var N=Math.round(Math.max(260,Math.min(620,W*H/380)));
   function spawn(p,init){
@@ -192,6 +196,8 @@ ANIM.fire=function(c){
     p.life=0; p.max=120+rnd()*110;
     p.sz=(0.030+rnd()*0.075)*Math.min(W,H);
     p.wob=rnd()*6.28; p.wsp=0.03+rnd()*0.06;
+    p.spark = rnd()<0.07;
+    if(p.spark){ p.sz*=0.40; p.vy*=1.4; p.max*=1.35; }
   }
   for(var i=0;i<N;i++){ var q={}; spawn(q,true); P.push(q); }
 
@@ -213,12 +219,14 @@ ANIM.fire=function(c){
       p.y+=p.vy*(1-t*0.25);
       p.vy*=0.998;
       var spr,a;
-      if(t<0.14){ spr=SPR.hot; a=(t/0.14)*0.95; }
-      else if(t<0.40){ spr=SPR.mid; a=0.95-(t-0.14)/0.26*0.15; }
-      else if(t<0.72){ spr=SPR.low; a=0.80*(1-(t-0.40)/0.32*0.55); }
-      else { spr=SPR.smoke; a=0.20*(1-(t-0.72)/0.28); }
+      if(p.spark){ spr=SPR.spark; a=0.80*Math.pow(1-t,1.2); }
+      else{
+        spr=SPR.flame;
+        a = (t<0.13) ? (t/0.13)*0.95
+                     : 0.95*(1-Math.pow((t-0.13)/0.87,1.35));
+      }
       if(a<=0) continue;
-      var w=p.sz*(0.8+t*1.1), h=w*(1.7+t*1.1);   /* stretched vertically */
+      var w=p.sz*(0.8+t*1.15), h=w*(1.7+t*1.2);  /* stretched vertically */
       x.globalAlpha=a;
       x.drawImage(spr,p.x-w/2,p.y-h/2,w,h);
     }
@@ -227,7 +235,7 @@ ANIM.fire=function(c){
     /* additive floor glow only -- no black vignette, which would darken the
        page background rather than the fire */
     var fl=x.createRadialGradient(W*0.5,H*1.05,0,W*0.5,H*1.05,W*0.62);
-    fl.addColorStop(0,'rgba(255,120,34,0.45)'); fl.addColorStop(1,'rgba(255,80,18,0)');
+    fl.addColorStop(0,'rgba(255,168,1,0.34)'); fl.addColorStop(1,'rgba(255,168,1,0)');
     x.fillStyle=fl; x.fillRect(0,H*0.5,W,H*0.5);
     x.globalCompositeOperation='source-over';
   });

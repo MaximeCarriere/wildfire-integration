@@ -6,7 +6,7 @@ SLIDES = r"""
  <div class="inner">
   <div class="herocopy">
    <p class="eyebrow anim">Resilient America Preparedness Challenge &middot; Track A</p>
-   <h1 class="anim">Early wildfire detection,<br>and the integrator that<br>makes it <span class="hl">usable</span>.</h1>
+   <h1 class="anim">Early wildfire detection:<br>the <span class="hl">integrator layer</span>.</h1>
    <ul class="clean anim" style="margin:0 0 6px;gap:11px">
     <li>America has built a nervous system for wildfire and forgotten to build the brain.</li>
     <li>A thousand cameras already watch the ridgelines. Nobody can afford to read what they report.</li>
