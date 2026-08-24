@@ -210,8 +210,8 @@ SLIDES = r"""
    camera sees two degrees of a 360-degree horizon. Range figures are geometry, not a field
    trial.</p></div>
 
-  <div class="cell c12 flat"><p style="margin:0">A distant camera is a weak witness, and a bigger
-  model does not fix it. <b class="hl">The next two steps do.</b></p></div>
+  <div class="cell c12 flat"><p style="margin:0">A distant camera is a weak witness on its own.
+  <b class="hl">The answer is more cameras, and the next two steps.</b></p></div>
  </div>
 </div></section>
 
