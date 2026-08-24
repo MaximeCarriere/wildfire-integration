@@ -57,7 +57,7 @@ SLIDES = r"""
   </div>
 
   <div class="cell c4 mark">
-   <span class="label">what earlier detection prevents</span>
+   <span class="label">why finding them early matters</span>
    <div class="plot">
     <div class="bars">
      <div class="pbar"><span class="pfill ghost" style="height:12%"></span></div>
@@ -65,8 +65,8 @@ SLIDES = r"""
     </div>
     <div class="blabels"><span>10% of fires<br>escaped</span><span>85% of the<br>area burned</span></div>
    </div>
-   <p class="claim">Almost every fire is stopped on first attack. Catch one
-   <b class="hl">while its behaviour is still benign</b> and it stays among them.</p>
+   <p class="claim">The <b class="hl">earlier a fire is found</b>, the better the chance crews
+   stop it on the first try.</p>
    <p class="src">NE Alberta, reported in <i>Int. J. Wildland Fire</i> &middot; ASME Open J. Eng., 2025</p>
   </div>
 
