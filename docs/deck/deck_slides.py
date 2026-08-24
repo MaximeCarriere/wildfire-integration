@@ -11,7 +11,7 @@ SLIDES = r"""
     <li>America has built a nervous system for wildfire and forgotten to build the brain.</li>
     <li>A thousand cameras already watch the ridgelines. Nobody can afford to read what they report.</li>
     <li>We built the layer that turns them into one trustworthy, located alert.</li>
-    <li>Small enough to run on an <b>Arduino UNO Q</b>, at the tower, with the network down.</li>
+    <li>The integrator is small enough to run on an <b>Arduino UNO Q</b>, at the tower, with no cloud in the loop.</li>
    </ul>
    <div class="rule anim"></div>
    <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&mdash;&nbsp;
@@ -403,9 +403,13 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
    <h3>Fire destroys comms</h3>
-   <p class="tiny" style="margin:0">When the uplink fails, an edge integrator keeps reasoning on
-   whatever still arrives. A cloud service simply stops &mdash; and it stops during the event it
-   exists for. <b class="hl">The decision is made at the tower, in microseconds.</b></p></div>
+   <p class="tiny" style="margin:0">The cameras' short-range link to the board is not the same link as
+   the <b>uplink out</b>. When the uplink congests or fails &mdash; which is what happens during a fire
+   &mdash; reports still reach the board and it still decides.
+   <b class="hl">A cloud service stops during the event it exists for.</b></p>
+   <p class="tiny" style="margin:6px 0 0"><span class="dim">Honestly: the decision survives, but the
+   alert still needs a way out. That is a local radio net or a queued message &mdash; not a claim that
+   nothing is lost.</span></p></div>
   <div class="cell c4 flat"><span class="label">2 &middot; privacy</span>
    <h3>Nothing to leak</h3>
    <p class="tiny" style="margin:0">The detector runs on the pole and the image dies there. A cloud
