@@ -14,7 +14,7 @@ SLIDES = r"""
     <li>The integrator is small enough to run on an <b>Arduino UNO Q</b>.</li>
    </ul>
    <div class="rule anim"></div>
-   <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&mdash;&nbsp;
+   <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&middot;&nbsp;
    confidential edge AI, built small and sealed shut &nbsp;&middot;&nbsp;
    <span class="dim">press <kbd>&rarr;</kbd> to advance, <kbd>?</kbd> for keys</span></p>
   </div>
@@ -37,7 +37,7 @@ SLIDES = r"""
     </div>
     <div class="blabels"><span>1990s avg<br>3.3 M</span><span>2025<br>5.1 M</span><span>2015&ndash;24 avg<br>7.6 M</span></div>
    </div>
-   <p class="claim"><b class="hl">7.6 million acres</b> a year now &mdash; more than double the 1990s.
+   <p class="claim"><b class="hl">7.6 million acres</b> a year now, more than double the 1990s.
    77,850 fires in 2025 alone.</p>
    <p class="src">National Interagency Fire Center, annual reports</p>
   </div>
@@ -67,7 +67,7 @@ SLIDES = r"""
     <b>85%</b> of<br>all the land lost</span></div>
    </div>
    <p class="claim">The <b class="hl">earlier a fire is found</b>, the better the chance to stop it.</p>
-   <p class="src">NE Alberta, reported in <i>Int. J. Wildland Fire</i> &middot; ASME Open J. Eng., 2025</p>
+   <p class="src">NE Alberta, reported in <i>Int. J. Wildland Fire</i> &middot; ASME Open J. Eng. 2025</p>
   </div>
 
  </div>
@@ -88,41 +88,31 @@ SLIDES = r"""
     </div>
     <div class="blabels"><span>1990<br><b>30.8 M</b> homes</span><span>2010<br><b>43.4 M</b> homes</span></div>
    </div>
-   <p class="claim"><b class="hl">About one in three American homes</b> sits in the
-   wildland&ndash;urban interface &mdash; and it is the <b>fastest-growing land use in the
-   country</b>. These are the people an alert is ultimately for.</p>
-   <p class="src">Radeloff et&nbsp;al., <i>PNAS</i> 115(13):3314, 2018</p>
+   <p class="claim"><b class="hl">About one in three American homes</b> now sits in the
+   wildland&ndash;urban interface, and it is the <b>fastest-growing land use in the country</b>.</p>
+   <p class="src">Radeloff et&nbsp;al. <i>PNAS</i> 115(13):3314, 2018</p>
   </div>
 
   <div class="cell c6 mark">
    <span class="label">who is sent</span>
    <div class="plot">
-    <div class="statslot"><span class="stat hl">$14,000</span></div>
-    <div class="blabels"><span>an hour for an air tanker &mdash; and about $150,000 a day for a heavy helicopter</span></div>
+    <div class="bars">
+     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
+     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
+     <div class="pbar"><span class="pfill soft" style="height:96%"></span></div>
+     <div class="pbar"><span class="pfill ghost" style="height:91%"></span></div>
+    </div>
+    <div class="blabels"><span>aircraft<br><b>23%</b></span><span>vehicle<br><b>23%</b></span><span>heart<br><b>22%</b></span><span>burnover<br><b>21%</b></span></div>
    </div>
-   <p class="claim">Crews and aircraft are the most expensive part of fighting a fire.
-   <b class="hl">A corroborated alert with coordinates sends them to a fire</b> rather than to a
-   dust plume &mdash; and keeps them available for the next one.</p>
-   <p class="src">Aerial firefighting cost reporting, 2024&ndash;25</p>
-  </div>
-
-  <div class="cell c6 flat">
-   <span class="label">and the people watching the screens</span>
-   <p class="claim" style="font-size:0.88rem">Dispatchers and watchstanders absorb the false-alarm
-   load today. Their attention runs out exactly when it is needed most &mdash; on a red-flag day,
-   when the volume peaks.</p>
-  </div>
-
-  <div class="cell c6 flat">
-   <span class="label">and the departments that cannot staff a watch</span>
-   <p class="claim" style="font-size:0.88rem">Volunteer and small municipal crews, and tribal and
-   remote land managers, are excluded from networks their counties already pay for. A filtered,
-   located alert is one they can act on without a control room.</p>
+   <p class="claim"><b class="hl">About 20 wildland firefighters are killed every year</b>, and only
+   a fifth of them by the fire itself. The rest is flying, driving and strain: the cost of being
+   sent.</p>
+   <p class="src">US Forest Service &middot; CDC MMWR, 2000&ndash;2013</p>
   </div>
 
   <div class="cell c12 flat">
-   <p style="margin:0">Nobody is displaced. <b class="hl">We do not remove the watchstander</b> &mdash;
-   we stop spending them, and the aircraft, on cloud and dust.</p>
+   <p style="margin:0">Both numbers are rising. <b class="hl">More homes inside the interface every
+   year, and more days of fire weather to send crews into.</b></p>
   </div>
 
  </div>
@@ -140,11 +130,11 @@ SLIDES = r"""
    <span class="stat bad">~1,000</span><p class="tiny">false alarms every day, network-wide.
    Cloud. Fog. Dust. Steam off a geothermal plant.</p></div>
   <div class="cell c4 warmb"><span class="label">costing, every day</span>
-   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention &mdash;
-   <b>more than four full shifts</b> &mdash; spent looking at cloud and dust. At two minutes a check.</p></div>
+   <span class="stat warn">33 hours</span><p class="tiny">of somebody's undivided attention,
+   <b>more than four full shifts</b>, spent looking at cloud and dust. At two minutes a check.</p></div>
   <div class="cell c12 flat"><p style="margin:0">Every one of those is resolved the same way it was in
   1935: <b>a person looks.</b> Operators even had to teach the software, by hand, to ignore the steam
-  off the Geysers field. <b class="hl">The confirmation step is a human being</b> &mdash; and that
+  off the Geysers field. <b class="hl">The confirmation step is a human being</b>, and that
   human is the one part of the system you cannot buy more of.</p></div>
  </div>
 </div></section>
@@ -162,7 +152,7 @@ SLIDES = r"""
     <div class="cap">Night. Most of the frame is black.</div></div></div>
   <div class="cell c4 pad0"><div class="shot" style="aspect-ratio:16/9">
     <img src="__IMG_EMPTY__" alt="An empty hillside landscape with no fire">
-    <div class="cap">Nothing at all &mdash; <b>47%</b> of frames.</div></div></div>
+    <div class="cap">Nothing at all, <b>47%</b> of frames.</div></div></div>
   <div class="cell c12 flat"><p style="margin:0">A detector good enough to catch the first
   picture will also fire on haze, on a dust plume off a road, on headlights, on a cloud
   shadow crossing a ridge. <b>Better models do not fix this.</b> Ambiguity is in the pixels.</p></div>
@@ -177,9 +167,9 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">What scales</h3>
    <ul class="clean">
-    <li>Coverage &mdash; more ridgelines watched</li>
-    <li>Redundancy &mdash; a fire seen from two angles</li>
-    <li>Speed &mdash; someone is always looking</li>
+    <li>Coverage, more ridgelines watched</li>
+    <li>Redundancy, a fire seen from two angles</li>
+    <li>Speed, someone is always looking</li>
    </ul></div>
   <div class="cell c6 hot"><h3 class="bad">What doesn't</h3>
    <ul class="clean">
@@ -189,7 +179,7 @@ SLIDES = r"""
    </ul></div>
   <div class="cell c12"><p style="margin:0;font-size:1.05rem">So the fix cannot be a better camera
   or a better model. <b class="hl">It has to be a layer that sits above all of them</b> and decides,
-  from many weak and unreliable signals, whether anything is really burning &mdash; and where.</p></div>
+  from many weak and unreliable signals, whether anything is really burning, and where.</p></div>
  </div>
 </div></section>
 
@@ -211,13 +201,13 @@ SLIDES = r"""
    <p class="mono" style="margin:0 0 8px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
     94 10 05 00&nbsp; 29 00&nbsp; 00 00&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 00 00&nbsp; b9 07</p>
    <p style="margin:0"><b>Camera 41, at 09:12, says <span class="hl">2</span>, four fifths sure.</b>
-   1 means plume, 2 means fire &mdash; the whole vocabulary. <b class="hl">The camera decides <em>whether</em>;
+   1 means plume, 2 means fire, the whole vocabulary. <b class="hl">The camera decides <em>whether</em>;
    the board decides <em>where</em>.</b> Zero bytes of image leave the pole, so there is nothing to
    intercept, breach or subpoena, and no surveillance capability to misuse.</p></div>
 
-  <div class="cell c6 flat"><h3><span class="hl">Layer 1</span> &mdash; at the camera</h3>
+  <div class="cell c6 flat"><h3><span class="hl">Layer 1</span>, at the camera</h3>
    <p class="tiny" style="margin:0">Integrates over <b>time</b>. &ldquo;Is this plume still there?&rdquo;</p></div>
-  <div class="cell c6 flat"><h3><span class="hl">Layer 2</span> &mdash; on the board</h3>
+  <div class="cell c6 flat"><h3><span class="hl">Layer 2</span>, on the board</h3>
    <p class="tiny" style="margin:0">Integrates over <b>space</b>. &ldquo;Do towers at different angles agree?&rdquo;</p></div>
   <div class="cell c12"><p style="margin:0;font-size:1.04rem">
    <b class="hl">Early detection</b> from cameras already on the ridge &nbsp;&rarr;&nbsp;
@@ -251,7 +241,7 @@ SLIDES = r"""
      <span class="label">4 &middot; the answer</span>
      <p class="tiny" style="margin:0">Threshold crossed &rarr; one alert with coordinates
      &rarr; <b>a drone goes and looks</b>.</p></div>
-   <p class="tiny dim" style="margin:0">Runs in real time on the board at the tower &mdash;
+   <p class="tiny dim" style="margin:0">Runs in real time on the board at the tower,
    no cloud, no video leaving the hillside.</p>
   </div>
  </div>
@@ -268,7 +258,7 @@ SLIDES = r"""
   have I seen here lately?</b></p>
   <p>Every report pushes it up. It <b class="hl">leaks away</b> constantly, so old evidence
   fades on its own. A flicker never builds. A real plume keeps pushing, and the number climbs
-  until it crosses the bar &mdash; and <b>crossing the bar is what sends the drone</b>.</p>
+  until it crosses the bar, and <b>crossing the bar is what sends the drone</b>.</p>
   <p><b class="hl">The bar moves.</b> An operator can raise it, or fire weather lowers it, and
   the same evidence then alerts sooner or later.</p>
   <p><b class="hl">And every place keeps its own.</b> A steam vent that has been investigated
@@ -284,15 +274,15 @@ SLIDES = r"""
  <p class="eyebrow anim">09 &middot; layer two</p>
  <h2 class="anim">One tower gives you a direction.<br>Two give you a <span class="hl">place</span>.</h2>
  <div class="bento anim">
-  <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is &mdash; distance is
+  <div class="cell c5"><p>A camera cannot tell how <em>far</em> away smoke is, distance is
   genuinely ambiguous in a single image. What it has is a <b>rough direction</b>.</p>
-  <p>So the board spreads each report out as a <b>wedge of possibility</b> &mdash; and if the
+  <p>So the board spreads each report out as a <b>wedge of possibility</b>, and if the
   direction is unknown, simply as a <b class="hl">20 km disc</b> around the camera. Where the
   shapes from different towers <b class="hl">overlap</b>, evidence piles up.</p>
   <p>A dust plume in front of one camera cannot be corroborated from somewhere else. A real
   fire can.</p>
   <p class="tiny" style="margin-top:auto">Nothing here calculates an intersection. The overlaps
-  simply add up, and the strongest point wins &mdash; which is why the same code works whether
+  simply add up, and the strongest point wins, which is why the same code works whether
   the shape is a hairline or a circle.</p></div>
   <div class="cell c7 pad0" style="padding:10px">
     <div class="canvasbox" style="min-height:290px"><canvas data-anim="bearing"></canvas></div></div>
@@ -305,7 +295,7 @@ SLIDES = r"""
  <h2 class="anim">This is a 1911 idea, done in silicon.</h2>
  <div class="bento anim">
   <div class="cell c7"><p style="font-size:1.06rem">For most of the last century, fires were found
-  by people sitting in towers with a brass instrument called an <b>Osborne Firefinder</b> &mdash;
+  by people sitting in towers with a brass instrument called an <b>Osborne Firefinder</b>,
   a sighting ring over a map.</p>
   <p>A lookout sighted the smoke and phoned in a <em>bearing</em>. Alone it was almost useless.
   But a second tower phoned in a second bearing, someone drew both lines on a map, and where
@@ -315,7 +305,7 @@ SLIDES = r"""
   <div class="cell c5 mark"><span class="label">what changed</span>
    <ul class="clean" style="margin-top:6px">
     <li>The lookouts never sleep or blink</li>
-    <li>Every one is a little unreliable &mdash; so agreement matters more, not less</li>
+    <li>Every one is a little unreliable, so agreement matters more, not less</li>
     <li>The map is a grid of cells, and each cell keeps its own running score</li>
    </ul>
    <p class="tiny" style="margin-top:auto">The old system's weakness was too few observers.
@@ -329,7 +319,7 @@ SLIDES = r"""
  <h2 class="anim">Agreement alone would make things <span class="bad">worse</span>.</h2>
  <div class="bento anim">
   <div class="cell c5"><p>Here is the trap. If you simply reward agreement, then a marine layer
-  rolling in &mdash; which <b>every</b> tower sees at once &mdash; looks like the most confirmed
+  rolling in, which <b>every</b> tower sees at once, looks like the most confirmed
   fire in history.</p>
   <p>The fix comes from the eye. A retina does not measure brightness; it measures how much a
   spot <b class="hl">stands out from its surroundings</b>. That is why you can read this in
@@ -357,7 +347,7 @@ SLIDES = r"""
    <p class="tiny" style="margin:0">The towers already pan and zoom. Slew the nearest, zoom, re-run the
    detector on the close-up. Free, instant, uses hardware already on the pole.</p></div>
   <div class="cell c4 warmb"><span class="label">tier 2 &middot; ~20 minutes</span><h3>Send a drone</h3>
-   <p class="tiny" style="margin:0">Only when the camera cannot settle it &mdash; a ridge in the way,
+   <p class="tiny" style="margin:0">Only when the camera cannot settle it, a ridge in the way,
    out of range, darkness.</p></div>
   <div class="cell c4 hot"><span class="label">tier 3</span><h3>Send people</h3>
    <p class="tiny" style="margin:0">Once confirmed. By now a human is handed a location and a
@@ -382,8 +372,8 @@ SLIDES = r"""
    <img class="only-night" src="__IMG_PARETO_N__" alt="Chart: false alerts per day against fires detected. Our curve sits below and left of the alternatives."></figure></div>
   <div class="cell c5 mark"><span class="label">at the same 96% detection rate</span>
    <span class="stat hl">4.4&times;</span>
-   <p style="margin:4px 0 0">fewer false alarms than the classical method of crossing bearings
-   &mdash; <b>47 a day instead of 208</b>.</p>
+   <p style="margin:4px 0 0">fewer false alarms than the classical method of crossing bearings,
+   <b>47 a day instead of 208</b>.</p>
    <p class="tiny" style="margin-top:10px">And at a more sensitive setting it beats that method on
    <em>both</em> counts at once: fewer false alarms <b>and</b> catches more fires.</p>
    <p class="tiny">Lower and further left is better. Every point is eight independent 24-hour
@@ -402,12 +392,12 @@ SLIDES = r"""
    <p class="tiny">what a person was asked to look at</p></div>
   <div class="cell c6"><h3>It learns the vent, not the landscape</h3>
    <p class="tiny" style="margin:0">Each time the check comes back &ldquo;nothing there&rdquo;, the
-   bar rises at <em>that spot</em>. After a couple of rounds it settles to about two checks an hour
-   &mdash; deliberately re-testing now and then, in case something really does start there.</p></div>
+   bar rises at <em>that spot</em>. After a couple of rounds it settles to about two checks an hour,
+   deliberately re-testing now and then, in case something really does start there.</p></div>
   <div class="cell c12 flat"><p style="margin:0;font-size:1.05rem">Then we lit a real fire
   <b>12&nbsp;km away</b> on the same grid, after six hours of that suppression.
   <b class="hl">Detected immediately, at full strength.</b> The system had learned one stubborn
-  chimney &mdash; it had not gone blind.</p></div>
+  chimney: it had not gone blind.</p></div>
  </div>
 </div></section>
 
@@ -418,11 +408,11 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c5 pad0" id="unoq-slot">
    <div class="slot" style="min-height:200px"><span class="ic">&#8251;</span>
-    <b>Arduino UNO Q</b><span class="tiny">photo slot &mdash; send me the file path<br>and I'll drop it in here</span></div></div>
+    <b>Arduino UNO Q</b><span class="tiny">photo slot, send me the file path<br>and I'll drop it in here</span></div></div>
   <div class="cell c7"><div class="bento" style="gap:10px">
     <div class="cell c12 mark" style="box-shadow:none"><span class="label">the small brain &middot; STM32U585</span>
      <p class="tiny" style="margin:0">Always on, always predictable, sips power. It runs the
-     integrator &mdash; whole-number arithmetic only, no floating point, memory fixed at
+     integrator, whole-number arithmetic only, no floating point, memory fixed at
      <b>116&nbsp;KB</b> and never allocated at runtime. It cannot stall or surprise you.</p></div>
     <div class="cell c12 flat" style="box-shadow:none"><span class="label">the big brain &middot; Dragonwing QRB2210</span>
      <p class="tiny" style="margin:0">Full Linux. Takes in radio traffic, runs the vision model on
@@ -444,11 +434,11 @@ SLIDES = r"""
   <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
    <h3>Fire destroys comms</h3>
    <p class="tiny" style="margin:0">The cameras' short-range link to the board is not the same link as
-   the <b>uplink out</b>. When the uplink congests or fails &mdash; which is what happens during a fire
-   &mdash; reports still reach the board and it still decides.
+   the <b>uplink out</b>. When the uplink congests or fails, which is what happens during a fire,
+   reports still reach the board and it still decides.
    <b class="hl">A cloud service stops during the event it exists for.</b></p>
    <p class="tiny" style="margin:6px 0 0"><span class="dim">Honestly: the decision survives, but the
-   alert still needs a way out. That is a local radio net or a queued message &mdash; not a claim that
+   alert still needs a way out. That is a local radio net or a queued message, not a claim that
    nothing is lost.</span></p></div>
   <div class="cell c4 flat"><span class="label">2 &middot; privacy</span>
    <h3>Nothing to leak</h3>
@@ -458,11 +448,11 @@ SLIDES = r"""
   <div class="cell c4 flat"><span class="label">3 &middot; reach</span>
    <h3>Where there is no link</h3>
    <p class="tiny" style="margin:0">Nine bytes crosses LoRa or satellite IoT. Video cannot. This puts a
-   sensor on a ridge that could never have supported a stream &mdash; which is most of the country
+   sensor on a ridge that could never have supported a stream, which is most of the country
    that burns.</p></div>
   <div class="cell c12 hot"><p style="margin:0"><b>And a reason we will not claim.</b> It is not about
   latency. The cloud round-trip is milliseconds; a fire develops over minutes.
-  <b class="hl">Anyone arguing edge-for-latency here is arguing badly</b> &mdash; the honest case is
+  <b class="hl">Anyone arguing edge-for-latency here is arguing badly</b>, the honest case is
   that the link is unreliable, the imagery is sensitive, and half the ground has no link at all.</p></div>
  </div>
 </div></section>
@@ -473,7 +463,7 @@ SLIDES = r"""
  <h2 class="anim">Satellites own <span class="hl">everywhere</span>.<br>We own the <span class="hl">first ten minutes</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0;font-size:1.04rem">Nothing watches the whole planet at
-  once. <b>Continuous-and-coarse, or fine-and-occasional &mdash; you cannot currently buy both.</b>
+  once. <b>Continuous-and-coarse, or fine-and-occasional: you cannot currently buy both.</b>
   <b class="hl">Ground cameras are the earliest practical signal in the first minutes after
   ignition</b>, which is exactly when a fire is still cheap to stop.</p></div>
 
@@ -485,23 +475,23 @@ SLIDES = r"""
    <tbody>
     <tr><th class="rh">time to alert</th>
       <td><i class="k mid"></i>5&ndash;15 min, if they happen to be facing it</td>
-      <td><i class="k no"></i>minutes to hours &mdash; the fire must first grow hot</td>
+      <td><i class="k no"></i>minutes to hours, the fire must first grow hot</td>
       <td><i class="k ok"></i>5&ndash;10 min, corroborated by two towers</td></tr>
     <tr><th class="rh">gap between looks</th>
       <td><i class="k mid"></i>none, while awake</td>
       <td><i class="k no"></i>twice a day today; 20 min at best, later this decade</td>
-      <td><i class="k ok"></i>none &mdash; it watches, it does not sample</td></tr>
+      <td><i class="k ok"></i>none: it watches, it does not sample</td></tr>
     <tr><th class="rh">sees under cloud</th>
       <td><i class="k mid"></i>only below the deck</td>
-      <td><i class="k no"></i>no &mdash; thick cloud is masked out entirely</td>
-      <td><i class="k ok"></i>yes &mdash; it looks sideways, beneath it</td></tr>
+      <td><i class="k no"></i>no, thick cloud is masked out entirely</td>
+      <td><i class="k ok"></i>yes: it looks sideways, beneath it</td></tr>
     <tr><th class="rh">reaches a crew</th>
       <td><i class="k ok"></i>a radio call</td>
       <td><i class="k no"></i>1&ndash;3 h through an agency; under a minute only near four antennas</td>
       <td><i class="k ok"></i>decided at the tower, in microseconds</td></tr>
     <tr><th class="rh">where it works</th>
       <td><i class="k no"></i>one horizon per tower</td>
-      <td><i class="k ok"></i>everywhere on Earth &mdash; eventually, not at once</td>
+      <td><i class="k ok"></i>everywhere on Earth, eventually, not at once</td>
       <td><i class="k mid"></i>line of sight, about 20 km</td></tr>
     <tr><th class="rh">blind spot</th>
       <td><i class="k no"></i>fatigue, darkness, and almost none remain</td>
@@ -512,7 +502,7 @@ SLIDES = r"""
      <span><i class="k ok"></i>strength</span>
      <span><i class="k mid"></i>partial</span>
      <span><i class="k no"></i>weakness</span>
-     <span class="dim">&mdash; every column carries all three. Detail in appendix A6.</span>
+     <span class="dim">, every column carries all three. Detail in appendix A6.</span>
    </div></div>
 
   <div class="cell c4 mark"><h3 class="hl">Only we</h3>
@@ -522,7 +512,7 @@ SLIDES = r"""
    <p class="tiny" style="margin:0">Find the fire nobody has a camera pointed at, and map a perimeter once
    it burns. <b>We cannot see past a ridgeline. They can.</b></p></div>
   <div class="cell c4 flat"><h3>Only people</h3>
-   <p class="tiny" style="margin:0">Decide. We do not remove the watchstander &mdash; we stop spending them
+   <p class="tiny" style="margin:0">Decide. We do not remove the watchstander: we stop spending them
    on cloud and dust.</p></div>
  </div>
 </div></section>
@@ -534,12 +524,12 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c4 warmb"><h3>A simpler method logs fewer alarms</h3>
    <p class="tiny">Counting how many cameras agree, ignoring geometry, gives 30 a day to our 47.
-   <b>But it produces no location</b> &mdash; you are told something is burning somewhere.
+   <b>But it produces no location</b>: you are told something is burning somewhere.
    Ours arrives with coordinates. That is a difference in kind, not a score we can win.</p></div>
   <div class="cell c4 warmb"><h3>Our aim is coarser</h3>
    <p class="tiny">We place fires to about <b>650&nbsp;m</b>; the classical calculation manages
    <b>343&nbsp;m</b>. We round to 500&nbsp;m squares. Halving the square halves the error and
-   quadruples the memory &mdash; a dial, not a wall.</p></div>
+   quadruples the memory, a dial, not a wall.</p></div>
   <div class="cell c4 warmb"><h3>One case we cannot solve</h3>
    <p class="tiny">A controlled burn, or smoke drifting in from a fire outside the region, is
    <b>geometrically identical to an ignition</b>. No amount of cleverness in the maths fixes that.
@@ -549,12 +539,12 @@ SLIDES = r"""
    increases with reporting delay</b> across Western Canada 2015&ndash;2020, and that detection
    investment is not justified on suppression-cost savings alone. Their setting is remote boreal fire,
    many of them monitored rather than fought, and they measure suppression cost rather than evacuation
-   lead time or property loss &mdash; but it is good evidence and it points away from us.
+   lead time or property loss, but it is good evidence and it points away from us.
    <b class="hl">We therefore claim an operational result, not an outcome one:</b> 4.4&times; fewer
    things a human must look at. Whether that converts into fewer acres is unproven, and we have not
    tried to prove it.</p></div>
   <div class="cell c12 mark"><p style="margin:0">We are also careful about the neuroscience. A single
-  one of these cells is, honestly, a weighted average with a threshold &mdash; and we say so.
+  one of these cells is, honestly, a weighted average with a threshold, and we say so.
   <b class="hl">The contribution is the network</b>: agreement across angles, the surround
   subtraction, and the memory of past mistakes.</p></div>
  </div>
@@ -567,7 +557,7 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c6 mark"><h3 class="hl">Already public</h3>
    <ul class="clean" style="margin-top:6px">
-    <li>Apache-2.0 from the first commit &mdash; deliberately permissive, and kept separate from the
+    <li>Apache-2.0 from the first commit, deliberately permissive, and kept separate from the
     AGPL detector by a process boundary</li>
     <li>The simulator is public too, <b>so anyone can attack our numbers with our own tools</b></li>
     <li>Every figure regenerates with one command</li>
@@ -587,7 +577,7 @@ SLIDES = r"""
      <p class="tiny" style="margin:0">Wiring, radio choice and node build published alongside the
      firmware, so the prototype is reproducible and not just watchable.</p></div>
     <div class="cell c4 bare"><span class="label">adaptation guidance</span>
-     <p class="tiny" style="margin:0">A written account of how to retarget it &mdash; the thresholds
+     <p class="tiny" style="margin:0">A written account of how to retarget it, the thresholds
      are deployment-specific, and saying so is more useful than shipping ours.</p></div>
    </div></div>
  </div>
@@ -605,7 +595,7 @@ SLIDES = r"""
   <div class="cell c7"><h3>Why we are not waiting for the board</h3>
    <p class="tiny" style="margin:0">Because the maths uses whole numbers only, the code gives
    <b>bit-for-bit identical answers</b> on a laptop and on the microcontroller. A fingerprint test
-   proves the chip version is correct <em>before the kit ships in September</em> &mdash; which
+   proves the chip version is correct <em>before the kit ships in September</em>, which
    removes the biggest schedule risk in any hardware contest. It already compiles clean for the
    target chip today.</p></div>
   <div class="cell c5 flat"><h3>Stage Two</h3>
@@ -617,7 +607,7 @@ SLIDES = r"""
    <p class="tiny" style="margin:6px 0 0">The ingest layer is already built for this shape.
    Stage Two is assembly, not a rewrite.</p></div>
   <div class="cell c12"><p style="margin:0;font-size:1.05rem"><span class="mark">&#8251;</span>
-   <b>Kernwerk</b> &mdash; <span class="dim">confidential edge AI, built small and sealed shut.</span>
+   <b>Kernwerk</b>, <span class="dim">confidential edge AI, built small and sealed shut.</span>
    &nbsp; <span class="hl">Press <kbd>A</kbd> for the technical appendix.</span></p></div>
  </div>
 </div></section>
@@ -628,7 +618,7 @@ SLIDES = r"""
  <h2 class="anim">The six things a proposal must answer.</h2>
  <div class="bento anim">
   <div class="cell c6 mark"><span class="label">1 &middot; the problem, and who it affects</span>
-   <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns &mdash;
+   <p class="tiny" style="margin:0">Warming has doubled the western-US forest area that burns,
    and a thousand cameras whose alerts nobody can afford to read.
    <span class="dim">&rarr; 01, 03&ndash;05</span></p></div>
   <div class="cell c6 mark"><span class="label">2 &middot; who benefits</span>
@@ -647,7 +637,7 @@ SLIDES = r"""
    <p class="tiny" style="margin:0">What is built and measured, and what could still sink it.
    <span class="dim">&rarr; 13, 14, 18, 20</span></p></div>
   <div class="cell c12"><p style="margin:0"><b>No code is required at this stage.</b> We wrote it
-  anyway &mdash; not as the deliverable, but because it is the only way to answer question six with
+  anyway, not as the deliverable, but because it is the only way to answer question six with
   numbers instead of intentions.</p></div>
  </div>
 </div></section>
@@ -675,7 +665,7 @@ SLIDES = r"""
   <div class="cell c6"><h3>3 &middot; Center-surround + divisive gain</h3><p class="tiny" style="margin:0">
   <code>response = (V &minus; surround) / (1 + k&middot;surround)</code>. Subtraction removes the
   background; division makes the system progressively more conservative as the scene hazes over
-  without ever zeroing its sensitivity. Surround is a separable box blur &mdash; two running-sum
+  without ever zeroing its sensitivity. Surround is a separable box blur, two running-sum
   passes, no per-cell division.</p></div>
   <div class="cell c6"><h3>4 &middot; Adaptation</h3><p class="tiny" style="margin:0">A rejection raises
   the local threshold <em>above the response that caused the false alarm</em>, scaled to the actual
@@ -696,19 +686,19 @@ SLIDES = r"""
     <li>Detector accuracy taken from our own benchmarked result: <b>0.778 mAP50</b>, YOLOv5s @512px
     on D-Fire, measured on a Jetson Orin Nano</li>
     <li>Nuisance rates tuned so that after per-camera confirmation each camera reports
-    <b>&asymp;1 false positive per day</b> &mdash; the published ALERTCalifornia figure</li>
+    <b>&asymp;1 false positive per day</b>, the published ALERTCalifornia figure</li>
     <li>The simulator drives the <b>real firmware code</b> through a C binding, so these numbers and
     the shipped firmware cannot drift apart</li>
    </ul></div>
   <div class="cell c6"><h3>Three families of false positive</h3>
    <ul class="clean">
-    <li>Single-camera nuisances &mdash; road dust, lens glint, a cloud shadow crossing one view</li>
-    <li>A persistent fixed source &mdash; geothermal steam, an industrial stack</li>
-    <li class="warnb"><b>Correlated regional events</b> &mdash; marine layer, distant smoke drift,
+    <li>Single-camera nuisances, road dust, lens glint, a cloud shadow crossing one view</li>
+    <li>A persistent fixed source, geothermal steam, an industrial stack</li>
+    <li class="warnb"><b>Correlated regional events</b>, marine layer, distant smoke drift,
     seen by every tower at once across a 40&ndash;90&deg; arc</li>
    </ul>
    <p class="tiny" style="margin:6px 0 0">Every method receives the identical detector stream and
-   the identical confirmation budget &mdash; one dispatch per alert, same verdict accuracy.</p></div>
+   the identical confirmation budget, one dispatch per alert, same verdict accuracy.</p></div>
  </div>
 </div></section>
 
@@ -739,16 +729,16 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c6 mark"><h3>No floating point, no library, no allocator</h3>
    <p class="tiny" style="margin:0">Everything is Q16.16 fixed point. The leak is an arithmetic
-   shift, so it is exact on every target. The core depends on <code>&lt;stdint.h&gt;</code> alone
-   &mdash; not even a C library &mdash; and cross-compiles clean for Cortex-M33 (thumbv8m.main,
+   shift, so it is exact on every target. The core depends on <code>&lt;stdint.h&gt;</code> alone,
+   not even a C library, and cross-compiles clean for Cortex-M33 (thumbv8m.main,
    freestanding, <code>-Werror</code>) today.</p></div>
   <div class="cell c6"><h3>The fingerprint test</h3>
    <p class="tiny" style="margin:0">A fixed scenario is run and every spike plus the whole final
    state is hashed. Host and target must produce the <b>same hash</b>. It survived two invasive
-   refactors unchanged &mdash; removing the C library and moving the surround maths to 32-bit
-   &mdash; which is exactly the property doing its job.</p></div>
+   refactors unchanged, removing the C library and moving the surround maths to 32-bit,
+   which is exactly the property doing its job.</p></div>
   <div class="cell c4 flat"><span class="label">state</span><span class="stat sm">116 KB</span>
-   <p class="tiny">a 64&times;64 <b>map</b> of 500 m ground cells &mdash; 4,096 of them, 29 bytes each.
+   <p class="tiny">a 64&times;64 <b>map</b> of 500 m ground cells, 4,096 of them, 29 bytes each.
    No pixels: there is no image buffer on the board at all.</p></div>
   <div class="cell c4 flat"><span class="label">update</span><span class="stat sm">56 &micro;s</span>
    <p class="tiny">per tick on the development host, across all 4,096 ground cells</p></div>
@@ -763,7 +753,7 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c6 hot"><h3>Global normalisation was dangerous</h3>
    <p class="tiny" style="margin:0">The first design divided every cell by total grid activity. It
-   killed haze correctly &mdash; and <b>masked a real fire burning inside 10% haze entirely</b>.
+   killed haze correctly, and <b>masked a real fire burning inside 10% haze entirely</b>.
    A miss is far worse than a false alarm. Replaced with center-surround, which is what the retina
    actually does.</p></div>
   <div class="cell c6 hot"><h3>A fixed adaptation step did nothing</h3>
@@ -775,7 +765,7 @@ SLIDES = r"""
    applies across a disc.</p></div>
   <div class="cell c6 hot"><h3>We wrote &ldquo;low rate&rdquo; and sent every tick</h3>
    <p class="tiny" style="margin:0">The weak tier was documented as a low spike rate, then emitted
-   continuously &mdash; eight times the current the core was tuned for. Implementing the rate coding
+   continuously, eight times the current the core was tuned for. Implementing the rate coding
    properly roughly halved the false alarms.</p></div>
   <div class="cell c12 flat"><p class="tiny" style="margin:0">Each of these is now a regression test.
   The suite fails if a fire inside haze is ever masked again.</p></div>
@@ -790,7 +780,7 @@ SLIDES = r"""
    <thead><tr><th>System</th><th>Resolution</th><th>Revisit</th><th>Detects</th><th>Practical floor</th></tr></thead>
    <tbody>
     <tr><td>GOES-16/18 ABI</td><td class="n">2 km</td><td class="n">5&ndash;15 min</td><td>heat</td>
-        <td>struggles below ~34.5 MW radiative power &mdash; an already-established fire</td></tr>
+        <td>struggles below ~34.5 MW radiative power, an already-established fire</td></tr>
     <tr><td>VIIRS (S-NPP, NOAA-20/21)</td><td class="n">375 m</td><td class="n">~2&times; per day</td><td>heat</td>
         <td>better resolution, but long gaps between passes</td></tr>
     <tr><td>FireSat (Earth Fire Alliance)</td><td class="n">5 m</td>
@@ -804,18 +794,18 @@ SLIDES = r"""
   <div class="cell c12 flat"><h3>Two limits that are easy to miss</h3>
    <p class="tiny" style="margin:0 0 6px"><b>Delivery.</b> NASA FIRMS near-real-time products arrive
    <b>1&ndash;3 hours</b> after overpass. An ultra-real-time path exists at <b>under 60 s</b>
-   (MODIS ~25 s, VIIRS ~50 s) &mdash; but only through direct-broadcast antennas, of which there are four:
+   (MODIS ~25 s, VIIRS ~50 s), but only through direct-broadcast antennas, of which there are four:
    Madison &times;2, Hampton, Mayag&uuml;ez. Outside their footprint, hours. URT is a quick look and is
    replaced by NRT after six hours. Delivery is to an agency by subscription or API, not to a crew.</p>
-   <p class="tiny" style="margin:0"><b>Cloud.</b> Thermal infrared does not penetrate thick cloud &mdash; it is
+   <p class="tiny" style="margin:0"><b>Cloud.</b> Thermal infrared does not penetrate thick cloud: it is
    masked out of the product entirely, and thin cloud or heavy smoke <em>depresses</em> the measured fire
    intensity, which can drop a real fire below the detection threshold. Cloud also generates false positives.
-   A tower camera looks horizontally, beneath the deck. Fog at camera level blinds it in turn &mdash; the point
+   A tower camera looks horizontally, beneath the deck. Fog at camera level blinds it in turn, the point
    is not that cameras are immune, but that <b>the two failure modes are uncorrelated</b>.</p></div>
   <div class="cell c7"><h3>Why smoke beats heat for <em>early</em> detection</h3>
    <p class="tiny" style="margin:0">A plume is visible well before the fire radiates enough energy to
    register from orbit. That is the window ground cameras own, and it is the window in which a fire is
-   still cheap to stop. Satellites own everything after that &mdash; and everywhere no camera looks.</p></div>
+   still cheap to stop. Satellites own everything after that, and everywhere no camera looks.</p></div>
   <div class="cell c5 flat"><h3>Honest note</h3>
    <p class="tiny" style="margin:0">FireSat is very good and getting better fast. If hourly global
    revisit at 5 m arrives on schedule, the early-detection gap narrows. It does not close: a satellite
@@ -828,7 +818,7 @@ SLIDES = r"""
  <h2 class="anim">No. It just costs you.</h2>
  <div class="bento anim">
   <div class="cell c12 flat"><p style="margin:0">A PTZ tower knows its pan angle, so a bearing is usually
-  available &mdash; but not always, and a gas sensor, a 911 call or a utility fault have
+  available, but not always, and a gas sensor, a 911 call or a utility fault have
   <b>no direction at all</b>. Each geometry below is tuned to its <em>own</em> best threshold: comparing
   them at one threshold only reports which geometry that threshold was chosen for. Eight scenarios each,
   the same as the headline table.</p></div>
@@ -847,15 +837,15 @@ SLIDES = r"""
    </tbody></table></div></div>
   <div class="cell c6 mark"><h3 class="hl">It works without a direction</h3>
    <p class="tiny" style="margin:0">83% of fires still found, still placed to about a kilometre.
-   Overlapping discs concentrate evidence the same way overlapping wedges do &mdash; the code does
+   Overlapping discs concentrate evidence the same way overlapping wedges do, the code does
    not change, only the shape injected into it.</p></div>
   <div class="cell c6 warmb"><h3 class="warn">But direction is worth about 6&times;</h3>
    <p class="tiny" style="margin:0">113 false alerts a day against ~720, and 100% detection against 83%.
    The cliff sits between &plusmn;10&deg; and &plusmn;30&deg;, so the target is <b>ten degrees, not
-   two</b> &mdash; which a pan encoder gives for free.</p></div>
+   two</b>, which a pan encoder gives for free.</p></div>
   <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>Why this matters beyond cameras:</b>
   supporting a bearing-less source is exactly what lets a gas sensor, a 911 call or a utility fault
-  sensor join the same network. They are not a degraded fallback &mdash; they are points with a
+  sensor join the same network. They are not a degraded fallback: they are points with a
   radius, which is the same maths.</p></div>
 
   <div class="cell c7 pad0"><div class="tw"><table>
@@ -867,15 +857,15 @@ SLIDES = r"""
     <tr><td class="n">32</td><td class="n">100%</td><td class="n">3 km&sup2;</td><td class="n">1,020 m</td></tr>
    </tbody></table></div>
    <p class="tiny dim" style="margin:8px 0 0">Two places are indistinguishable if exactly the same
-   cameras can see both. This is the resulting ambiguity, and it shrinks as towers are added
-   &mdash; density beating precision, again.</p></div>
+   cameras can see both. This is the resulting ambiguity, and it shrinks as towers are added,
+   density beating precision, again.</p></div>
 
   <div class="cell c5 mark"><h3 class="hl">But the disc is not flat</h3>
    <p class="tiny" style="margin:0">At 8 towers the table says the fix cannot be tighter than
-   <b>3,900 m</b>. The simulator measures <b class="hl">1,184 m</b> &mdash; three times better.</p>
+   <b>3,900 m</b>. The simulator measures <b class="hl">1,184 m</b>, three times better.</p>
    <p class="tiny" style="margin:8px 0 0">Because a report is not a hard-edged circle. Detection
    confidence falls off with range, so a cell near the camera scores higher than one at the rim.
-   Overlapping discs therefore produce a <b>peak, not a plateau</b> &mdash; and that gradient quietly
+   Overlapping discs therefore produce a <b>peak, not a plateau</b>, and that gradient quietly
    recovers the range information a set-intersection throws away.</p></div>
  </div>
 </div></section>
@@ -900,7 +890,7 @@ SLIDES = r"""
     <tr class="hero"><td>two mountaintop sites</td><td class="n">101 km</td></tr>
    </tbody></table></div>
    <p class="tiny dim" style="margin:8px 0 0">d &asymp; 3.57 &times; (&radic;h&#8321; + &radic;h&#8322;) km.
-   Our worst link &mdash; corner to centre of the region &mdash; is 22.6 km.</p></div>
+   Our worst link, corner to centre of the region, is 22.6 km.</p></div>
 
   <div class="cell c6 pad0"><div class="tw"><table>
    <thead><tr><th>distance</th><th>path loss</th><th>margin</th></tr></thead>
@@ -911,27 +901,27 @@ SLIDES = r"""
    </tbody></table></div>
    <p class="tiny dim" style="margin:8px 0 0">LoRa 915 MHz SF10: +20 dBm, 5 dBi each end,
    &minus;132 dBm sensitivity &rarr; 162 dB budget. <b>The binding constraint is line of sight, not
-   power</b> &mdash; which is why siting on ridges matters more than any antenna.</p></div>
+   power</b>, which is why siting on ridges matters more than any antenna.</p></div>
 
   <div class="cell c12 mark"><h3 class="hl">And most cameras are not on LoRa at all</h3>
    <div class="bento" style="gap:12px">
     <div class="cell c6 bare"><span class="label">case A &middot; existing networks</span>
      <p class="tiny" style="margin:0">ALERTCalifornia and its peers already run microwave, fibre or
      cellular backhaul to mountaintop sites <b>because they stream video</b>. Sixteen bytes is nothing on
-     such a link. <b class="hl">Here the bandwidth argument is worth zero</b> &mdash; the value is the
+     such a link. <b class="hl">Here the bandwidth argument is worth zero</b>, the value is the
      fusion, the privacy of not shipping frames, and continuing to decide when the backhaul drops.</p></div>
     <div class="cell c6 bare"><span class="label">case B &middot; new or remote sites</span>
      <p class="tiny" style="margin:0">Where there is no backhaul, a video camera is simply not an option.
-     <b class="hl">This is where 9 bytes earns its keep</b> &mdash; it puts a sensor on a ridge that could
+     <b class="hl">This is where 9 bytes earns its keep</b>: it puts a sensor on a ridge that could
      never have supported a stream, over LoRa, LTE-M, NB-IoT or satellite IoT.</p></div>
    </div>
    <p class="tiny" style="margin:10px 0 0"><b>Note on the board:</b> the UNO Q has Wi-Fi 5 and Bluetooth
-   5.1 &mdash; <b>no LoRa and no cellular</b>. Any wide-area link is an add-on radio, and that is a real
+   5.1, <b>no LoRa and no cellular</b>. Any wide-area link is an add-on radio, and that is a real
    line on the bill of materials.</p></div>
 
   <div class="cell c7 hot"><h3 class="bad">The five bytes that mattered</h3>
-   <p class="tiny" style="margin:0">LoRaWAN US915 at <b>DR0</b> &mdash; the slowest, longest-reaching
-   setting &mdash; caps the payload at <b>11 bytes</b>. Our 16-byte record missed it by five, so on the
+   <p class="tiny" style="margin:0">LoRaWAN US915 at <b>DR0</b>, the slowest, longest-reaching
+   setting, caps the payload at <b>11 bytes</b>. Our 16-byte record missed it by five, so on the
    one setting where range matters most it could not be sent at all. Dropping the node timestamp (the
    gateway stamps arrival) and bit-packing the rest gives a <b class="hl">9-byte profile</b> that fits,
    with confidence quantised to 64 levels and the CRC intact. Implemented and tested.</p></div>
@@ -947,50 +937,50 @@ SLIDES = r"""
  <h2 class="anim">Cameras are the first sensor.<br>They don't all join the <span class="hl">same way</span>.</h2>
  <div class="bento anim">
   <div class="cell c12 mark"><p style="margin:0">A new sensor answers one of three questions, and each
-  enters by a different door. <b class="hl">All three already exist in the code</b> &mdash; adding a
+  enters by a different door. <b class="hl">All three already exist in the code</b>, adding a
   modality is a projection function, not a redesign.</p></div>
 
   <div class="cell c4 mark"><span class="label">door 1 &middot; inject()</span>
    <h3>&ldquo;Is something burning there?&rdquo;</h3>
    <ul class="clean" style="margin-top:6px">
-    <li><b>Cameras</b> &mdash; today</li>
-    <li><b>911 calls</b> &mdash; a report is a reading with a location on it</li>
-    <li><b>Private cameras</b> &mdash; doorbell and security cameras are numerous but point at
+    <li><b>Cameras</b>, today</li>
+    <li><b>911 calls</b>, a report is a reading with a location on it</li>
+    <li><b>Private cameras</b>, doorbell and security cameras are numerous but point at
     yards, not ridgelines, so they are a <em>last</em> line rather than an early one. What makes
     them usable at all is this architecture: the detector runs on the device and only a class and a
     confidence leave it, so a household can contribute a detection <b>without contributing
     surveillance footage</b>.</li>
-    <li class="warnb"><b>Gas sensors</b> &mdash; see below</li>
+    <li class="warnb"><b>Gas sensors</b>, see below</li>
    </ul></div>
 
   <div class="cell c4 flat"><span class="label">door 2 &middot; prior()</span>
    <h3>&ldquo;Be more suspicious here&rdquo;</h3>
    <ul class="clean" style="margin-top:6px">
-    <li><b>Lightning feeds</b> &mdash; a subscription, not hardware. 44% of western fires,
+    <li><b>Lightning feeds</b>, a subscription, not hardware. 44% of western fires,
     <b>71% of the area burned</b></li>
-    <li><b>Fire weather</b> &mdash; already built</li>
+    <li><b>Fire weather</b>, already built</li>
    </ul>
    <p class="tiny hl" style="margin:8px 0 0"><b>A prior alone never alerts.</b> Suspicion is not
-   detection &mdash; and that is a test, not an intention.</p></div>
+   detection, and that is a test, not an intention.</p></div>
 
   <div class="cell c4 flat"><span class="label">door 3 &middot; confirm()</span>
    <h3>&ldquo;Was that one real?&rdquo;</h3>
    <ul class="clean" style="margin-top:6px">
-    <li><b>Camera slew</b> &mdash; today. Seconds, free</li>
-    <li><b>Satellites</b> &mdash; <b class="hl">here, not at the input</b>. Heat lags smoke, so a
+    <li><b>Camera slew</b>, today. Seconds, free</li>
+    <li><b>Satellites</b>, <b class="hl">here, not at the input</b>. Heat lags smoke, so a
     hotspot arrives long after the cameras. But it is free and uncorrelated: check it before
     spending a drone</li>
     <li><b>Drone, then crew</b></li>
    </ul></div>
 
   <div class="cell c6 warmb"><h3 class="warn">Gas sensors: read the small print</h3>
-   <p class="tiny" style="margin:0">They catch a fire <em>before there is a flame</em> &mdash; but the
+   <p class="tiny" style="margin:0">They catch a fire <em>before there is a flame</em>, but the
    radius is <b>80&ndash;100 m</b> at <b>0.7 per hectare</b>. Covering our region would take
    <b>110,000 of them against 8 cameras</b>. Not a coverage layer, and we will not pretend otherwise:
    they are <b>asset protection</b> for a town edge or a substation.</p></div>
   <div class="cell c6 hot"><h3 class="bad">Why it makes the network stronger</h3>
    <p class="tiny" style="margin:0">Coincidence gain rewards agreement between <b>independent</b>
-   sources &mdash; and two cameras are not independent, since the same dust plume fools both.
+   sources, and two cameras are not independent, since the same dust plume fools both.
    <b class="hl">A camera, a gas sensor and a lightning-primed cell cannot be.</b> Each modality added
    makes every existing alert harder to fake.</p></div>
  </div>
@@ -1002,8 +992,8 @@ SLIDES = r"""
  <div class="bento anim">
   <div class="cell c6"><h3>Code</h3>
    <ul class="clean">
-    <li><b>wild-fire-integrator</b> &mdash; this system. Apache-2.0.</li>
-    <li><b>wildfire-detection</b> &mdash; the companion detector study on Jetson Orin Nano
+    <li><b>wild-fire-integrator</b>, this system. Apache-2.0.</li>
+    <li><b>wildfire-detection</b>, the companion detector study on Jetson Orin Nano
     (D-Fire, TensorRT). AGPL-3.0 via YOLOv5.</li>
    </ul>
    <p class="tiny" style="margin:8px 0 0">The integrator reaches the detector across a
@@ -1016,8 +1006,8 @@ SLIDES = r"""
     <li>Documented failure modes: cloud, fog, dust, geothermal and industrial steam</li>
     <li>Our own measurement: 0.778 mAP50, YOLOv5s @512px, D-Fire, Jetson Orin Nano</li>
    </ul></div>
-  <div class="cell c12 mark"><p style="margin:0"><span class="mark">&#8251;</span> <b>Kernwerk</b>
-   &mdash; <span class="dim">confidential edge AI, built small and sealed shut.</span></p></div>
+  <div class="cell c12 mark"><p style="margin:0"><span class="mark">&#8251;</span> <b>Kernwerk</b>,
+   <span class="dim">confidential edge AI, built small and sealed shut.</span></p></div>
  </div>
 </div></section>
 """

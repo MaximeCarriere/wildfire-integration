@@ -76,11 +76,12 @@ American homes**, and the fastest-growing land use type in the conterminous
 United States (Radeloff et al., *PNAS* 115(13):3314, 2018). These are the
 people an alert is ultimately for.
 
-**Firefighters, second — through better use of crews and equipment.** Aircraft
-and personnel are the most expensive part of suppression: an air tanker costs
-upward of **$14,000 an hour**, a heavy helicopter roughly **$150,000 a day**. An
-alert that is corroborated and carries coordinates sends those resources to a
-fire rather than to a dust plume, and keeps them available for the next one.
+**Firefighters, second, because being sent is itself the risk.** About twenty
+wildland firefighters are killed each year, and only about a fifth of them by
+the fire. Aircraft accidents account for 23%, vehicle accidents 23%, and heart
+attacks 22%: flying, driving and strain (US Forest Service; CDC MMWR,
+2000–2013). Aircraft and crews are also the most expensive part of suppression,
+at upward of $14,000 an hour for an air tanker.
 
 **Dispatchers and watchstanders**, who absorb the false-alarm load today and
 whose attention runs out exactly when it is needed most — on a red-flag day,
