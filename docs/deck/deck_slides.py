@@ -27,28 +27,41 @@ SLIDES = r"""
  <h2 class="anim">More land burns. It costs more.<br>And the sensors to catch it earlier are <span class="hl">already installed</span>.</h2>
  <div class="bento anim">
 
-  <div class="cell c4 hot">
+  <div class="cell c4 mark">
    <span class="label">how much burns</span>
-   <span class="stat bad">2&times;</span>
-   <p style="margin:0">Human-caused warming <b>doubled the western-US forest area burned</b>
-   over 1984&ndash;2015, and drove more than half the rise in fuel aridity since the 1970s.</p>
+   <div class="plot">
+    <div class="bars">
+     <div class="bar"><span class="fill ghost" style="height:50%"></span><span class="bl">without<br>warming</span></div>
+     <div class="bar"><span class="fill" style="height:100%"></span><span class="bl">observed</span></div>
+    </div>
+    <div class="pnote"><b class="hl">2&times;</b> the western-US forest area burned, 1984&ndash;2015</div>
+   </div>
+   <p style="margin:0">Human-caused warming drove <b>more than half</b> the rise in fuel aridity
+   since the 1970s.</p>
    <p class="tiny dim" style="margin-top:auto">Abatzoglou &amp; Williams, <i>PNAS</i> 113(42):11770, 2016</p>
   </div>
 
-  <div class="cell c4 warmb">
+  <div class="cell c4 mark">
    <span class="label">what it costs</span>
-   <span class="stat warn">$2.9 bn</span>
-   <p style="margin:0">a year in federal suppression alone, <b>rising 42% by 2050</b>.
-   Counting health, property and disruption: <b>$394&ndash;893 bn</b> a year.</p>
+   <div class="plot">
+    <div class="bars">
+     <div class="bar"><span class="fill ghost" style="height:41%"></span><span class="bl">1990s</span></div>
+     <div class="bar"><span class="fill" style="height:72%"></span><span class="bl">today</span></div>
+     <div class="bar"><span class="fill soft" style="height:100%"></span><span class="bl">2050</span></div>
+    </div>
+    <div class="pnote">federal suppression: <b class="hl">$2.9 bn</b> a year, <b>+42% by 2050</b></div>
+   </div>
+   <p style="margin:0">Counting health, property and disruption: <b>$394&ndash;893 bn</b> a year.</p>
    <p class="tiny dim" style="margin-top:auto">USDA Forest Service R&amp;D &middot; US Joint Economic Committee</p>
   </div>
 
   <div class="cell c4 mark">
    <span class="label">how to solve it</span>
-   <span class="stat hl">1,000+</span>
-   <p style="margin:0">cameras <b>already watch</b> the ridgelines. The answer is not more sensors
-   &mdash; it is <b class="hl">making the ones we have usable</b>.</p>
-   <p class="tiny dim" style="margin-top:auto">ALERTCalifornia, deployed today</p>
+   <span class="stat hl">1,600+</span>
+   <p style="margin:0">cameras <b>already watch</b> eight western states &mdash; 1,200 of them in
+   California alone. The answer is not more sensors: it is
+   <b class="hl">making the ones we have usable</b>.</p>
+   <p class="tiny dim" style="margin-top:auto">ALERTWest &middot; ALERTCalifornia, deployed today</p>
   </div>
 
   <div class="cell c12 flat">
@@ -915,6 +928,11 @@ SLIDES = r"""
    <ul class="clean" style="margin-top:6px">
     <li><b>Cameras</b> &mdash; today</li>
     <li><b>911 calls</b> &mdash; a report is a reading with a location on it</li>
+    <li><b>Private cameras</b> &mdash; doorbell and security cameras are numerous but point at
+    yards, not ridgelines, so they are a <em>last</em> line rather than an early one. What makes
+    them usable at all is this architecture: the detector runs on the device and only a class and a
+    confidence leave it, so a household can contribute a detection <b>without contributing
+    surveillance footage</b>.</li>
     <li class="warnb"><b>Gas sensors</b> &mdash; see below</li>
    </ul></div>
 

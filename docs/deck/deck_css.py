@@ -151,6 +151,16 @@ a{color:var(--select)}
   .slide{padding-top:58px}
 }
 
+/* inline bar plots -- one hue, light to dark, no status colours */
+.plot{display:flex;flex-direction:column;gap:7px;margin:2px 0 4px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:clamp(58px,7.5vh,86px)}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:5px}
+.bar .fill{width:100%;background:var(--select);border-radius:3px 3px 0 0;display:block}
+.bar .fill.soft{background:color-mix(in srgb,var(--select) 55%,transparent)}
+.bar .fill.ghost{background:color-mix(in srgb,var(--front) 18%,transparent)}
+.bar .bl{font-size:0.6rem;line-height:1.2;color:var(--dim);text-align:center;white-space:nowrap}
+.pnote{font-size:0.72rem;line-height:1.35;color:var(--dim)}
+
 /* stat */
 .stat{font-size:2.45rem;line-height:1;font-weight:bold;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .stat.sm{font-size:1.62rem}

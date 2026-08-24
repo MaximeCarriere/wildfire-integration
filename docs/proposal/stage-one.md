@@ -47,7 +47,7 @@ acres is unproven, and we have not tried to prove it.
 
 ### America already built the sensors, and cannot use them
 
-ALERTCalifornia operates more than 1,000 AI-equipped cameras at a published rate
+ALERTCalifornia operates more than 1,200 AI-equipped cameras, part of a network of 1,600+ across eight western states at a published rate
 of "less than one false positive per day per camera." Across the network that is
 on the order of **1,000 false alarms every day**, and each one is resolved the
 same way it was in 1935: a human being looks at it. The failure modes are well
