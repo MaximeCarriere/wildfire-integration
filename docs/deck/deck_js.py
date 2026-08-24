@@ -46,6 +46,8 @@ function next(){go(i+1);} function prev(){go(i-1);}
 document.getElementById('next').addEventListener('click',next);
 document.getElementById('prev').addEventListener('click',prev);
 document.getElementById('appx').addEventListener('click',function(){go(MAIN);});
+/* a deck with no appendix should not offer a button that goes nowhere */
+if(MAIN>=slides.length){var _ax=document.getElementById('appx'); if(_ax) _ax.style.display='none';}
 
 document.addEventListener('keydown',function(e){
   if(e.metaKey||e.ctrlKey||e.altKey) return;

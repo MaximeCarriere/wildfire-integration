@@ -28,7 +28,7 @@ slides = (SLIDES
   .replace("__IMG_PARETO_N__", b64(REPO/"results/figures/pareto-dark.png", "image/png"))
   .replace("__IMG_UNOQ__",     b64(REPO/"docs/media/unoq.webp", "image/webp")))
 
-MAIN = 24
+MAIN = 10
 
 HTML = """<title>Nobody Is Watching the Thousandth Camera</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -73,6 +73,7 @@ out = (HTML.replace("__CSS__", css)
 
 p = S / "kernwerk-deck.html"
 p.write_text(out)
-n = out.count('<section class="slide">')
+n = out.count('<section class="slide')
 print(f"wrote {p}")
+assert n >= MAIN, f"MAIN={MAIN} exceeds the {n} slides in the deck"
 print(f"  {p.stat().st_size/1024/1024:.2f} MB, {n} slides ({MAIN} main + {n-MAIN} appendix)")

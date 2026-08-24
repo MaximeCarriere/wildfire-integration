@@ -164,7 +164,7 @@ CHROME_BOT = """</main>
 </div></div>
 """
 
-MAIN = 24
+MAIN = 10
 html = (HEAD.replace("__CSS__", css).replace("__EXTRA__", EXTRA_CSS)
             .replace("__MAIN__", str(MAIN))
         + CHROME_TOP + slides + CHROME_BOT
