@@ -79,7 +79,7 @@ SLIDES = r"""
  <h2 class="anim">The people who <span class="hl">live in it</span>,<br>and the people <span class="hl">sent into it</span></h2>
  <div class="bento anim" style="gap:clamp(14px,1.8vw,22px)">
 
-  <div class="cell c6 mark">
+  <div class="cell c4 mark">
    <span class="label">who is exposed</span>
    <div class="plot">
     <div class="bars">
@@ -89,24 +89,29 @@ SLIDES = r"""
     <div class="blabels"><span>1990<br><b>30.8 M</b> homes</span><span>2010<br><b>43.4 M</b> homes</span></div>
    </div>
    <p class="claim"><b class="hl">About one in three American homes</b> now sits in the
-   wildland&ndash;urban interface, and it is the <b>fastest-growing land use in the country</b>.</p>
-   <p class="src">Radeloff et&nbsp;al. <i>PNAS</i> 115(13):3314, 2018</p>
+   wildland&ndash;urban interface, the fastest-growing land use in the country.</p>
+   <p class="src">Radeloff et&nbsp;al., <i>PNAS</i> 115(13):3314, 2018</p>
   </div>
 
-  <div class="cell c6 mark">
-   <span class="label">who is sent</span>
+  <div class="cell c4 mark">
+   <span class="label">what it costs to send them</span>
    <div class="plot">
-    <div class="bars">
-     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
-     <div class="pbar"><span class="pfill" style="height:100%"></span></div>
-     <div class="pbar"><span class="pfill soft" style="height:96%"></span></div>
-     <div class="pbar"><span class="pfill ghost" style="height:91%"></span></div>
-    </div>
-    <div class="blabels"><span>aircraft<br><b>23%</b></span><span>vehicle<br><b>23%</b></span><span>heart<br><b>22%</b></span><span>burnover<br><b>21%</b></span></div>
+    <div class="statslot"><span class="stat hl">$14,000</span></div>
+    <div class="blabels"><span>an hour for an air tanker, and about <b>$150,000 a day</b> for a heavy helicopter</span></div>
    </div>
-   <p class="claim"><b class="hl">About 20 wildland firefighters are killed every year</b>, and only
-   a fifth of them by the fire itself. The rest is flying, driving and strain: the cost of being
-   sent.</p>
+   <p class="claim">Crews and aircraft are <b>the most expensive part</b> of fighting a fire, and
+   there are never enough of either.</p>
+   <p class="src">Aerial firefighting cost reporting, 2024&ndash;25</p>
+  </div>
+
+  <div class="cell c4 mark">
+   <span class="label">what it costs them</span>
+   <div class="plot">
+    <div class="statslot"><span class="stat hl">20</span></div>
+    <div class="blabels"><span>wildland firefighters killed <b>every year</b></span></div>
+   </div>
+   <p class="claim">Only a fifth die in the fire itself. Aircraft and vehicle accidents account for
+   <b class="hl">nearly half</b>: the danger is in being sent.</p>
    <p class="src">US Forest Service &middot; CDC MMWR, 2000&ndash;2013</p>
   </div>
 
