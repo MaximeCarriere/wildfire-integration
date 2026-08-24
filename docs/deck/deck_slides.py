@@ -311,6 +311,37 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- WHY EDGE -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">__N__ &middot; why the edge, not the cloud</p>
+ <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
+ <div class="bento headsonly anim">
+  <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
+   <h3>Fire destroys comms</h3>
+   <p class="tiny" style="margin:0">The cameras' short-range link to the board is not the same link as
+   the <b>uplink out</b>. When the uplink congests or fails, which is what happens during a fire,
+   reports still reach the board and it still decides.
+   <b class="hl">A cloud service stops during the event it exists for.</b></p>
+   <p class="tiny" style="margin:6px 0 0"><span class="dim">Honestly: the decision survives, but the
+   alert still needs a way out. That is a local radio net or a queued message, not a claim that
+   nothing is lost.</span></p></div>
+  <div class="cell c4 flat"><span class="label">2 &middot; privacy</span>
+   <h3>Nothing to leak</h3>
+   <p class="tiny" style="margin:0">The detector runs on the pole and the frame dies there. A cloud
+   design has to ship pictures off the hillside instead &mdash; and then <b>images of roads, driveways
+   and back gardens exist on somebody's servers</b>, for somebody to lose.</p></div>
+  <div class="cell c4 flat"><span class="label">3 &middot; reach</span>
+   <h3>Where there is no link</h3>
+   <p class="tiny" style="margin:0">Nine bytes crosses LoRa or satellite IoT. Video cannot. This puts a
+   sensor on a ridge that could never have supported a stream, which is most of the country
+   that burns.</p></div>
+  <div class="cell c12 hot"><p style="margin:0"><b>And a reason we will not claim.</b> It is not about
+  latency. The cloud round-trip is milliseconds; a fire develops over minutes.
+  <b class="hl">Anyone arguing edge-for-latency here is arguing badly</b>, the honest case is
+  that the link is unreliable, the imagery is sensitive, and half the ground has no link at all.</p></div>
+ </div>
+</div></section>
+
 <!-- 2 PROBLEM -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">__N__ &middot; the obstacle</p>
@@ -530,37 +561,6 @@ SLIDES = r"""
   that must never miss anything runs on the part that never gets busy. The towers' viewing
   geometry is worked out once on the Linux side and handed over as a lookup table, so the
   real-time core never computes an angle.</p></div>
- </div>
-</div></section>
-
-<!-- WHY EDGE -->
-<section class="slide"><div class="inner">
- <p class="eyebrow anim">__N__ &middot; why the edge, not the cloud</p>
- <h2 class="anim">Three reasons. Only one is <span class="hl">bandwidth</span>.</h2>
- <div class="bento anim">
-  <div class="cell c4 mark"><span class="label">1 &middot; survivability</span>
-   <h3>Fire destroys comms</h3>
-   <p class="tiny" style="margin:0">The cameras' short-range link to the board is not the same link as
-   the <b>uplink out</b>. When the uplink congests or fails, which is what happens during a fire,
-   reports still reach the board and it still decides.
-   <b class="hl">A cloud service stops during the event it exists for.</b></p>
-   <p class="tiny" style="margin:6px 0 0"><span class="dim">Honestly: the decision survives, but the
-   alert still needs a way out. That is a local radio net or a queued message, not a claim that
-   nothing is lost.</span></p></div>
-  <div class="cell c4 flat"><span class="label">2 &middot; privacy</span>
-   <h3>Nothing to leak</h3>
-   <p class="tiny" style="margin:0">The detector runs on the pole and the image dies there. A cloud
-   design would have to ship frames, creating a surveillance capability, a breach surface and a
-   subpoena target where none need exist.</p></div>
-  <div class="cell c4 flat"><span class="label">3 &middot; reach</span>
-   <h3>Where there is no link</h3>
-   <p class="tiny" style="margin:0">Nine bytes crosses LoRa or satellite IoT. Video cannot. This puts a
-   sensor on a ridge that could never have supported a stream, which is most of the country
-   that burns.</p></div>
-  <div class="cell c12 hot"><p style="margin:0"><b>And a reason we will not claim.</b> It is not about
-  latency. The cloud round-trip is milliseconds; a fire develops over minutes.
-  <b class="hl">Anyone arguing edge-for-latency here is arguing badly</b>, the honest case is
-  that the link is unreliable, the imagery is sensitive, and half the ground has no link at all.</p></div>
  </div>
 </div></section>
 
