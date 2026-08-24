@@ -394,6 +394,69 @@ SLIDES = r"""
  </div>
 </div></section>
 
+<!-- FEASIBILITY -->
+<section class="slide"><div class="inner">
+ <p class="eyebrow anim">__N__ &middot; an honest read on feasibility</p>
+ <h2 class="anim">What is built, what is measured, and <span class="hl">what could still sink it</span>.</h2>
+ <div class="bento headsonly anim">
+  <div class="cell c4 mark"><span class="label">built</span>
+   <h3>The integrator already exists</h3>
+   <p class="tiny" style="margin:0">A portable C99 core in fixed point, with <b>no floating point, no
+   allocation and no libc</b>, that cross-compiles for the Cortex-M33 on the UNO Q. <b>53 tests</b> and
+   a set of golden vectors pin its behaviour. The simulator drives this same code, so what we measured
+   is what would ship.</p></div>
+
+  <div class="cell c4"><span class="label">measured</span>
+   <h3>Eight simulated days, four methods</h3>
+   <p class="tiny" style="margin:0">Same cameras, same evidence, read four ways. At the same <b>96%</b>
+   of fires found, ours raises <b class="hl">4.4&times; fewer false alarms</b> than the classical
+   crossing of bearings, 47 a day against 208 &mdash; while placing fires to about <b>650 m</b>, where
+   that method manages 343 m.</p></div>
+
+  <div class="cell c4 warmb"><span class="label">not yet</span>
+   <h3>What we have not done</h3>
+   <p class="tiny" style="margin:0">No board in hand. The footprint is designed for and the
+   host-to-target parity harness is written, <b>but has not been run</b>. Every number above comes from
+   our own simulator, whose nuisance model we invented and fitted to one published aggregate. The
+   evidence is <b>24 fires</b>, which is thin.</p></div>
+
+  <div class="cell c6 hot"><h3 class="bad">The risk we would test first</h3>
+   <p class="tiny" style="margin:0">The threshold rises where the system has been wrong before. But
+   people start fires near roads, and roads are where dust and headlights are too.
+   <b>The mechanism may be quietly anti-correlated with risk</b>, learning to ignore the very places
+   most likely to burn. Untested, and the first experiment we would run.</p></div>
+
+  <div class="cell c6 hot"><h3 class="bad">And the largest: we cannot claim fewer acres</h3>
+   <p class="tiny" style="margin:0">Ba&#803;lek et al. (PLOS ONE, 2024) found <b>no evidence that fire
+   size grows with reporting delay</b> across Western Canada, and that detection investment is not
+   justified on suppression savings alone. A different setting, but good evidence, and it points away
+   from us. <b class="hl">So we claim an operational result, not an outcome one:</b> fewer things a
+   human must look at. Whether that becomes fewer acres is unproven, and we have not tried to prove
+   it.</p></div>
+ </div>
+</div></section>
+
+<!-- CLOSE -->
+<section class="slide hero">
+ <canvas class="bgfire" data-anim="fire"></canvas>
+ <div class="scrim"></div>
+ <div class="inner">
+  <div class="herocopy">
+   <p class="eyebrow anim">thank you</p>
+   <h1 class="anim">The cameras are already there.<br>So is the <span class="hl">fire</span>.</h1>
+   <ul class="clean anim" style="margin:0 0 6px;gap:11px">
+    <li>What is missing is the layer between them, and it runs on a board at the tower.</li>
+    <li>One located alert, instead of a thousand that nobody can afford to read.</li>
+    <li>Public from the first commit, mistakes included, and every number re-runnable.</li>
+    <li>Stage Two: the same integrator, on the <b>Arduino UNO Q</b>, in the field.</li>
+   </ul>
+   <div class="rule anim"></div>
+   <p class="tiny anim"><span class="mark">&#8251;</span> <b>Kernwerk</b> &nbsp;&middot;&nbsp;
+   confidential edge AI, built small and sealed shut</p>
+  </div>
+ </div>
+</section>
+
 """
 
 # Slide numbers are assigned here, in document order, rather than written into
