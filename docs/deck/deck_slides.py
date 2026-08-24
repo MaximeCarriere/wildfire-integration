@@ -116,8 +116,8 @@ SLIDES = r"""
   </div>
 
   <div class="cell c12 flat">
-   <p style="margin:0">Both numbers are rising. <b class="hl">More homes inside the interface every
-   year, and more days of fire weather to send crews into.</b></p>
+   <p style="margin:0">Those numbers do not improve on their own. <b class="hl">More homes inside
+   the interface every year, and more days of fire weather to send crews into.</b></p>
   </div>
 
  </div>
