@@ -10,8 +10,24 @@ Pillars addressed: *anticipate and mitigate risk* · *enable real-time response*
 
 ## 1. Problem statement
 
-America's wildfire camera networks do not have a detection problem. They have an
-**attention problem**, and it is the thing that caps how far they can scale.
+America burns roughly twice as much land as it did in the 1990s — 3.3 million
+acres a year then, 7.0 million a year since 2000 — and fire seasons are
+lengthening as the climate dries. Federal suppression alone has averaged
+**$2.9 billion a year** over the last decade, projected to rise a further 42%
+by 2050. Counting health, property and disruption, climate-exacerbated
+wildfire costs the United States **$394–893 billion annually**.
+
+But almost every fire is stopped on first attack. The few that escape are the
+ones that become catastrophes: in one Canadian study, response failures
+occurred in 10% of fires and accounted for **85% of the area burned**. What
+separates them is usually how long the fire had to grow before anyone
+arrived.
+
+**A fire is cheap to stop for about an hour. After that it is not.** The
+leverage is therefore not in fighting fires better — it is in finding them
+sooner, while initial attack still works.
+
+### America already built the sensors, and cannot use them
 
 ALERTCalifornia operates more than 1,000 AI-equipped cameras at a published rate
 of "less than one false positive per day per camera." Across the network that is
