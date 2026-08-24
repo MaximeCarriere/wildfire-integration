@@ -28,10 +28,12 @@ IMAGES = {
     "--img-empty":      (S/"img/empty.jpg",      "image/jpeg"),
     "--img-pareto":     (REPO/"results/figures/pareto.png",      "image/png"),
     "--img-pareto-dk":  (REPO/"results/figures/pareto-dark.png", "image/png"),
+    "--img-unoq":       (REPO/"docs/media/unoq.webp",            "image/webp"),
 }
 TOKEN = {"__IMG_TINY__":"--img-plume-tiny", "__IMG_NIGHT__":"--img-night",
          "__IMG_EMPTY__":"--img-empty", "__IMG_PARETO__":"--img-pareto",
-         "__IMG_PARETO_N__":"--img-pareto-dk"}
+         "__IMG_PARETO_N__":"--img-pareto-dk",
+         "__IMG_UNOQ__":"--img-unoq"}
 
 # ---- swap every <img> for a var-driven div so no base64 lands in the markup ----
 slides = SLIDES

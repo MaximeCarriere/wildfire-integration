@@ -192,8 +192,17 @@ a{color:var(--select)}
 /* .mark paints a whole cell in the accent. On the step cards that is too much
    green at once, so keep the accent on the heading and return the body copy to
    normal ink; .hl spans inside still highlight because they set colour directly. */
-.steps .cell.mark{color:var(--front);font-weight:normal}
-.steps .cell.mark h3{color:var(--select)}
+.headsonly .cell.mark{color:var(--front);font-weight:normal}
+.headsonly .cell.mark h3{color:var(--select)}
+
+/* the board is an object on the card, never a cropped full-bleed photo, so it
+   is contained; .ph.board outscores the exported .ph{cover} on specificity */
+.board{flex:1;width:100%;min-height:clamp(150px,23vh,230px);object-fit:contain;display:block}
+.ph.board{background-size:contain;background-repeat:no-repeat;background-position:center}
+
+/* a tier icon takes its own tier's accent, so the row reads as an escalation */
+.cell.warmb .stepicon{color:var(--yellow)}
+.cell.hot   .stepicon{color:var(--red)}
 
 /* media */
 .shot{position:relative;border-radius:7px;overflow:hidden;background:#000;line-height:0}

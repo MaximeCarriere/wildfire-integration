@@ -23,7 +23,8 @@ slides = (SLIDES
   .replace("__IMG_NIGHT__",    b64(S/"img/night.jpg", "image/jpeg"))
   .replace("__IMG_EMPTY__",    b64(S/"img/empty.jpg", "image/jpeg"))
   .replace("__IMG_PARETO__",   b64(REPO/"results/figures/pareto.png", "image/png"))
-  .replace("__IMG_PARETO_N__", b64(REPO/"results/figures/pareto-dark.png", "image/png")))
+  .replace("__IMG_PARETO_N__", b64(REPO/"results/figures/pareto-dark.png", "image/png"))
+  .replace("__IMG_UNOQ__",     b64(REPO/"docs/media/unoq.webp", "image/webp")))
 
 MAIN = 23
 

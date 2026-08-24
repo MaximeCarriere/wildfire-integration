@@ -127,7 +127,7 @@ SLIDES = r"""
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">03 &middot; the idea</p>
  <h2 class="anim">Four steps, and only one of them is <span class="hl">new hardware</span></h2>
- <div class="bento steps anim" style="gap:clamp(12px,1.5vw,18px)">
+ <div class="bento headsonly anim" style="gap:clamp(12px,1.5vw,18px)">
 
   <div class="cell c3 mark">
    <span class="label">step 1 &nbsp;&rarr;&nbsp; the cameras</span>
@@ -386,17 +386,17 @@ SLIDES = r"""
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">13 &middot; after the alert</p>
  <h2 class="anim">The alert isn't the end. It's a question.</h2>
- <div class="bento anim">
+ <div class="bento headsonly anim">
   <div class="cell c12 flat"><p style="margin:0">How strong the evidence is decides how much it is worth
   spending to check. <b class="hl">Cheap look first; expensive look only if needed.</b></p></div>
 
-  <div class="cell c4 mark"><span class="label">tier 1 &middot; seconds</span><h3>Point a camera at it</h3>
+  <div class="cell c4 mark"><span class="label">tier 1 &middot; seconds</span><svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="14.5" width="39" height="26" rx="4.5"/><path d="M17.5 14.5v-2a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v2"/><circle cx="24" cy="27.5" r="8"/><circle cx="36.5" cy="20.5" r="1.7" fill="currentColor" stroke="none"/></svg><h3>Point a camera at it</h3>
    <p class="tiny" style="margin:0">The towers already pan and zoom. Slew the nearest, zoom, re-run the
    detector on the close-up. Free, instant, uses hardware already on the pole.</p></div>
-  <div class="cell c4 warmb"><span class="label">tier 2 &middot; ~20 minutes</span><h3>Send a drone</h3>
+  <div class="cell c4 warmb"><span class="label">tier 2 &middot; ~20 minutes</span><svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 13.5h14M31.5 13.5h14"/><path d="M9.5 13.5v2.6M38.5 13.5v2.6"/><rect x="6.9" y="16.1" width="5.2" height="7.6" rx="2.6"/><rect x="35.9" y="16.1" width="5.2" height="7.6" rx="2.6"/><path d="M12.1 19.9h6.4M29.5 19.9h6.4"/><rect x="18.5" y="16.6" width="11" height="8.6" rx="2.4"/><path d="M21.4 25.2 19 32.9M26.6 25.2 29 32.9"/><path d="M16.6 33.1h5M27 33.1h5"/></svg><h3>Send a drone</h3>
    <p class="tiny" style="margin:0">Only when the camera cannot settle it, a ridge in the way,
    out of range, darkness.</p></div>
-  <div class="cell c4 hot"><span class="label">tier 3</span><h3>Send people</h3>
+  <div class="cell c4 hot"><span class="label">tier 3</span><svg class="stepicon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="14.4" r="4.2"/><path d="M9 34.5v-4.2a8 8 0 0 1 8-8 8 8 0 0 1 6.4 3.2"/><circle cx="32" cy="18.4" r="3.8"/><path d="M24.6 36.5v-3.6a7.4 7.4 0 0 1 14.8 0v3.6"/></svg><h3>Send people</h3>
    <p class="tiny" style="margin:0">Once confirmed. By now a human is handed a location and a
    photograph, not a shrug.</p></div>
 
@@ -453,9 +453,9 @@ SLIDES = r"""
  <p class="eyebrow anim">16 &middot; the hardware</p>
  <h2 class="anim">Two brains, and we use both for what they're for.</h2>
  <div class="bento anim">
-  <div class="cell c5 pad0" id="unoq-slot">
-   <div class="slot" style="min-height:200px"><span class="ic">&#8251;</span>
-    <b>Arduino UNO Q</b><span class="tiny">photo slot, send me the file path<br>and I'll drop it in here</span></div></div>
+  <div class="cell c5" id="unoq-slot">
+   <img class="board" src="__IMG_UNOQ__" alt="Arduino UNO Q, underside, showing the Qualcomm Dragonwing QRB2210 package">
+   <span class="tiny" style="margin:auto 0 0;text-align:center">Arduino UNO Q &middot; underside</span></div>
   <div class="cell c7"><div class="bento" style="gap:10px">
     <div class="cell c12 mark" style="box-shadow:none"><span class="label">the small brain &middot; STM32U585</span>
      <p class="tiny" style="margin:0">Always on, always predictable, sips power. It runs the
