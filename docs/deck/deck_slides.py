@@ -330,12 +330,11 @@ SLIDES = r"""
    shared with every other camera on the ridge. Sending only the conclusions is <b class="hl">under a
    minute</b> &mdash; and they share one link out, not one subscription each.</p></div>
 
-  <div class="cell c3"><span class="label">3 &middot; power</span>
-   <h3>The radio is what drains the battery</h3>
-   <p class="tiny" style="margin:0">Transmitting is the largest electrical load on a ridge site.
-   Streaming means the radio never stops. Reporting means it wakes for under a minute a day. That is
-   the difference between <b>a small solar panel and mains power</b>, and so between a ridge you can
-   put a camera on and one you cannot.</p></div>
+  <div class="cell c3"><span class="label">3 &middot; the link only has to work sometimes</span>
+   <h3>A stream needs a live link. A report can wait.</h3>
+   <p class="tiny" style="margin:0">A camera that streams goes blind the moment its link drops, and
+   fire weather is when links drop. Nine bytes can <b>sit in a queue</b> until the link returns, or
+   leave by a different route entirely. The evidence is not lost just because the path is.</p></div>
 
   <div class="cell c3"><span class="label">4 &middot; privacy</span>
    <h3>Nothing is sent, so nothing can leak</h3>
@@ -343,9 +342,11 @@ SLIDES = r"""
    images of roads, driveways and back gardens sit on somebody's servers, for as long as somebody
    keeps them. Here the frame is read on the camera and deleted there.</p></div>
 
-  <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>And two things we will not claim.</b>
-  It is not latency: a round trip to a data centre takes a fraction of a second and a fire takes
-  minutes. And if the link out is fully down, the alert cannot leave either &mdash; the integrator
+  <div class="cell c12 flat"><p class="tiny" style="margin:0"><b>And three things we will not
+  claim.</b> It is not latency: a round trip to a data centre takes a fraction of a second, and a fire
+  takes minutes. <b>It is not power either</b> &mdash; the detector on the camera outweighs its radio
+  by four orders of magnitude, so running the intelligence on the hillside <em>costs</em> energy
+  rather than saving it. And if the link out is fully down the alert cannot leave: the integrator
   keeps deciding, but somebody still has to hear it.</p></div>
  </div>
  <p class="tiny anim" style="margin-top:8px">Airtime from the Semtech time-on-air formula at
