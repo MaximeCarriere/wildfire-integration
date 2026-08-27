@@ -653,14 +653,28 @@ function mulberry(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s
 var W_SMOKE=0.085, W_FIRE=0.20, V_TAU=0.085, V_TH=0.80;
 
 /* camera -> radio -> sixteen bytes -> integrator.
-   The bytes are the real record, straight out of ember_event_pack.
-   The row stays put and a single chip does the travelling: collapsing the row
-   into the chip read as a smear of empty boxes. */
+   The bytes are the real record, straight out of ember_event_pack, and they
+   fill field by field so it is visible which part of the message is what.
+   Note the record carries the camera's ID, not its position: where each
+   camera stands is already known, so it never spends bytes saying so. */
 ANIM.wire=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),EDGE=tok('--cardEdge');
-  var t0=performance.now(), DUR=8600;
+  var t0=performance.now(), DUR=11500;
   var BYTES=['90','10','05','00','29','00','6f','0b','02','02','cf','02','9f','04','18','ad'];
+  /* n bytes, short label under the row, plain-language caption while filling */
+  var FIELDS=[
+    {n:4,k:'when',    say:'when it saw it, to a tenth of a second'},
+    {n:2,k:'camera',  say:'which camera it is'},
+    {n:2,k:'bearing', say:'which way it was looking, 292.7°'},
+    {n:1,k:'tier',    say:'how strong the evidence is'},
+    {n:1,k:'class',   say:'smoke, or fire'},
+    {n:1,k:'sure',    say:'how sure it is, 0.81'},
+    {n:1,k:'±°',say:'how tight that direction is, ±2°'},
+    {n:2,k:'seq',     say:'message number, so losses can be counted'},
+    {n:2,k:'crc',     say:'checksum'}
+  ];
+  var at=0; for(var q=0;q<FIELDS.length;q++){ FIELDS[q].i=at; at+=FIELDS[q].n; }
 
   function rr(px,py,w,h,r){
     x.beginPath();
@@ -697,9 +711,9 @@ ANIM.wire=function(c){
     x.clearRect(0,0,W,H);
 
     var s=Math.max(1.0,Math.min(1.7,Math.min(H/135,W/620)));
-    var cy=H*0.34, camX=W*0.11, intX=W*0.89;
-    var dDetect=seg(p,0.05,0.16), dBuild=seg(p,0.19,0.48),
-        dTx=seg(p,0.48,0.60), dFly=seg(p,0.54,0.84), dRx=seg(p,0.84,0.95);
+    var cy=H*0.30, camX=W*0.11, intX=W*0.89;
+    var dDetect=seg(p,0.03,0.11), dBuild=seg(p,0.13,0.66),
+        dTx=seg(p,0.66,0.75), dFly=seg(p,0.70,0.90), dRx=seg(p,0.90,0.97);
     var pathA=camX+36*s, pathB=intX-48*s;
 
     x.strokeStyle=EDGE; x.lineWidth=1.4; x.setLineDash([5,5]);
@@ -726,50 +740,68 @@ ANIM.wire=function(c){
       x.globalAlpha=1;
     }
 
-    /* the record: a fixed, centred row that fills one byte at a time */
+    /* the record, filled a FIELD at a time so each part can be named */
     var bw=Math.min(26*s,(W*0.56)/16), bh=bw*1.12, gap=bw*0.20;
-    var rowW=16*bw+15*gap, rowX=(W-rowW)/2, rowY=cy+H*0.30;
-    for(var i=0;i<16;i++){
-      var lit=dBuild*16>i, px=rowX+i*(bw+gap);
-      x.fillStyle=A; x.globalAlpha=lit?0.14:0.04; rr(px,rowY,bw,bh,2.5); x.fill();
-      x.strokeStyle=lit?A:EDGE; x.lineWidth=1.4; x.globalAlpha=lit?0.85:0.30; x.stroke();
-      if(lit){
-        x.globalAlpha=1; x.fillStyle=A;
-        x.font='bold '+Math.round(bw*0.40)+'px ui-monospace,monospace';
-        x.textAlign='center'; x.textBaseline='middle';
-        x.fillText(BYTES[i],px+bw/2,rowY+bh/2+0.5);
+    var rowW=16*bw+15*gap, rowX=(W-rowW)/2, rowY=cy+H*0.26;
+    var nf=FIELDS.length, done=Math.floor(dBuild*nf), cur=Math.min(nf-1,done);
+    for(var fi=0;fi<nf;fi++){
+      var f=FIELDS[fi], lit=fi<done, isCur=(fi===done && dBuild>0 && dBuild<1);
+      for(var j=0;j<f.n;j++){
+        var idx=f.i+j, px=rowX+idx*(bw+gap), on=lit||isCur;
+        x.fillStyle=A; x.globalAlpha=on?(isCur?0.24:0.14):0.04;
+        rr(px,rowY,bw,bh,2.5); x.fill();
+        x.strokeStyle=on?A:EDGE; x.lineWidth=isCur?1.9:1.4;
+        x.globalAlpha=on?(isCur?1:0.85):0.30; x.stroke();
+        if(on){
+          x.globalAlpha=1; x.fillStyle=A;
+          x.font='bold '+Math.round(bw*0.40)+'px ui-monospace,monospace';
+          x.textAlign='center'; x.textBaseline='middle';
+          x.fillText(BYTES[idx],px+bw/2,rowY+bh/2+0.5);
+        }
+        x.globalAlpha=1;
       }
-      x.globalAlpha=1;
+      /* bracket and name under the field */
+      if(lit||isCur){
+        var x0=rowX+f.i*(bw+gap), x1=x0+f.n*bw+(f.n-1)*gap;
+        var by=rowY+bh+5*s;
+        x.globalAlpha=isCur?1:0.55; x.strokeStyle=A; x.lineWidth=1.2;
+        x.beginPath(); x.moveTo(x0,by); x.lineTo(x1,by);
+        x.moveTo(x0,by); x.lineTo(x0,by-3*s); x.moveTo(x1,by); x.lineTo(x1,by-3*s);
+        x.stroke();
+        x.fillStyle=isCur?A:D; x.textAlign='center'; x.textBaseline='alphabetic';
+        x.font=Math.max(6.5,Math.min(9.5,bw*0.26))+'px ui-monospace,monospace';
+        x.fillText(f.k,(x0+x1)/2,by+10*s);
+        x.globalAlpha=1;
+      }
     }
-    x.textBaseline='alphabetic'; x.textAlign='center';
-    x.fillStyle=D; x.font=Math.round(9*s)+'px ui-monospace,monospace';
-    x.fillText('the entire message, sixteen bytes',W/2,rowY+bh+13*s);
 
-    /* one chip carries it across */
     if(dFly>0 && dFly<1){
-      var u=ease(dFly), cxp=pathA+(pathB-pathA)*u;
-      var pw=38*s, ph2=19*s;
+      var u=ease(dFly), cxp=pathA+(pathB-pathA)*u, pw=38*s, ph2=19*s;
       x.globalAlpha=0.28; x.strokeStyle=A; x.lineWidth=1.6;
       x.beginPath(); x.moveTo(Math.max(pathA,cxp-46*s),cy); x.lineTo(cxp-pw/2,cy); x.stroke();
       x.globalAlpha=1;
       x.fillStyle=A; x.globalAlpha=0.20; rr(cxp-pw/2,cy-ph2/2,pw,ph2,4); x.fill();
       x.globalAlpha=1; x.strokeStyle=A; x.lineWidth=1.8; x.stroke();
       x.fillStyle=A; x.font='bold '+Math.round(10*s)+'px ui-monospace,monospace';
-      x.textBaseline='middle'; x.fillText('16 B',cxp,cy+0.5); x.textBaseline='alphabetic';
+      x.textAlign='center'; x.textBaseline='middle';
+      x.fillText('16 B',cxp,cy+0.5); x.textBaseline='alphabetic';
     }
 
-    x.fillStyle=D; x.font=Math.round(9.5*s)+'px ui-monospace,monospace';
+    x.textAlign='center'; x.fillStyle=D;
+    x.font=Math.round(9.5*s)+'px ui-monospace,monospace';
     x.fillText('camera 41',camX,cy+30*s);
     x.fillText('integrator',intX,cy+34*s);
 
-    var cap = dRx>0.35 ? 'received, and weighed against every other camera'
+    var cap = dRx>0.3  ? 'received, and weighed against every other camera'
             : dFly>0   ? 'sixteen bytes on the air'
-            : dBuild>0 ? 'what it saw, where it was looking, how sure'
+            : dBuild>=1? 'sixteen bytes, and that is the whole message'
+            : dBuild>0 ? FIELDS[cur].say
             : dDetect>0? 'camera 41 sees smoke'
             : '';
     if(cap){
-      x.fillStyle=dRx>0.35?A:F; x.font=Math.round(11.5*s)+'px ui-monospace,monospace';
-      x.fillText(cap,W/2,H*0.12);
+      x.fillStyle=(dRx>0.3||dBuild>=1)?A:F;
+      x.font=Math.round(11.5*s)+'px ui-monospace,monospace';
+      x.fillText(cap,W/2,H*0.11);
     }
   });
 };
