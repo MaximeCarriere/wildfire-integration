@@ -656,23 +656,24 @@ var W_SMOKE=0.085, W_FIRE=0.20, V_TAU=0.085, V_TH=0.80;
    The bytes are the real record, straight out of ember_event_pack, and they
    fill field by field so it is visible which part of the message is what.
    Note the record carries the camera's ID, not its position: where each
-   camera stands is already known, so it never spends bytes saying so. */
+   camera stands is already known, so it never spends bytes saying so.
+   Plays once and holds, so the finished record stays on screen to read. */
 ANIM.wire=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),EDGE=tok('--cardEdge');
-  var t0=performance.now(), DUR=11500;
+  var t0=performance.now(), DUR=12000;
   var BYTES=['90','10','05','00','29','00','6f','0b','02','02','cf','02','9f','04','18','ad'];
-  /* n bytes, short label under the row, plain-language caption while filling */
+  /* n bytes, label under the row, and what it means in plain words */
   var FIELDS=[
-    {n:4,k:'when',    say:'when it saw it, to a tenth of a second'},
-    {n:2,k:'camera',  say:'which camera it is'},
-    {n:2,k:'bearing', say:'which way it was looking, 292.7°'},
-    {n:1,k:'tier',    say:'how strong the evidence is'},
-    {n:1,k:'class',   say:'smoke, or fire'},
-    {n:1,k:'sure',    say:'how sure it is, 0.81'},
-    {n:1,k:'±°',say:'how tight that direction is, ±2°'},
-    {n:2,k:'seq',     say:'message number, so losses can be counted'},
-    {n:2,k:'crc',     say:'checksum'}
+    {n:4,k:'time',        say:'when it saw it'},
+    {n:2,k:'camera no.',  say:'which camera is reporting'},
+    {n:2,k:'direction',   say:'which way it was looking, 292.7°'},
+    {n:1,k:'strength',    say:'how strong the evidence is'},
+    {n:1,k:'smoke / fire',say:'smoke, or fire. Here, fire'},
+    {n:1,k:'confidence',  say:'how sure it is, 0.81 out of 1'},
+    {n:1,k:'± error',     say:'how tight that direction is, ±2°'},
+    {n:2,k:'message no.', say:'a counter, so a lost message is noticed'},
+    {n:2,k:'checksum',    say:'proof it arrived undamaged'}
   ];
   var at=0; for(var q=0;q<FIELDS.length;q++){ FIELDS[q].i=at; at+=FIELDS[q].n; }
 
@@ -707,13 +708,13 @@ ANIM.wire=function(c){
   }
 
   loop(function(){
-    var p=((performance.now()-t0)%DUR)/DUR;
+    var el=performance.now()-t0, held=el>=DUR, p=held?1:el/DUR;
     x.clearRect(0,0,W,H);
 
-    var s=Math.max(1.0,Math.min(1.7,Math.min(H/135,W/620)));
-    var cy=H*0.30, camX=W*0.11, intX=W*0.89;
-    var dDetect=seg(p,0.03,0.11), dBuild=seg(p,0.13,0.66),
-        dTx=seg(p,0.66,0.75), dFly=seg(p,0.70,0.90), dRx=seg(p,0.90,0.97);
+    var s=Math.max(1.0,Math.min(1.7,Math.min(H/150,W/620)));
+    var cy=H*0.27, camX=W*0.11, intX=W*0.89;
+    var dDetect=seg(p,0.03,0.10), dBuild=seg(p,0.12,0.68),
+        dTx=seg(p,0.68,0.77), dFly=seg(p,0.72,0.92), dRx=seg(p,0.92,0.99);
     var pathA=camX+36*s, pathB=intX-48*s;
 
     x.strokeStyle=EDGE; x.lineWidth=1.4; x.setLineDash([5,5]);
@@ -727,7 +728,7 @@ ANIM.wire=function(c){
       x.globalAlpha=Math.min(1,dDetect*2); x.fillStyle=A;
       x.beginPath(); x.arc(camX,cy+0.5*s,2.4*s,0,7); x.fill(); x.globalAlpha=1;
     }
-    if(dRx>0){
+    if(dRx>0&&!held){
       x.globalAlpha=(1-dRx)*0.5; x.strokeStyle=A; x.lineWidth=2;
       x.beginPath(); x.arc(intX,cy,(24+dRx*16)*s,0,7); x.stroke(); x.globalAlpha=1;
     }
@@ -740,10 +741,14 @@ ANIM.wire=function(c){
       x.globalAlpha=1;
     }
 
-    /* the record, filled a FIELD at a time so each part can be named */
-    var bw=Math.min(26*s,(W*0.56)/16), bh=bw*1.12, gap=bw*0.20;
-    var rowW=16*bw+15*gap, rowX=(W-rowW)/2, rowY=cy+H*0.26;
-    var nf=FIELDS.length, done=Math.floor(dBuild*nf), cur=Math.min(nf-1,done);
+    /* the record, filled a FIELD at a time. Labels sit on three levels:
+       four of the fields are a single byte, and their names do not fit
+       side by side. Three levels puts same-level neighbours three fields
+       apart, so they never touch. */
+    var bw=Math.min(30*s,(W*0.62)/16), bh=bw*1.12, gap=bw*0.20;
+    var rowW=16*bw+15*gap, rowX=(W-rowW)/2, rowY=cy+H*0.22;
+    var nf=FIELDS.length, done=Math.floor(dBuild*nf);
+    var cur=Math.min(nf-1,done), lf=Math.max(6.5,Math.min(9.5,bw*0.27));
     for(var fi=0;fi<nf;fi++){
       var f=FIELDS[fi], lit=fi<done, isCur=(fi===done && dBuild>0 && dBuild<1);
       for(var j=0;j<f.n;j++){
@@ -760,17 +765,17 @@ ANIM.wire=function(c){
         }
         x.globalAlpha=1;
       }
-      /* bracket and name under the field */
       if(lit||isCur){
-        var x0=rowX+f.i*(bw+gap), x1=x0+f.n*bw+(f.n-1)*gap;
-        var by=rowY+bh+5*s;
-        x.globalAlpha=isCur?1:0.55; x.strokeStyle=A; x.lineWidth=1.2;
+        var x0=rowX+f.i*(bw+gap), x1=x0+f.n*bw+(f.n-1)*gap, mid=(x0+x1)/2;
+        var by=rowY+bh+5*s, lvl=fi%3, ly=by+9*s+lvl*(lf+2.5);
+        x.globalAlpha=isCur?1:0.6; x.strokeStyle=A; x.lineWidth=1.2;
         x.beginPath(); x.moveTo(x0,by); x.lineTo(x1,by);
         x.moveTo(x0,by); x.lineTo(x0,by-3*s); x.moveTo(x1,by); x.lineTo(x1,by-3*s);
+        if(lvl){ x.moveTo(mid,by); x.lineTo(mid,ly-lf*0.85); }  /* leader down */
         x.stroke();
         x.fillStyle=isCur?A:D; x.textAlign='center'; x.textBaseline='alphabetic';
-        x.font=Math.max(6.5,Math.min(9.5,bw*0.26))+'px ui-monospace,monospace';
-        x.fillText(f.k,(x0+x1)/2,by+10*s);
+        x.font=lf+'px ui-monospace,monospace';
+        x.fillText(f.k,mid,ly);
         x.globalAlpha=1;
       }
     }
@@ -792,17 +797,20 @@ ANIM.wire=function(c){
     x.fillText('camera 41',camX,cy+30*s);
     x.fillText('integrator',intX,cy+34*s);
 
-    var cap = dRx>0.3  ? 'received, and weighed against every other camera'
-            : dFly>0   ? 'sixteen bytes on the air'
-            : dBuild>=1? 'sixteen bytes, and that is the whole message'
-            : dBuild>0 ? FIELDS[cur].say
-            : dDetect>0? 'camera 41 sees smoke'
+    var cap = held      ? 'sixteen bytes, and the integrator has it'
+            : dRx>0.3   ? 'received'
+            : dFly>0    ? 'sixteen bytes on the air'
+            : dBuild>=1 ? 'that is the whole message'
+            : dBuild>0  ? FIELDS[cur].say
+            : dDetect>0 ? 'camera 41 sees smoke'
             : '';
     if(cap){
-      x.fillStyle=(dRx>0.3||dBuild>=1)?A:F;
+      x.fillStyle=(held||dRx>0.3||dBuild>=1)?A:F;
       x.font=Math.round(11.5*s)+'px ui-monospace,monospace';
-      x.fillText(cap,W/2,H*0.11);
+      x.fillText(cap,W/2,H*0.10);
     }
+
+    if(held) return false;   /* play once, then hold the finished record */
   });
 };
 
