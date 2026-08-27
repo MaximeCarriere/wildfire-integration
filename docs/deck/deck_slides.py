@@ -218,21 +218,16 @@ SLIDES = r"""
 <!-- STEP 2 THE VERDICT -->
 <section class="slide"><div class="inner">
  <p class="eyebrow anim">__N__ &middot; step three, the verdict</p>
- <h2 class="anim">It never sends a <span class="hl">picture</span></h2>
+ <h2 class="anim">The whole message is <span class="hl">sixteen bytes</span>.</h2>
  <div class="bento headsonly anim">
-  <div class="cell c12 mark">
-   <span class="label">the whole transmission, exactly as it goes out over the air</span>
-   <p class="mono" style="margin:6px 0 10px;font-size:12px;letter-spacing:.04em;color:var(--dim)">
-    90 10 05 00&nbsp; 29 00&nbsp; 6f 0b&nbsp; 02&nbsp; <b class="hl">02</b>&nbsp; cf&nbsp; 02&nbsp; 9f 04&nbsp; 18 ad</p>
-   <p style="margin:0"><b>Camera 41, at 09:13, looking along 292.7&deg;, says <span class="hl">2</span>,
-   four fifths sure.</b> All of it &mdash; <b>sixteen bytes</b>.</p>
-  </div>
+  <div class="cell c12 pad0" style="padding:10px 8px 6px">
+   <div class="canvasbox" style="flex:none;height:clamp(190px,28vh,250px);min-height:0"><canvas data-anim="wire"></canvas></div></div>
 
-  <div class="cell c3"><span class="label">what it says</span>
+  <div class="cell c4 mark"><span class="label">what it says</span>
    <h3>A two-word vocabulary</h3>
-   <p class="tiny" style="margin:0"><b class="hl">1</b> means plume or smoke. <b class="hl">2</b> means
-   fire. Nothing else. Smoke comes early and is often wrong, fire comes late and rarely is, so the two
-   are weighed differently.</p></div>
+   <p class="tiny" style="margin:0"><b class="hl">1</b> means plume or smoke, <b class="hl">2</b> means
+   fire, and there is no third word. Smoke comes early and is often wrong, fire comes late and rarely
+   is, so the two are weighed differently.</p></div>
 
   <div class="cell c4"><span class="label">where to look</span>
    <h3>Who, and which way</h3>
@@ -240,20 +235,11 @@ SLIDES = r"""
    sends the <b>direction it was looking</b>, to a tenth of a degree, and <b>how tightly it holds
    it</b>, here &plusmn;2&deg;. One camera gives a line; two give a place.</p></div>
 
-  <div class="cell c5"><span class="label">how it travels</span>
-   <h3>Usually on the link that is already there</h3>
-   <p class="tiny" style="margin:0">Most of these towers already carry backhaul for their video, and
-   sixteen bytes costs nothing there: <b>use it wherever it exists</b>. On a ridge without it, a
-   <b>9-byte</b> profile crosses LoRa, where line of sight sets the range, not power:
-   <b class="hl">~23 km</b> mast to mast, <b class="hl">60 km+</b> ridge to ridge, comfortably past
-   the spacing between cameras.</p></div>
-
-  <div class="cell c12"><h3><span class="hl">No picture is ever sent</span>, and that is what makes it
-   acceptable to live beside</h3>
-   <p style="margin:0">Those sixteen bytes go out; the frame does not. A ridge camera sees more than
-   forest &mdash; roads, driveways, back gardens. With no image leaving the pole there is <b>no footage
-   of anybody to store, leak or hand over</b>. <b class="hl">It watches for fire without ever watching
-   people.</b></p></div>
+  <div class="cell c4"><span class="label">and never anything else</span>
+   <h3>No picture leaves the pole</h3>
+   <p class="tiny" style="margin:0">Those bytes go out; the frame does not. A ridge camera sees more
+   than forest, so this matters: with no image leaving, there is <b>no footage of anybody to store,
+   leak or hand over</b>.</p></div>
  </div>
 </div></section>
 

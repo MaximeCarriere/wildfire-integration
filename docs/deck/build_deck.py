@@ -6,6 +6,9 @@ from deck_slides import SLIDES
 
 S = pathlib.Path("/tmp/deck-build")
 REPO = pathlib.Path("/Users/maximecarriere/src/wild-fire-integrator")
+# the fonts live in the website repo; /tmp was being used as a cache and
+# vanished, which broke the build silently until the next rebuild
+FONTS = "/Users/maximecarriere/src/website/static/fonts/iAWriterQuattroS-"
 
 def b64(p, mime):
     return f"data:{mime};base64," + base64.b64encode(pathlib.Path(p).read_bytes()).decode()
@@ -13,17 +16,17 @@ def b64(p, mime):
 def raw64(p):
     return base64.b64encode(pathlib.Path(p).read_bytes()).decode()
 
-css = (CSS.replace("__F_REG__", raw64("/tmp/kwfonts/Regular.woff2"))
-          .replace("__F_BLD__", raw64("/tmp/kwfonts/Bold.woff2"))
-          .replace("__F_ITA__", raw64("/tmp/kwfonts/Italic.woff2"))
-          .replace("__F_BIT__", raw64("/tmp/kwfonts/BoldItalic.woff2")))
+css = (CSS.replace("__F_REG__", raw64(FONTS + "Regular.woff2"))
+          .replace("__F_BLD__", raw64(FONTS + "Bold.woff2"))
+          .replace("__F_ITA__", raw64(FONTS + "Italic.woff2"))
+          .replace("__F_BIT__", raw64(FONTS + "BoldItalic.woff2")))
 
 slides = (SLIDES
-  .replace("__IMG_TINY__",     b64(S/"img/plume_tiny.jpg", "image/jpeg"))
-  .replace("__IMG_SMALL__",    b64(S/"img/plume_small.jpg", "image/jpeg"))
-  .replace("__IMG_LARGE__",    b64(S/"img/plume_large.jpg", "image/jpeg"))
-  .replace("__IMG_NIGHT__",    b64(S/"img/night.jpg", "image/jpeg"))
-  .replace("__IMG_EMPTY__",    b64(S/"img/empty.jpg", "image/jpeg"))
+  .replace("__IMG_TINY__",     b64(REPO/"docs/media/frames/plume_tiny.jpg", "image/jpeg"))
+  .replace("__IMG_SMALL__",    b64(REPO/"docs/media/frames/plume_small.jpg", "image/jpeg"))
+  .replace("__IMG_LARGE__",    b64(REPO/"docs/media/frames/plume_large.jpg", "image/jpeg"))
+  .replace("__IMG_NIGHT__",    b64(REPO/"docs/media/frames/night.jpg", "image/jpeg"))
+  .replace("__IMG_EMPTY__",    b64(REPO/"docs/media/frames/empty.jpg", "image/jpeg"))
   .replace("__IMG_PARETO__",   b64(REPO/"results/figures/pareto.png", "image/png"))
   .replace("__IMG_PARETO_N__", b64(REPO/"results/figures/pareto-dark.png", "image/png"))
   .replace("__IMG_UNOQ__",     b64(REPO/"docs/media/unoq.webp", "image/webp")))

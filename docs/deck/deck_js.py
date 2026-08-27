@@ -652,6 +652,128 @@ function mulberry(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s
 
 var W_SMOKE=0.085, W_FIRE=0.20, V_TAU=0.085, V_TH=0.80;
 
+/* camera -> radio -> sixteen bytes -> integrator.
+   The bytes are the real record, straight out of ember_event_pack.
+   The row stays put and a single chip does the travelling: collapsing the row
+   into the chip read as a smear of empty boxes. */
+ANIM.wire=function(c){
+  var g=fit(c),W=g.w,H=g.h,x=g.x;
+  var A=tok('--select'),F=tok('--front'),D=tok('--dim'),EDGE=tok('--cardEdge');
+  var t0=performance.now(), DUR=8600;
+  var BYTES=['90','10','05','00','29','00','6f','0b','02','02','cf','02','9f','04','18','ad'];
+
+  function rr(px,py,w,h,r){
+    x.beginPath();
+    x.moveTo(px+r,py); x.lineTo(px+w-r,py); x.quadraticCurveTo(px+w,py,px+w,py+r);
+    x.lineTo(px+w,py+h-r); x.quadraticCurveTo(px+w,py+h,px+w-r,py+h);
+    x.lineTo(px+r,py+h); x.quadraticCurveTo(px,py+h,px,py+h-r);
+    x.lineTo(px,py+r); x.quadraticCurveTo(px,py,px+r,py);
+    x.closePath();
+  }
+  function seg(p,a,b){ return Math.max(0,Math.min(1,(p-a)/(b-a))); }
+  function ease(u){ return u<0.5 ? 2*u*u : 1-Math.pow(-2*u+2,2)/2; }
+
+  function camera(cx,cy,s,hot){
+    x.strokeStyle=hot?A:D; x.lineWidth=2; x.lineJoin='round'; x.lineCap='round';
+    rr(cx-14*s,cy-9*s,28*s,19*s,4*s); x.stroke();
+    x.beginPath(); x.moveTo(cx-5*s,cy-9*s); x.lineTo(cx-4*s,cy-14*s);
+    x.lineTo(cx+4*s,cy-14*s); x.lineTo(cx+5*s,cy-9*s); x.stroke();
+    x.beginPath(); x.arc(cx,cy+0.5*s,5.6*s,0,7); x.stroke();
+  }
+  function board(cx,cy,s,hot){
+    x.strokeStyle=hot?A:D; x.lineWidth=hot?2.4:2; x.lineJoin='round'; x.lineCap='round';
+    rr(cx-16*s,cy-13*s,32*s,26*s,3*s); x.stroke();
+    rr(cx-6.5*s,cy-5.5*s,13*s,11*s,2*s); x.stroke();
+    x.beginPath();
+    for(var i=-1;i<=1;i++){
+      x.moveTo(cx-16*s,cy+i*7.5*s); x.lineTo(cx-21*s,cy+i*7.5*s);
+      x.moveTo(cx+16*s,cy+i*7.5*s); x.lineTo(cx+21*s,cy+i*7.5*s);
+    }
+    x.stroke();
+  }
+
+  loop(function(){
+    var p=((performance.now()-t0)%DUR)/DUR;
+    x.clearRect(0,0,W,H);
+
+    var s=Math.max(1.0,Math.min(1.7,Math.min(H/135,W/620)));
+    var cy=H*0.34, camX=W*0.11, intX=W*0.89;
+    var dDetect=seg(p,0.05,0.16), dBuild=seg(p,0.19,0.48),
+        dTx=seg(p,0.48,0.60), dFly=seg(p,0.54,0.84), dRx=seg(p,0.84,0.95);
+    var pathA=camX+36*s, pathB=intX-48*s;
+
+    x.strokeStyle=EDGE; x.lineWidth=1.4; x.setLineDash([5,5]);
+    x.beginPath(); x.moveTo(pathA,cy); x.lineTo(pathB,cy); x.stroke();
+    x.setLineDash([]);
+
+    camera(camX,cy,s,dDetect>0);
+    board(intX,cy,s,dRx>0);
+
+    if(dDetect>0){
+      x.globalAlpha=Math.min(1,dDetect*2); x.fillStyle=A;
+      x.beginPath(); x.arc(camX,cy+0.5*s,2.4*s,0,7); x.fill(); x.globalAlpha=1;
+    }
+    if(dRx>0){
+      x.globalAlpha=(1-dRx)*0.5; x.strokeStyle=A; x.lineWidth=2;
+      x.beginPath(); x.arc(intX,cy,(24+dRx*16)*s,0,7); x.stroke(); x.globalAlpha=1;
+    }
+    if(dTx>0 && dFly<1){
+      for(var k=0;k<3;k++){
+        var ph=(dTx*1.8+k*0.33)%1;
+        x.globalAlpha=(1-ph)*0.5; x.strokeStyle=A; x.lineWidth=1.8;
+        x.beginPath(); x.arc(camX+15*s,cy-3*s,(11+ph*22)*s,-Math.PI*0.40,Math.PI*0.40); x.stroke();
+      }
+      x.globalAlpha=1;
+    }
+
+    /* the record: a fixed, centred row that fills one byte at a time */
+    var bw=Math.min(26*s,(W*0.56)/16), bh=bw*1.12, gap=bw*0.20;
+    var rowW=16*bw+15*gap, rowX=(W-rowW)/2, rowY=cy+H*0.30;
+    for(var i=0;i<16;i++){
+      var lit=dBuild*16>i, px=rowX+i*(bw+gap);
+      x.fillStyle=A; x.globalAlpha=lit?0.14:0.04; rr(px,rowY,bw,bh,2.5); x.fill();
+      x.strokeStyle=lit?A:EDGE; x.lineWidth=1.4; x.globalAlpha=lit?0.85:0.30; x.stroke();
+      if(lit){
+        x.globalAlpha=1; x.fillStyle=A;
+        x.font='bold '+Math.round(bw*0.40)+'px ui-monospace,monospace';
+        x.textAlign='center'; x.textBaseline='middle';
+        x.fillText(BYTES[i],px+bw/2,rowY+bh/2+0.5);
+      }
+      x.globalAlpha=1;
+    }
+    x.textBaseline='alphabetic'; x.textAlign='center';
+    x.fillStyle=D; x.font=Math.round(9*s)+'px ui-monospace,monospace';
+    x.fillText('the entire message, sixteen bytes',W/2,rowY+bh+13*s);
+
+    /* one chip carries it across */
+    if(dFly>0 && dFly<1){
+      var u=ease(dFly), cxp=pathA+(pathB-pathA)*u;
+      var pw=38*s, ph2=19*s;
+      x.globalAlpha=0.28; x.strokeStyle=A; x.lineWidth=1.6;
+      x.beginPath(); x.moveTo(Math.max(pathA,cxp-46*s),cy); x.lineTo(cxp-pw/2,cy); x.stroke();
+      x.globalAlpha=1;
+      x.fillStyle=A; x.globalAlpha=0.20; rr(cxp-pw/2,cy-ph2/2,pw,ph2,4); x.fill();
+      x.globalAlpha=1; x.strokeStyle=A; x.lineWidth=1.8; x.stroke();
+      x.fillStyle=A; x.font='bold '+Math.round(10*s)+'px ui-monospace,monospace';
+      x.textBaseline='middle'; x.fillText('16 B',cxp,cy+0.5); x.textBaseline='alphabetic';
+    }
+
+    x.fillStyle=D; x.font=Math.round(9.5*s)+'px ui-monospace,monospace';
+    x.fillText('camera 41',camX,cy+30*s);
+    x.fillText('integrator',intX,cy+34*s);
+
+    var cap = dRx>0.35 ? 'received, and weighed against every other camera'
+            : dFly>0   ? 'sixteen bytes on the air'
+            : dBuild>0 ? 'what it saw, where it was looking, how sure'
+            : dDetect>0? 'camera 41 sees smoke'
+            : '';
+    if(cap){
+      x.fillStyle=dRx>0.35?A:F; x.font=Math.round(11.5*s)+'px ui-monospace,monospace';
+      x.fillText(cap,W/2,H*0.12);
+    }
+  });
+};
+
 ANIM.statewide=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),R=tok('--red'),Y=tok('--yellow');

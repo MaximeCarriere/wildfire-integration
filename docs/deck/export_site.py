@@ -18,16 +18,17 @@ from deck_js import JS
 from deck_slides import SLIDES
 
 REPO = pathlib.Path("/Users/maximecarriere/src/wild-fire-integrator")
-OUT  = pathlib.Path("/Users/maximecarriere/src/website/slides/wildfire-integrator.html")
+FONTS = "/Users/maximecarriere/src/website/static/fonts/iAWriterQuattroS-"
+OUT  = pathlib.Path("/Users/maximecarriere/src/website/static/wildfire/index.html")
 
 def raw64(p): return base64.b64encode(pathlib.Path(p).read_bytes()).decode()
 
 IMAGES = {
-    "--img-plume-tiny": (S/"img/plume_tiny.jpg", "image/jpeg"),
-    "--img-plume-small":(S/"img/plume_small.jpg","image/jpeg"),
-    "--img-plume-large":(S/"img/plume_large.jpg","image/jpeg"),
-    "--img-night":      (S/"img/night.jpg",      "image/jpeg"),
-    "--img-empty":      (S/"img/empty.jpg",      "image/jpeg"),
+    "--img-plume-tiny": (REPO/"docs/media/frames/plume_tiny.jpg", "image/jpeg"),
+    "--img-plume-small":(REPO/"docs/media/frames/plume_small.jpg","image/jpeg"),
+    "--img-plume-large":(REPO/"docs/media/frames/plume_large.jpg","image/jpeg"),
+    "--img-night":      (REPO/"docs/media/frames/night.jpg",      "image/jpeg"),
+    "--img-empty":      (REPO/"docs/media/frames/empty.jpg",      "image/jpeg"),
     "--img-pareto":     (REPO/"results/figures/pareto.png",      "image/png"),
     "--img-pareto-dk":  (REPO/"results/figures/pareto-dark.png", "image/png"),
     "--img-unoq":       (REPO/"docs/media/unoq.webp",            "image/webp"),
@@ -67,10 +68,10 @@ ASSETS = ["\n/* ============================================================\n"
           "   ============================================================ */"]
 for name, w in [("normal","Regular"),("bold","Bold")]:
     ASSETS.append(f"@font-face{{font-family:'iAWriterQuattroS';font-weight:{name};font-style:normal;"
-                  f"font-display:swap;src:url(data:font/woff2;base64,{raw64('/tmp/kwfonts/'+w+'.woff2')}) format('woff2')}}")
+                  f"font-display:swap;src:url(data:font/woff2;base64,{raw64(FONTS + w + '.woff2')}) format('woff2')}}")
 for name, w in [("normal","Italic"),("bold","BoldItalic")]:
     ASSETS.append(f"@font-face{{font-family:'iAWriterQuattroS';font-weight:{name};font-style:italic;"
-                  f"font-display:swap;src:url(data:font/woff2;base64,{raw64('/tmp/kwfonts/'+w+'.woff2')}) format('woff2')}}")
+                  f"font-display:swap;src:url(data:font/woff2;base64,{raw64(FONTS + w + '.woff2')}) format('woff2')}}")
 ASSETS.append(":root{")
 for var,(path,mime) in IMAGES.items():
     ASSETS.append(f"  {var}: url(data:{mime};base64,{raw64(path)});")
@@ -87,6 +88,7 @@ HEAD = """<!doctype html>
 <title>Nobody Is Watching the Thousandth Camera — Kernwerk</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Spiking evidence fusion for wildfire sensor networks. Kernwerk.">
+<meta name="robots" content="noindex,nofollow">
 <!--
   ============================================================================
   HOW TO EDIT THIS FILE
