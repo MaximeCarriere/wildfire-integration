@@ -814,6 +814,117 @@ ANIM.wire=function(c){
   });
 };
 
+/* What can join. Cameras today, then kinds that could never stream: a
+   doorbell running its own detector, a gas sensor, a lightning feed, a
+   satellite pass. The counter is the argument -- coincidence gain rewards
+   agreement between INDEPENDENT sources, and two cameras are not that. */
+ANIM.sensors=function(c){
+  var g=fit(c),W=g.w,H=g.h,x=g.x;
+  var A=tok('--select'),F=tok('--front'),D=tok('--dim'),EDGE=tok('--cardEdge'),Y=tok('--yellow');
+  var t0=performance.now(), DUR=13000;
+
+  var ROWS=[
+    {k:'camera',   n:'cameras',   say:'today: a thousand cameras on the ridgelines'},
+    {k:'home',     n:'doorbells',say:'a home can report a detection without sending footage'},
+    {k:'gas',      n:'gas',     say:'a gas sensor smells it before there is a flame'},
+    {k:'bolt',     n:'lightning',  say:'a strike two days ago says where to be suspicious'},
+    {k:'sat',      n:'satellite',  say:'free, and wrong in different ways than a camera'}
+  ];
+
+  function rr(px,py,w,h,r){
+    x.beginPath();
+    x.moveTo(px+r,py); x.lineTo(px+w-r,py); x.quadraticCurveTo(px+w,py,px+w,py+r);
+    x.lineTo(px+w,py+h-r); x.quadraticCurveTo(px+w,py+h,px+w-r,py+h);
+    x.lineTo(px+r,py+h); x.quadraticCurveTo(px,py+h,px,py+h-r);
+    x.lineTo(px,py+r); x.quadraticCurveTo(px,py,px+r,py);
+    x.closePath();
+  }
+  function seg(p,a,b){ return Math.max(0,Math.min(1,(p-a)/(b-a))); }
+
+  function glyph(kind,cx,cy,s){
+    x.lineWidth=1.7; x.lineJoin='round'; x.lineCap='round'; x.beginPath();
+    if(kind==='camera'){
+      rr(cx-8*s,cy-5*s,16*s,10*s,2*s); x.stroke();
+      x.beginPath(); x.arc(cx,cy,3*s,0,7); x.stroke();
+    } else if(kind==='home'){
+      x.moveTo(cx-7*s,cy-1*s); x.lineTo(cx,cy-7*s); x.lineTo(cx+7*s,cy-1*s); x.stroke();
+      x.beginPath(); rr(cx-5*s,cy-1*s,10*s,7*s,1.5*s); x.stroke();
+    } else if(kind==='gas'){
+      x.beginPath(); rr(cx-6*s,cy-1*s,12*s,7*s,2*s); x.stroke();
+      x.beginPath();
+      for(var i=-1;i<=1;i++){ x.moveTo(cx+i*4*s,cy-4*s); x.lineTo(cx+i*4*s,cy-7*s); }
+      x.stroke();
+    } else if(kind==='bolt'){
+      x.moveTo(cx+2*s,cy-8*s); x.lineTo(cx-4*s,cy+0.5*s); x.lineTo(cx+1*s,cy+0.5*s);
+      x.lineTo(cx-2*s,cy+8*s); x.lineTo(cx+5*s,cy-2*s); x.lineTo(cx,cy-2*s); x.closePath(); x.stroke();
+    } else {
+      x.beginPath(); rr(cx-3.5*s,cy-4*s,7*s,8*s,1.5*s); x.stroke();
+      x.beginPath();
+      x.moveTo(cx-3.5*s,cy-2*s); x.lineTo(cx-9*s,cy-2*s); x.lineTo(cx-9*s,cy+2*s); x.lineTo(cx-3.5*s,cy+2*s);
+      x.moveTo(cx+3.5*s,cy-2*s); x.lineTo(cx+9*s,cy-2*s); x.lineTo(cx+9*s,cy+2*s); x.lineTo(cx+3.5*s,cy+2*s);
+      x.stroke();
+    }
+  }
+  function board(cx,cy,s,hot){
+    x.strokeStyle=hot?A:D; x.lineWidth=hot?2.2:1.8; x.lineJoin='round'; x.lineCap='round';
+    rr(cx-15*s,cy-12*s,30*s,24*s,3*s); x.stroke();
+    rr(cx-6*s,cy-5*s,12*s,10*s,2*s); x.stroke();
+    x.beginPath();
+    for(var i=-1;i<=1;i++){
+      x.moveTo(cx-15*s,cy+i*7*s); x.lineTo(cx-19*s,cy+i*7*s);
+      x.moveTo(cx+15*s,cy+i*7*s); x.lineTo(cx+19*s,cy+i*7*s);
+    }
+    x.stroke();
+  }
+
+  loop(function(){
+    var el=performance.now()-t0, held=el>=DUR, p=held?1:el/DUR;
+    x.clearRect(0,0,W,H);
+
+    /* laid out across, not down: the panel is wide and short, and five stacked
+       rows needed more height than the slide can spare at 720p */
+    var s=Math.max(0.9,Math.min(1.5,Math.min(H/135,W/760)));
+    var n=ROWS.length, step=Math.min(W*0.17,190*s), gy=H*0.34, iy=H*0.84;
+    var ix=W/2;
+
+    board(ix,iy,s*0.85,p>0.08);
+
+    var joined=0;
+    for(var i=0;i<n;i++){
+      var r=ROWS[i], t0i=0.06+i*0.175, on=seg(p,t0i,t0i+0.09);
+      var gx=ix+(i-(n-1)/2)*step;
+      if(on>0) joined++;
+      x.globalAlpha=on>0?1:0.20;
+      x.strokeStyle=on>0?A:EDGE; x.lineWidth=1.1; x.setLineDash([4,4]);
+      x.beginPath(); x.moveTo(gx,gy+11*s); x.lineTo(ix,iy-12*s); x.stroke(); x.setLineDash([]);
+      x.strokeStyle=on>0?A:EDGE;
+      glyph(r.k,gx,gy,s);
+      x.fillStyle=on>0?F:D; x.textAlign='center'; x.textBaseline='alphabetic';
+      x.font=Math.round(9*s)+'px ui-monospace,monospace';
+      x.fillText(r.n,gx,gy+22*s);
+      if(on>0&&on<1){
+        x.globalAlpha=1; x.fillStyle=A;
+        x.beginPath(); x.arc(gx+(ix-gx)*on,(gy+11*s)+((iy-12*s)-(gy+11*s))*on,2.6*s,0,7); x.fill();
+      }
+      x.globalAlpha=1;
+    }
+
+    x.textAlign='center'; x.textBaseline='alphabetic';
+    var cur=Math.min(n-1,Math.max(0,Math.floor((p-0.06)/0.175)));
+    var cap = held ? 'every kind added makes an alert harder to fake'
+                   : (p<0.06 ? '' : ROWS[cur].say);
+    if(cap){
+      x.fillStyle=held?A:F; x.font=Math.round(10.5*s)+'px ui-monospace,monospace';
+      x.fillText(cap,W/2,H*0.14);
+    }
+    x.fillStyle=held?A:D; x.font='bold '+Math.round(9*s)+'px ui-monospace,monospace';
+    x.textAlign='right';
+    x.fillText('independent kinds: '+joined,W-6*s,H-5*s);
+
+    if(held) return false;
+  });
+};
+
 ANIM.statewide=function(c){
   var g=fit(c),W=g.w,H=g.h,x=g.x;
   var A=tok('--select'),F=tok('--front'),D=tok('--dim'),R=tok('--red'),Y=tok('--yellow');
