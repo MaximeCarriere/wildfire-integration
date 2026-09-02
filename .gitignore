@@ -1,9 +1,17 @@
+# macOS
+.DS_Store
+
+# build artifacts
 build/
 *.o
 *.so
 *.dylib
+
+# python
 __pycache__/
 *.pyc
 .venv/
+*.egg-info/
+
+# generated results
 results/raw/*.json
-!results/raw/.gitkeep
