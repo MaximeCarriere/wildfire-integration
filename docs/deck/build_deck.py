@@ -1,11 +1,12 @@
 import base64, pathlib, sys
-sys.path.insert(0, "/tmp/deck-build")
+S = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(S))
 from deck_css import CSS
 from deck_js import JS
 from deck_slides import SLIDES
 
-S = pathlib.Path("/tmp/deck-build")
-REPO = pathlib.Path("/Users/maximecarriere/src/wild-fire-integrator")
+REPO = S.parents[1]
+OUT  = REPO / "build" / "kernwerk-deck.html"
 # the fonts live in the website repo; /tmp was being used as a cache and
 # vanished, which broke the build silently until the next rebuild
 FONTS = "/Users/maximecarriere/src/website/static/fonts/iAWriterQuattroS-"
@@ -74,7 +75,8 @@ out = (HTML.replace("__CSS__", css)
            .replace("__JS__", JS)
            .replace("__MAIN__", str(MAIN)))
 
-p = S / "kernwerk-deck.html"
+OUT.parent.mkdir(parents=True, exist_ok=True)
+p = OUT
 p.write_text(out)
 n = out.count('<section class="slide')
 print(f"wrote {p}")
